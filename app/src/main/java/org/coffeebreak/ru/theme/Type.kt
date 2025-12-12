@@ -42,6 +42,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         color = blue3
     ),
+    titleLarge = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.SemiBold,
+        color = Color.White
+    ),
 //    bodyLarge = TextStyle(
 //        fontFamily = FontFamily.Default,
 //        fontWeight = FontWeight.Normal,

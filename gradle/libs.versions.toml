@@ -24,6 +24,7 @@ hiltNavigation = "1.2.0"
 hiltWorker = "1.2.0"
 uiText = "1.10.0"
 
+yandex-mapkit = "4.26.1-lite"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +57,9 @@ serialization = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json", ve
 ktor-client-cio = {module = "io.ktor:ktor-client-cio", version.ref = "ktorClient"}
 ktor-client-core = {module = "io.ktor:ktor-client-core", version.ref = "ktorClient"}
 androidx-compose-ui-text = { group = "androidx.compose.ui", name = "ui-text", version.ref = "uiText" }
+
+
+yandex-mapkit = { module = "com.yandex.android:maps.mobile", version.ref = "yandex-mapkit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
