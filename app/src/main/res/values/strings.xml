@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Coffee Break</string>
+    <string name="splash">Coffee break</string>
+    <string name="splash_title">Почувствуй себя бариста!</string>
+    <string name="splash_desc">Любой кофе под ваш заказ</string>
+    <string name="login">Войти</string>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="hintEmail">Адрес электронной почты</string>
+    <string name="forgot">Забыли пароль?</string>
+    <string name="enter_with">Войти с помощью</string>
+    <string name="first">"Впервые? "</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="create_acc">Создать аккаунт здесь</string>
+    <string name="terms">Регистрируясь, вы соглашаетесь с нашими условиями использования</string>
+    <string name="already_login">Уже зарегистрировались? Войти.</string>
+</resources>
