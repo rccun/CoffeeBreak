@@ -46,7 +46,11 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":di"))
 
+
+//    implementation(libs.play.services.location)
+//    implementation(libs.accompanist.permissions)
 
     implementation(libs.hilt.navigation)
     implementation(libs.hilt.android)
@@ -54,6 +58,7 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation(libs.yandex.mapkit)
+    implementation(libs.coil)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

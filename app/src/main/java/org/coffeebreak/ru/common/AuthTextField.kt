@@ -10,19 +10,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.theme.MainTheme
+import org.coffeebreak.ru.theme.b3
 
 @Composable
 fun AuthTextField(
@@ -66,13 +64,12 @@ fun AuthTextField(
                         .align(Alignment.BottomStart)
                         .height(1.dp)
                         .fillMaxWidth()
-                        .background(Color.Black.copy(0.1f))
+                        .background(b3)
                 )
                 if (isTrailingIcon) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.show),
-                        null,
-                        tint = Color(0xFF001833),
+                    MyIcon(
+                        icon = R.drawable.show,
+                        tintColor = Color(0xFF001833),
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .padding(end = 7.dp)

@@ -35,9 +35,9 @@ import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.theme.MainTheme
-import org.coffeebreak.ru.theme.lightAlphaGray
+import org.coffeebreak.ru.theme.blue3
+import org.coffeebreak.ru.theme.green1
 import org.coffeebreak.ru.theme.lightGray
-import org.coffeebreak.ru.theme.lightGreen
 import org.coffeebreak.ru.theme.textColor
 
 @Composable
@@ -55,7 +55,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.5f)
-                .background(lightGreen),
+                .background(green1),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.weight(1f)) // 63
@@ -95,7 +95,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
                             .clip(RoundedCornerShape(50.dp))
                             .height(10.dp)
                             .width(33.dp)
-                            .background(lightGreen)
+                            .background(green1)
                     )
                 } else {
                     Box(
@@ -103,7 +103,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
                             .clip(CircleShape)
                             .size(10.dp)
                             .background(
-                                lightAlphaGray
+                                blue3.copy(alpha = 0.2f)
                             )
                     )
                 }

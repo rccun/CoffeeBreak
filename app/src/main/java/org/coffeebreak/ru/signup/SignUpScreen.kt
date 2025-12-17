@@ -12,32 +12,30 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.AuthTextField
+import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
-import org.coffeebreak.ru.theme.lightGreen
+import org.coffeebreak.ru.theme.green1
 
 @Composable
 fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hiltViewModel()) {
     val state = viewModel.state.value
     Column {
 
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.back), "back",
+        MyIcon(
+            icon = R.drawable.back,
             modifier = Modifier
                 .clickable { navController.navigate(Route.Splash) }
                 .padding(start = 25.dp, top = 25.dp)
@@ -120,7 +118,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     .background(Color.Transparent)
                     .align(Alignment.End)
                     .padding(top = 23.dp),
-                containerColor = lightGreen,
+                containerColor = green1,
                 contentColor = Color.White,
                 elevation = FloatingActionButtonDefaults.elevation(
                     defaultElevation = 0.dp,
@@ -130,7 +128,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                 ),
                 shape = CircleShape
             ) {
-                Icon(imageVector = ImageVector.vectorResource(R.drawable.next), null)
+                MyIcon(icon = R.drawable.next)
             }
             Spacer(Modifier.weight(3.53f))
 

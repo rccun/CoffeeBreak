@@ -49,7 +49,7 @@ import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
 import org.coffeebreak.ru.theme.green2
 import org.coffeebreak.ru.theme.lightGray
-import org.coffeebreak.ru.theme.lightGreen
+import org.coffeebreak.ru.theme.green1
 
 data class MyIcon(
     val icon: Int,
@@ -163,7 +163,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                     .background(Color.Transparent)
                     .align(Alignment.End)
                     .padding(bottom = 21.dp),
-                containerColor = lightGreen,
+                containerColor = green1,
                 contentColor = Color.White,
                 elevation = FloatingActionButtonDefaults.elevation(
                     defaultElevation = 0.dp,

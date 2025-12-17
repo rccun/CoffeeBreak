@@ -14,4 +14,6 @@
     <string name="terms">Регистрируясь, вы соглашаетесь с нашими условиями использования</string>
     <string name="already_login">Уже зарегистрировались? Войти.</string>
     <string name="choose_cafe">Выберите кофейню Coffee Break</string>
+    <string name="welcome2">Добро пожаловать!</string>
+    <string name="choose">Выберите ваш кофе</string>
 </resources>

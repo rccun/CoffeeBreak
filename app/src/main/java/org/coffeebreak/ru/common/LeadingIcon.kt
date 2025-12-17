@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,12 +13,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import org.coffeebreak.ru.theme.b3
 import org.coffeebreak.ru.theme.green2
-import org.coffeebreak.ru.theme.textFieldColor
 
 @Composable
 fun LeadingIcon(icon: Int) {
@@ -30,22 +27,22 @@ fun LeadingIcon(icon: Int) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(bottom = 3.5.dp)
     ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(icon),
-            null,
+        MyIcon(
             modifier = Modifier
                 .onGloballyPositioned {
                     val height = it.size.height.dp
                     iconHeight = height
                 }
-                .padding(end = 10.dp, start = 10.dp), tint = green2
+                .padding(end = 10.dp, start = 10.dp),
+            tintColor = green2,
+            icon = icon
         )
 
         Box(
             modifier = Modifier
                 .width(1.dp)
                 .height(iconHeight)
-                .background(textFieldColor)
+                .background(b3)
         )
     }
 }

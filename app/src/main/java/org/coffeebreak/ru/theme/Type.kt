@@ -47,6 +47,12 @@ val Typography = Typography(
         fontWeight = FontWeight.SemiBold,
         color = Color.White
     ),
+    labelMedium = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Medium,
+        color = b1
+
+    )
 //    bodyLarge = TextStyle(
 //        fontFamily = FontFamily.Default,
 //        fontWeight = FontWeight.Normal,
