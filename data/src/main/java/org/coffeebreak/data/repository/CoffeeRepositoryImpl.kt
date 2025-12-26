@@ -1,6 +1,7 @@
 package org.coffeebreak.data.repository
 
 import android.util.Log
+import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
 import org.coffeebreak.data.data_source.InitSupabaseClient.client
 import org.coffeebreak.data.dto.CoffeeModelDto
@@ -11,10 +12,29 @@ import org.coffeebreak.domain.repository.CoffeeRepository
 class CoffeeRepositoryImpl() : CoffeeRepository {
     override suspend fun getCoffees(): Result<List<CoffeeModel>> {
         return try {
-            val res = client.postgrest["coffees"].select().decodeList<CoffeeModelDto>().map { it.toDomain() }
+            val res = client.postgrest["coffees"].select{
+            }.decodeList<CoffeeModelDto>()
+                .map { it.toDomain() }
+//                .from("coffees")
+//                .select()
+//                .decodeList<CoffeeModelDto>()
+//                .map { it.toDomain() }
             Result.success(res)
         } catch (e: Exception) {
             Log.e("CoffeeRepo", "Ошибка получения", e)
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getCoffeeById(id: String): Result<CoffeeModel> {
+        return try {
+            val res = client.postgrest["coffees"].select {
+                filter {
+                    eq("id", id)
+                }
+            }.decodeSingle<CoffeeModelDto>().toDomain()
+            Result.success(res)
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }

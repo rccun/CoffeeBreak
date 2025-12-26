@@ -41,13 +41,28 @@ dependencies {
 
 
     api(libs.supabase.auth)
+//    implementation(libs.supabase.auth)
+    implementation(libs.supabase.postgrest)
     implementation(libs.supabase.storage)
     implementation(libs.supabase.realtime)
-    implementation(libs.supabase.postgrest)
     implementation(libs.serialization)
 
-    implementation(libs.ktor.client.core)
+    // Ktor
+    implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.cio)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     implementation(libs.androidx.core.ktx)

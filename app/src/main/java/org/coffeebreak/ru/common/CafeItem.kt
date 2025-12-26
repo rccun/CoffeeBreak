@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.theme.MainTheme
-import org.coffeebreak.ru.theme.green1
 
 @Composable
 fun CafeItem(text: String, onClick: () -> Unit) {
@@ -25,14 +24,16 @@ fun CafeItem(text: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(green1)
+            .background(MainTheme.colorScheme.green)
             .padding(15.dp)
             .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         MyIcon(icon = R.drawable.address, tintColor = Color.White)
         Spacer(Modifier.width(10.dp))
-        Text(text, style = MainTheme.typography.titleLarge)
+        Text(text, style = MainTheme.typography.titleLarge,
+            color = Color.White
+            )
         Spacer(Modifier.weight(1f))
         MyIcon(icon = R.drawable.next2, tintColor = Color.White)
     }

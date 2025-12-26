@@ -18,7 +18,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://maven.yandex.ru") }
+//        maven { url = uri("https://repo.yandex.ru/maven") }
     }
 }
 

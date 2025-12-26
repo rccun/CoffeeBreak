@@ -37,19 +37,18 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import io.github.jan.supabase.compose.auth.composable.GoogleDialogType
-import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
-import io.github.jan.supabase.compose.auth.composeAuth
+//import io.github.jan.supabase.compose.auth.composable.GoogleDialogType
+//import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
+//import io.github.jan.supabase.compose.auth.composeAuth
 import kotlinx.coroutines.delay
 import org.coffeebreak.data.data_source.InitSupabaseClient
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.AuthTextField
+import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
-import org.coffeebreak.ru.theme.green2
 import org.coffeebreak.ru.theme.lightGray
-import org.coffeebreak.ru.theme.green1
 
 data class MyIcon(
     val icon: Int,
@@ -59,36 +58,37 @@ data class MyIcon(
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
     val state = viewModel.state.value
-    val t = InitSupabaseClient.client.composeAuth.rememberSignInWithGoogle(
-        type = GoogleDialogType.BOTTOM_SHEET,
-        onResult = {
-            Log.e("TAG", "LoginScreen: $it")
-        }
-    ) {
-        Log.e("TAG", "LoginScreen: Fallback")
-    }
+//    val t = InitSupabaseClient.client.composeAuth.rememberSignInWithGoogle(
+//        type = GoogleDialogType.BOTTOM_SHEET,
+//        onResult = {
+//            Log.e("TAG", "LoginScreen: $it")
+//        }
+//    ) {
+//        Log.e("TAG", "LoginScreen: Fallback")
+//    }
 
     val a = remember { mutableStateOf(false) }
     LaunchedEffect(a.value) {
         if (a.value) {
             delay(1000)
-            t.startFlow()
+//            t.startFlow()
         }
     }
 
     val icons = listOf(
         MyIcon(R.drawable.yandex, {}),
         MyIcon(R.drawable.google, { a.value = !a.value }),
-        MyIcon(R.drawable.vk, {}),
+        MyIcon(R.drawable.vk) {},
     )
 
     Column {
 
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.back), "back",
+        MyIcon(
+            icon = R.drawable.back,
             modifier = Modifier
                 .clickable { navController.navigate(Route.Splash) }
-                .padding(start = 25.dp, top = 25.dp)
+                .padding(start = 25.dp, top = 25.dp),
+            tintColor = MainTheme.colorScheme.authLarge
         )
         Column(
             modifier = Modifier
@@ -100,10 +100,12 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
             Text(
                 stringResource(R.string.login),
                 style = MainTheme.typography.bodyLarge,
-                color = green2
+                color = MainTheme.colorScheme.authLarge
             )
             Spacer(Modifier.height(24.dp))
-            Text(stringResource(R.string.welcome), style = MainTheme.typography.titleMedium)
+            Text(stringResource(R.string.welcome), style = MainTheme.typography.titleMedium,
+                color = MainTheme.colorScheme.authMedium
+                )
             Spacer(Modifier.height(57.dp))
 //        Box() {
 //            Row(
@@ -151,7 +153,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
             Text(
                 stringResource(R.string.forgot),
                 style = MainTheme.typography.titleMedium,
-                color = green2,
+                color = MainTheme.colorScheme.authForget,
                 modifier = Modifier
                     .padding(top = 27.dp)
                     .align(Alignment.CenterHorizontally)
@@ -163,7 +165,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                     .background(Color.Transparent)
                     .align(Alignment.End)
                     .padding(bottom = 21.dp),
-                containerColor = green1,
+                containerColor = MainTheme.colorScheme.green,
                 contentColor = Color.White,
                 elevation = FloatingActionButtonDefaults.elevation(
                     defaultElevation = 0.dp,
@@ -187,7 +189,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                 Text(
                     stringResource(R.string.enter_with),
                     style = MainTheme.typography.titleMedium,
-                    color = Color.Black,
+                    color = MainTheme.colorScheme.default,
                     modifier = Modifier.onGloballyPositioned {
                         val height = it.size.width
                         width = with(density) { height.toDp() } + 19.dp

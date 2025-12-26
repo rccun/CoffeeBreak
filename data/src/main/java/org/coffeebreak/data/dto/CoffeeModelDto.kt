@@ -1,6 +1,5 @@
 package org.coffeebreak.data.dto
 
-import io.ktor.util.collections.StringMap
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.coffeebreak.domain.model.CoffeeModel

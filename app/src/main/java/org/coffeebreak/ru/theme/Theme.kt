@@ -1,65 +1,93 @@
 package org.coffeebreak.ru.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import org.coffeebreak.ru.theme.navMenu
 
 data class CustomColorTheme(
-    val bg: Color? = null,
-    val logo: Color? = null,
-    val authMedium: Color? = null,
-    val authLarge: Color? = null,
-    val authIcon: Color? = null,
-    val authHint: Color? = null,
-    val splashLarge: Color? = null,
-    val splashMedium: Color? = null,
-    val authIconPassword: Color? = null,
-    val authForget: Color? = null,
-    val authOtp: Color? = null,
-    val authOtpText: Color? = null,
-
-
+    val bg: Color = Color.Unspecified,
+    val logo: Color = Color.Unspecified,
+    val authMedium: Color = Color.Unspecified,
+    val authLarge: Color = Color.Unspecified,
+    val authIcon: Color = Color.Unspecified,
+    val authHint: Color = Color.Unspecified,
+    val authTerms: Color = Color.Unspecified,
+    val splashLarge: Color = Color.Unspecified,
+    val splashMedium: Color = Color.Unspecified,
+    val splashBox: Color = Color.Unspecified,
+    val authIconPassword: Color = Color.Unspecified,
+    val authForget: Color = Color.Unspecified,
+    val authOtp: Color = Color.Unspecified,
+    val authOtpText: Color = Color.Unspecified,
+    val green: Color = green1,
+    val chooseCoffee: Color = Color.Unspecified,
+    val authTextField: Color = Color.Unspecified,
+    val lazyColor: Color = Color.Unspecified,
+    val default: Color = Color.Unspecified,
+    val activeBottomIcon: Color = Color.Unspecified,
+    val unactiveBottomIcon: Color = Color.Unspecified,
+    val bottomNav: Color = Color.Unspecified,
+    val icon: Color = Color.Unspecified,
+    val titleText: Color = Color.Unspecified,
 )
-private val LightColorTheme = CustomColorTheme(
+
+val LightColorScheme = CustomColorTheme(
     bg = bgW,
     logo = bgW,
     authMedium = blue3,
     authLarge = textColor,
     authIcon = green2,
     authHint = b3,
+    authTerms = blue3,
     splashLarge = textColor,
     splashMedium = lightGray,
+    splashBox = blue3.copy(alpha = 0.2f),
     authIconPassword = darkBlue4,
     authForget = green2,
     authOtp = Color(0xFFB7BBC9),
     authOtpText = blue3,
+    chooseCoffee = b2,
+    authTextField = Color(0xFFC1C7D0),
+    lazyColor = navMenu,
+    default = Color.Black,
+    activeBottomIcon = blue3,
+    unactiveBottomIcon = Color(0xFFD8D8D8),
+    bottomNav = Color.White,
+    icon = darkBlue4,
+    titleText = darkBlue4
 )
-private val DarkColorTheme = CustomColorTheme(
-    bg = bg,
+val DarkColorScheme = CustomColorTheme(
+    bg = bgB,
     logo = bgW,
     authMedium = b3,
     authLarge = b1,
     authIcon = b1,
     authHint = b3,
+    authTerms = b1,
     splashLarge = bgW,
     splashMedium = lightGray,
+    splashBox = bgW.copy(alpha = 0.2f),
     authIconPassword = Color(0xFFA8A8A8),
     authForget = blue3,
     authOtp = Color(0xFF585A62),
     authOtpText = lightGray.copy(alpha = 0.5f),
+    chooseCoffee = Color(0xFFD8D8D8),
+    authTextField = Color(0xFFC1C7D0),
+    lazyColor = bg,
+    default = Color.White,
+    activeBottomIcon = Color(0xFF4F7993),
+    unactiveBottomIcon = Color(0xFFD8D8D8),
+    bottomNav = navMenu,
+    icon = b1,
+    titleText = b2
+
 )
 
-val LocalCustomColorProvider = staticCompositionLocalOf { CustomColorTheme(TODO()) }
+val LocalCustomColorProvider = staticCompositionLocalOf { CustomColorTheme() }
 
 @Composable
 fun MyCoffeeBreakTheme(
@@ -67,14 +95,15 @@ fun MyCoffeeBreakTheme(
     content: @Composable () -> Unit
 ) {
     val theme = if (isSystemInDarkTheme) {
-        CustomColorTheme(Color.Black)
+        DarkColorScheme
     } else {
-        CustomColorTheme(Color.White)
+        LightColorScheme
     }
 
     CompositionLocalProvider(
         LocalCustomColorProvider provides theme,
         content = content
+
     )
 }
 
@@ -89,29 +118,6 @@ object MainTheme {
         get() = Typography
 }
 
-private val DarkColorScheme = darkColorScheme(
-    background = bgB,
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    background = Color.White,
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
 
 @Composable
 fun CoffeeBreakTheme(
@@ -120,22 +126,4 @@ fun CoffeeBreakTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
 }
-
-//object MainTheme {
-//}

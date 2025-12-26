@@ -1,7 +1,6 @@
 package org.coffeebreak.ru.theme
 
 import androidx.compose.material3.Typography
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -21,7 +20,7 @@ val Typography = Typography(
         fontFamily = font,
         fontWeight = FontWeight.Normal,
         fontSize = 64.sp,
-        color = Color.White
+//        color = MainTheme.colorScheme.logo
     ),
     displayMedium = TextStyle(
         fontFamily = fontP,
@@ -30,27 +29,27 @@ val Typography = Typography(
     bodyMedium = TextStyle(
         fontSize = 12.sp,
         fontWeight = FontWeight.Medium,
-        color = b3
+//        color = b3
     ),
     bodyLarge = TextStyle(
         fontSize = 22.sp,
         fontWeight = FontWeight.Normal,
-        color = textColor
+//        color = textColor
     ),
     titleMedium = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
-        color = blue3
+//        color = blue3
     ),
     titleLarge = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.SemiBold,
-        color = Color.White
+//        color = Color.White
     ),
     labelMedium = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.Medium,
-        color = b1
+//        color = b1
 
     )
 //    bodyLarge = TextStyle(

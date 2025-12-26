@@ -27,7 +27,6 @@ import org.coffeebreak.ru.common.AuthTextField
 import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
-import org.coffeebreak.ru.theme.green1
 
 @Composable
 fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hiltViewModel()) {
@@ -108,7 +107,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
             Text(
                 stringResource(R.string.terms),
                 style = MainTheme.typography.titleMedium,
-                color = blue3,
+                color = MainTheme.colorScheme.authTerms,
                 modifier = Modifier
                     .padding(top = 27.dp)
             )
@@ -118,7 +117,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     .background(Color.Transparent)
                     .align(Alignment.End)
                     .padding(top = 23.dp),
-                containerColor = green1,
+                containerColor = MainTheme.colorScheme.green,
                 contentColor = Color.White,
                 elevation = FloatingActionButtonDefaults.elevation(
                     defaultElevation = 0.dp,

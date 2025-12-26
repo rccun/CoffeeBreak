@@ -20,7 +20,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.theme.MainTheme
-import org.coffeebreak.ru.theme.b3
 
 @Composable
 fun AuthTextField(
@@ -53,7 +52,7 @@ fun AuthTextField(
                     Spacer(Modifier.width(20.dp))
 
                     if (value.isBlank()) {
-                        Text(placeholder, style = MainTheme.typography.bodyMedium)
+                        Text(placeholder, style = MainTheme.typography.bodyMedium, color = MainTheme.colorScheme.authHint)
                     } else {
                         it.invoke()
                     }
@@ -64,7 +63,7 @@ fun AuthTextField(
                         .align(Alignment.BottomStart)
                         .height(1.dp)
                         .fillMaxWidth()
-                        .background(b3)
+                        .background(MainTheme.colorScheme.authTextField)
                 )
                 if (isTrailingIcon) {
                     MyIcon(

@@ -35,10 +35,6 @@ import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.theme.MainTheme
-import org.coffeebreak.ru.theme.blue3
-import org.coffeebreak.ru.theme.green1
-import org.coffeebreak.ru.theme.lightGray
-import org.coffeebreak.ru.theme.textColor
 
 @Composable
 fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hiltViewModel()) {
@@ -55,7 +51,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.5f)
-                .background(green1),
+                .background(MainTheme.colorScheme.green),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.weight(1f)) // 63
@@ -66,7 +62,11 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
             )
             Spacer(Modifier.weight(0.86f)) // 54
 
-            Text(stringResource(R.string.splash), style = MainTheme.typography.displayLarge)
+            Text(
+                stringResource(R.string.splash),
+                style = MainTheme.typography.displayLarge,
+                color = MainTheme.colorScheme.logo
+            )
 
             Spacer(Modifier.weight(0.73f)) // 46
         }
@@ -74,7 +74,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
             stringResource(R.string.splash_title),
             style = MainTheme.typography.displayMedium,
             fontSize = 28.sp,
-            color = textColor,
+            color = MainTheme.colorScheme.splashLarge,
             modifier = Modifier.padding(top = 25.dp, start = 68.dp, end = 68.dp),
             textAlign = TextAlign.Center
         )
@@ -82,11 +82,12 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
             stringResource(R.string.splash_desc),
             style = MainTheme.typography.displayMedium,
             fontSize = 18.sp,
-            color = lightGray
+            color = MainTheme.colorScheme.splashMedium,
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp),
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.padding(top = 43.dp)
-            )
+        )
         {
             repeat(3) { i ->
                 if (i == page.value) {
@@ -95,7 +96,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
                             .clip(RoundedCornerShape(50.dp))
                             .height(10.dp)
                             .width(33.dp)
-                            .background(green1)
+                            .background(MainTheme.colorScheme.green)
                     )
                 } else {
                     Box(
@@ -103,7 +104,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
                             .clip(CircleShape)
                             .size(10.dp)
                             .background(
-                                blue3.copy(alpha = 0.2f)
+                                MainTheme.colorScheme.splashBox
                             )
                     )
                 }

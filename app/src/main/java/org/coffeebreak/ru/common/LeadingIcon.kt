@@ -15,8 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
-import org.coffeebreak.ru.theme.b3
-import org.coffeebreak.ru.theme.green2
+import org.coffeebreak.ru.theme.MainTheme
 
 @Composable
 fun LeadingIcon(icon: Int) {
@@ -34,7 +33,7 @@ fun LeadingIcon(icon: Int) {
                     iconHeight = height
                 }
                 .padding(end = 10.dp, start = 10.dp),
-            tintColor = green2,
+            tintColor = MainTheme.colorScheme.authIcon,
             icon = icon
         )
 
@@ -42,7 +41,7 @@ fun LeadingIcon(icon: Int) {
             modifier = Modifier
                 .width(1.dp)
                 .height(iconHeight)
-                .background(b3)
+                .background(MainTheme.colorScheme.authTextField)
         )
     }
 }

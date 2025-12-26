@@ -1,9 +1,9 @@
 package org.coffeebreak.data.data_source
 
-import io.github.jan.supabase.auth.Auth
-import io.github.jan.supabase.auth.providers.OAuthProvider
-import io.github.jan.supabase.compose.auth.ComposeAuth
-import io.github.jan.supabase.compose.auth.googleNativeLogin
+//import io.github.jan.supabase.auth.Auth
+//import io.github.jan.supabase.auth.providers.OAuthProvider
+//import io.github.jan.supabase.compose.auth.ComposeAuth
+//import io.github.jan.supabase.compose.auth.googleNativeLogin
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.realtime.Realtime
@@ -17,11 +17,11 @@ object InitSupabaseClient {
         install(Postgrest)
         install(Realtime)
         install(Storage)
-        install(Auth)
-        install(ComposeAuth) {
-            googleNativeLogin(
-                "1063524495116-o8ck47mj0lg6h9fsrhev0heutuue3hr4.apps.googleusercontent.com"
-            )
-        }
+//        install(Auth)
+//        install(ComposeAuth) {
+//            googleNativeLogin(
+//                "1063524495116-o8ck47mj0lg6h9fsrhev0heutuue3hr4.apps.googleusercontent.com"
+//            )
+//        }
     }
 }

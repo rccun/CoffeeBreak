@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -53,7 +54,6 @@ import org.coffeebreak.ru.common.CafeItem
 import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
-import org.coffeebreak.ru.theme.green1
 
 val points = listOf(
     Triple(51.767045, 55.115272, "ул. Туркестанская, 3"),
@@ -84,7 +84,7 @@ fun CafeMapScreen(navController: NavController) {
     }
 
     fun moveHome() {
-        val home = Point(51.765334, 75.124147)
+        val home = Point(51.765334, 55.124147)
         val placemark = mapView.map.mapObjects.addPlacemark(home)
         placemark.setIcon(ImageProvider.fromResource(context, R.drawable.home_point))
         placemark.isDraggable = false // если нужно, чтобы маркер не перетаскивался
@@ -129,7 +129,7 @@ fun CafeMapScreen(navController: NavController) {
 
         if (!hasLocationPermission) return@LaunchedEffect
         val mapKit = MapKitFactory.getInstance()
-//        moveHome()
+        moveHome()
         val userLocationLayer =
             mapKit.createUserLocationLayer(mapView.mapWindow)
 
@@ -173,11 +173,11 @@ fun CafeMapScreen(navController: NavController) {
         val mapHeight = remember { mutableStateOf(0.dp) }
 
         val density = LocalDensity.current
-        Column(/*modifier = Modifier.fillMaxSize()*/) {
+        Box(/*modifier = Modifier.fillMaxSize()*/) {
             AndroidView(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
+                    .fillMaxSize()
+//                    .weight(1f)
 //                .height(200.dp),
                 , factory = {
                     mapView
@@ -194,17 +194,19 @@ fun CafeMapScreen(navController: NavController) {
                     .clip(
                         RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                     )
-                    .background(green1)
+                    .background(MainTheme.colorScheme.green)
                     .onGloballyPositioned {
                         val height = it.size.height
                         mapHeight.value = with(density) { height.toDp() }
                         Log.e("TAG", "CafeMapScreen" + mapHeight.value.toString())
                     }
+                    .align(Alignment.BottomCenter)
             ) {
                 Text(
                     stringResource(R.string.choose_cafe),
                     style = MainTheme.typography.titleLarge,
-                    modifier = Modifier.padding(vertical = 27.dp)
+                    modifier = Modifier.padding(vertical = 27.dp),
+                    color = Color.White
                 )
                 Box(
                     modifier = Modifier
@@ -287,8 +289,7 @@ fun addCustomMarkers(mapView: MapView) {
                     mapView.context,
                     R.drawable.point2
                 )
-            ) // кастомная иконка
-//            setText(name) // подпись (только Lite)
+            )
         }
     }
 }

@@ -14,10 +14,12 @@ material = "1.13.0"
 
 ksp = "2.2.21-2.0.4"
 
-supabase = "3.2.2"
+supabase = "2.5.1"
+ktor = "2.3.8"
+
+ktorClient = "2.3.8"
 serialization = "1.9.0"
 serializable = "2.2.0"
-ktorClient = "3.2.1"
 
 hilt = "2.57"
 hiltNavigation = "1.2.0"
@@ -52,13 +54,31 @@ hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.re
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 
-supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase" }
-supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "supabase" }
-supabase-auth = { module = "io.github.jan-tennert.supabase:compose-auth", version.ref = "supabase" }
-supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "supabase" }
+
+#implementation(":2.5.1")     // Авторизация
+#implementation(":2.5.1")  // Работа с базой данных
+#implementation(":2.5.1")    // Хранилище файлов
+#implementation("io.github.jan-tennert.supabase:realtime-kt:2.5.1")
+
+
+#supabase-bom = { module = "io.github.jan.supabase:supabase-bom", version.ref = "supabase" }
+
+# Supabase modules
+supabase-auth = { module = "io.github.jan-tennert.supabase:gotrue-kt", version.ref = "supabase"  }
+supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase"  }
+supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "supabase"  }
+supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "supabase"  }
+
+
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-content = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClient" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClient" }
+ktor-client-android = {module = "io.ktor:ktor-client-android", version.ref = "ktor"}
 androidx-compose-ui-text = { group = "androidx.compose.ui", name = "ui-text", version.ref = "uiText" }
 
 

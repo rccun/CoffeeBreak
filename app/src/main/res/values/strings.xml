@@ -16,4 +16,5 @@
     <string name="choose_cafe">Выберите кофейню Coffee Break</string>
     <string name="welcome2">Добро пожаловать!</string>
     <string name="choose">Выберите ваш кофе</string>
+    <string name="order">Заказ</string>
 </resources>
