@@ -33,6 +33,12 @@ data class CustomColorTheme(
     val bottomNav: Color = Color.Unspecified,
     val icon: Color = Color.Unspecified,
     val titleText: Color = Color.Unspecified,
+    val orderText: Color = Color.Unspecified,
+    val unactiveRisColor: Color = Color.Unspecified,
+    val activeOrderPickup: Color = Color.Unspecified,
+    val orderCoast: Color = Color.Unspecified,
+    val orderButton: Color = Color.Unspecified,
+    val sliderTrack: Color = Color.Unspecified,
 )
 
 val LightColorScheme = CustomColorTheme(
@@ -55,10 +61,16 @@ val LightColorScheme = CustomColorTheme(
     lazyColor = navMenu,
     default = Color.Black,
     activeBottomIcon = blue3,
-    unactiveBottomIcon = Color(0xFFD8D8D8),
+    unactiveBottomIcon = grayD8,
     bottomNav = Color.White,
     icon = darkBlue4,
-    titleText = darkBlue4
+    titleText = darkBlue4,
+    orderText = Color(0xFF282828),
+    unactiveRisColor = darkBlue4,
+    activeOrderPickup = Color.Black,
+    orderCoast = darkBlue4,
+    orderButton = blue3,
+    sliderTrack = Color(0xFF007AFF)
 )
 val DarkColorScheme = CustomColorTheme(
     bg = bgB,
@@ -75,16 +87,21 @@ val DarkColorScheme = CustomColorTheme(
     authForget = blue3,
     authOtp = Color(0xFF585A62),
     authOtpText = lightGray.copy(alpha = 0.5f),
-    chooseCoffee = Color(0xFFD8D8D8),
+    chooseCoffee = grayD8,
     authTextField = Color(0xFFC1C7D0),
     lazyColor = bg,
     default = Color.White,
     activeBottomIcon = Color(0xFF4F7993),
-    unactiveBottomIcon = Color(0xFFD8D8D8),
+    unactiveBottomIcon = grayD8,
     bottomNav = navMenu,
     icon = b1,
-    titleText = b2
-
+    titleText = b2,
+    orderText = b1,
+    unactiveRisColor = bgW,
+    activeOrderPickup = b1,
+    orderCoast = Color(0xFF61ADDD),
+    orderButton = bg,
+    sliderTrack = b1,
 )
 
 val LocalCustomColorProvider = staticCompositionLocalOf { CustomColorTheme() }

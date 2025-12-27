@@ -13,7 +13,11 @@ val font = FontFamily(
     Font(R.font.r_r, FontWeight.Normal)
 )
 val fontP = FontFamily(
-    Font(R.font.poppins_r, FontWeight.Normal)
+    Font(R.font.poppins_r, FontWeight.Normal),
+    Font(R.font.poppins_sb, FontWeight.SemiBold),
+)
+val fontDM = FontFamily(
+    Font(R.font.dm_m, FontWeight.Medium)
 )
 val Typography = Typography(
     displayLarge = TextStyle(
@@ -50,7 +54,21 @@ val Typography = Typography(
         fontSize = 18.sp,
         fontWeight = FontWeight.Medium,
 //        color = b1
-
+    ),
+    displaySmall = TextStyle(
+        fontFamily = fontDM,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+    ),
+    titleSmall = TextStyle(
+        fontFamily = fontDM,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+    ),
+    bodySmall = TextStyle(
+        fontFamily = fontP,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp
     )
 //    bodyLarge = TextStyle(
 //        fontFamily = FontFamily.Default,

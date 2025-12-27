@@ -21,6 +21,7 @@ import androidx.navigation.toRoute
 import dagger.hilt.android.AndroidEntryPoint
 import org.coffeebreak.ru.cafemap.CafeMapScreen
 import org.coffeebreak.ru.common.BottomNav
+import org.coffeebreak.ru.construstor.CoffeeConstructorScreen
 import org.coffeebreak.ru.login.LoginScreen
 import org.coffeebreak.ru.main.MainScreen
 import org.coffeebreak.ru.menu.MenuScreen
@@ -72,7 +73,7 @@ class MainActivity : ComponentActivity() {
 
                             NavHost(
                                 navController = navController,
-                                startDestination = Route.Cafe,
+                                startDestination = Route.Constructor,
                             )
                             {
                                 composable<Route.Main> {
@@ -97,7 +98,7 @@ class MainActivity : ComponentActivity() {
                                     MenuScreen(navController)
                                 }
                                 composable<Route.CreateOrder> {
-                                    val id = it.toRoute<Route.CreateOrder>().id
+                                    val id = it.toRoute<Route.CreateOrder>().id?: "6db93909-45d5-47be-a16a-381e8c1d9d9d"
                                     CreateOrderScreen(navController, id)
                                 }
                                 composable<Route.Gift> {
@@ -105,6 +106,9 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable<Route.Order> {
                                     OrderScreen(navController)
+                                }
+                                composable<Route.Constructor> {
+                                    CoffeeConstructorScreen(navController)
                                 }
                             }
                             if (isBottomBar) {

@@ -17,4 +17,17 @@
     <string name="welcome2">Добро пожаловать!</string>
     <string name="choose">Выберите ваш кофе</string>
     <string name="order">Заказ</string>
+    <string name="ristretto">Ристретто</string>
+    <string name="one">Один</string>
+    <string name="two">Два</string>
+    <string name="pickup">На месте / навынос</string>
+    <string name="volume">Объем, мл</string>
+    <string name="specific_time">Приготовить к определенному времени сегодня?</string>
+    <string name="constructor">Конструктор кофемана</string>
+    <string name="sum">Итоговая сумма</string>
+    <string name="next">Далее</string>
+    <string name="choose_barista">Выберите бариста</string>
+    <string name="type_coffee">Вид кофе</string>
+    <string name="arabic">Арабика</string>
+    <string name="robusta">Робуста</string>
 </resources>
