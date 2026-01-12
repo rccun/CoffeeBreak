@@ -15,7 +15,7 @@
     <string name="already_login">Уже зарегистрировались? Войти.</string>
     <string name="choose_cafe">Выберите кофейню Coffee Break</string>
     <string name="welcome2">Добро пожаловать!</string>
-    <string name="choose">Выберите ваш кофе</string>
+    <string name="choose_coffee">Выберите ваш кофе</string>
     <string name="order">Заказ</string>
     <string name="ristretto">Ристретто</string>
     <string name="one">Один</string>
@@ -30,4 +30,14 @@
     <string name="type_coffee">Вид кофе</string>
     <string name="arabic">Арабика</string>
     <string name="robusta">Робуста</string>
+    <string name="sort_coffee">Сорт кофе</string>
+    <string name="roasting">Обжарка</string>
+    <string name="grinding">Помол</string>
+    <string name="milk">Молоко</string>
+    <string name="choose">Выбрать</string>
+    <string name="syrup">Сироп</string>
+    <string name="supplements">Добавки</string>
+    <string name="ice">Лед</string>
+    <string name="encyclopedia">Энциклопедия кофемана</string>
+    <string name="cancel">Отмена</string>
 </resources>

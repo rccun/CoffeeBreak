@@ -30,6 +30,11 @@ val Typography = Typography(
         fontFamily = fontP,
         fontWeight = FontWeight.Normal
     ),
+    labelLarge  = TextStyle(
+        fontFamily = fontP,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp
+    ),
     bodyMedium = TextStyle(
         fontSize = 12.sp,
         fontWeight = FontWeight.Medium,
@@ -64,6 +69,11 @@ val Typography = Typography(
         fontFamily = fontDM,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = fontDM,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
     ),
     bodySmall = TextStyle(
         fontFamily = fontP,

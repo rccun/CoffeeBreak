@@ -2,15 +2,6 @@ package org.coffeebreak.ru.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
-
 val green1 = Color(0xFF14AC46)
 val green2 = Color(0xFF147F37)
 val blue3 = Color(0xFF324A59)
@@ -32,3 +23,7 @@ val lightGray = Color(0xFFAAAAAA)
 val grayWhite = Color(0xFFF7F8FB)
 val grayD8 = Color(0xFFD8D8D8)
 val lineColor = Color(0xFFF4F5F7)
+val gray1 = Color(0xFF7B6F72)
+val lightBlue = Color(0xFFCDECFF)
+val gray60 = Color(0x603C3C43)
+val lightGray2 = Color(0xFFB5B5B5)

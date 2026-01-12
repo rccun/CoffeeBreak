@@ -88,7 +88,7 @@ fun BoxItem(isActive: Boolean, text: String, onClick: () -> Unit = {}) {
 }
 
 @Composable
-fun OrderIcon(icon: Int, isActive: Boolean, onClick: () -> Unit) {
+fun OrderIcon(icon: Int, isActive: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) {
     MyIcon(
         icon = icon, tintColor =
             if (!isActive) {
@@ -98,7 +98,8 @@ fun OrderIcon(icon: Int, isActive: Boolean, onClick: () -> Unit) {
             },
         onClick = {
             onClick()
-        }
+        },
+        modifier = modifier
     )
 }
 

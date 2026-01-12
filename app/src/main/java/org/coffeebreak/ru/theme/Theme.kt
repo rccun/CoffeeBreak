@@ -6,7 +6,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import org.coffeebreak.ru.theme.navMenu
 
 data class CustomColorTheme(
     val bg: Color = Color.Unspecified,
@@ -39,6 +38,10 @@ data class CustomColorTheme(
     val orderCoast: Color = Color.Unspecified,
     val orderButton: Color = Color.Unspecified,
     val sliderTrack: Color = Color.Unspecified,
+    val consNextIcon: Color = Color.Unspecified,
+    val downMenu: Color = Color.Unspecified,
+    val downMenuTitle: Color = Color.Unspecified,
+    val downMenuItem: Color = Color.Unspecified,
 )
 
 val LightColorScheme = CustomColorTheme(
@@ -70,7 +73,12 @@ val LightColorScheme = CustomColorTheme(
     activeOrderPickup = Color.Black,
     orderCoast = darkBlue4,
     orderButton = blue3,
-    sliderTrack = Color(0xFF007AFF)
+    sliderTrack = Color(0xFF007AFF),
+    consNextIcon = gray1,
+    downMenu = bgW,
+    downMenuTitle = gray60,
+    downMenuItem = Color.Black
+
 )
 val DarkColorScheme = CustomColorTheme(
     bg = bgB,
@@ -102,6 +110,10 @@ val DarkColorScheme = CustomColorTheme(
     orderCoast = Color(0xFF61ADDD),
     orderButton = bg,
     sliderTrack = b1,
+    consNextIcon = b1,
+    downMenu = blue3,
+    downMenuTitle = lightBlue,
+    downMenuItem = lightGray2
 )
 
 val LocalCustomColorProvider = staticCompositionLocalOf { CustomColorTheme() }
