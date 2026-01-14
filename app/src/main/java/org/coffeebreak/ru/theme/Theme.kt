@@ -42,6 +42,10 @@ data class CustomColorTheme(
     val downMenu: Color = Color.Unspecified,
     val downMenuTitle: Color = Color.Unspecified,
     val downMenuItem: Color = Color.Unspecified,
+    val baristaItem: Color = Color.Unspecified,
+    val baristaSkill: Color = Color.Unspecified,
+    val menuName: Color = Color.Unspecified,
+    val countryTitle: Color = Color.Unspecified,
 )
 
 val LightColorScheme = CustomColorTheme(
@@ -77,7 +81,11 @@ val LightColorScheme = CustomColorTheme(
     consNextIcon = gray1,
     downMenu = bgW,
     downMenuTitle = gray60,
-    downMenuItem = Color.Black
+    downMenuItem = Color.Black,
+    baristaItem = bgW,
+    baristaSkill = lightGray3.copy(alpha = 0.3f),
+    menuName = b1,
+    countryTitle = bg
 
 )
 val DarkColorScheme = CustomColorTheme(
@@ -113,7 +121,12 @@ val DarkColorScheme = CustomColorTheme(
     consNextIcon = b1,
     downMenu = blue3,
     downMenuTitle = lightBlue,
-    downMenuItem = lightGray2
+    downMenuItem = lightGray2,
+    baristaItem = bg,
+    baristaSkill = bgW.copy(alpha = 0.3f),
+    menuName = b2,
+    countryTitle = b3
+
 )
 
 val LocalCustomColorProvider = staticCompositionLocalOf { CustomColorTheme() }
@@ -142,7 +155,7 @@ object MainTheme {
         @Composable
         get() = LocalCustomColorProvider.current
 
-    val typography: androidx.compose.material3.Typography
+    val typography: MyTypo
         @Composable @ReadOnlyComposable
         get() = Typography
 }

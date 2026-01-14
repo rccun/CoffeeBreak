@@ -19,4 +19,5 @@ sealed class Route() {
     @Serializable @SerialName("order") data object Order : Route()
     @Serializable @SerialName("create_order") data class CreateOrder(val id: String? = null) : Route()
     @Serializable @SerialName("constructor") data object Constructor : Route()
+    @Serializable @SerialName("constructor_order") data object ConstructorOrder : Route()
 }

@@ -140,7 +140,6 @@ fun CafeMapScreen(navController: NavController) {
             object : UserLocationObjectListener {
 
                 override fun onObjectAdded(view: UserLocationView) {
-                    Log.d("MAP", "USER LOCATION ADDED")
                     val point = view.arrow.geometry
 
                     mapView.map.move(
@@ -161,7 +160,6 @@ fun CafeMapScreen(navController: NavController) {
                     view: UserLocationView,
                     event: ObjectEvent
                 ) {
-                    Log.e("TAG", "onObjectUpdated: ")
                 }
             }
         )
@@ -198,7 +196,6 @@ fun CafeMapScreen(navController: NavController) {
                     .onGloballyPositioned {
                         val height = it.size.height
                         mapHeight.value = with(density) { height.toDp() }
-                        Log.e("TAG", "CafeMapScreen" + mapHeight.value.toString())
                     }
                     .align(Alignment.BottomCenter)
             ) {

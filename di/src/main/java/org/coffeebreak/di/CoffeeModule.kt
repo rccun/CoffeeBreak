@@ -6,8 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.coffeebreak.data.repository.CoffeeRepositoryImpl
 import org.coffeebreak.domain.repository.CoffeeRepository
-import org.coffeebreak.domain.usecase.coffe.GetCoffeeByIdUseCase
-import org.coffeebreak.domain.usecase.coffe.GetCoffeesUseCase
+import org.coffeebreak.domain.usecase.coffee.GetCoffeeByIdUseCase
+import org.coffeebreak.domain.usecase.coffee.GetCoffeesUseCase
 import javax.inject.Singleton
 
 

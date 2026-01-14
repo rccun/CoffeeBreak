@@ -5,5 +5,7 @@ data class SignUpState(
     val phone: String = "",
     val email: String = "",
     val password: String = "",
-    val isShow: Boolean = true
+    val isShow: Boolean = true,
+    val isSuccess: Boolean = false
+
 )

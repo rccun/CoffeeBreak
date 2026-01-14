@@ -64,9 +64,9 @@ fun CreateOrderScreen(
     viewModel: CreateOrderViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    LaunchedEffect(Unit) {
-        viewModel.loadCoffee(id)
-    }
+//    LaunchedEffect(Unit) {
+//        viewModel.loadCoffee(id)
+//    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -248,28 +248,32 @@ fun CreateOrderScreen(
                     }
                     Spacer(Modifier.height(16.dp))
 
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(6.dp))
-                            .background(Color(0x12767680))
-                            .padding(horizontal = 15.dp, vertical = 9.dp)
-                            .clickable {
-                                if (state.isSpecificTime) {
-                                    viewModel.onEvent(CreateOrderEvents.OnPickerClick)
+                    if (state.isSpecificTime) {
+
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(Color(0x12767680))
+                                .padding(horizontal = 15.dp, vertical = 9.dp)
+                                .clickable {
+//                                    if (state.isSpecificTime) {
+                                        viewModel.onEvent(CreateOrderEvents.OnPickerClick)
+//                                    }
                                 }
-                            }
-                    ) {
-                        Text(
-                            "${state.timeHours} : ${state.timeMinutes}",
-                            style = MainTheme.typography.titleSmall,
-                            fontSize = 22.sp,
-                            color =
-                                if (state.isSpecificTime) {
+                        ) {
+                            Text(
+                                "${state.timeHours} : ${state.timeMinutes}",
+                                style = MainTheme.typography.titleSmall,
+                                fontSize = 22.sp,
+                                color =
                                     MainTheme.colorScheme.default
-                                } else {
-                                    grayD8
-                                }
-                        )
+//
+//                                    if (state.isSpecificTime) {
+//                                    } else {
+//                                        grayD8
+//                                    }
+                            )
+                        }
                     }
 
                 }

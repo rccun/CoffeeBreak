@@ -1,4 +1,4 @@
-package org.coffeebreak.domain.usecase.coffe
+package org.coffeebreak.domain.usecase.coffee
 
 import org.coffeebreak.domain.model.CoffeeModel
 import org.coffeebreak.domain.repository.CoffeeRepository

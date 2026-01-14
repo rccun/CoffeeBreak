@@ -5,5 +5,6 @@ import org.coffeebreak.domain.model.CoffeeModel
 data class MenuState(
     val coffee: CoffeeModel? = null,
     val coffees: List<CoffeeModel> = emptyList(),
-    val isLoading: Boolean = true
+    val isLoading: Boolean = true,
+    val userName: String = ""
 )

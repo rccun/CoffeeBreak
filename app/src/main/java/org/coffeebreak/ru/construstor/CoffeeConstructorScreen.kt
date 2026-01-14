@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.coffeebreak.ru.R
+import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.common.OrderIcon
 import org.coffeebreak.ru.common.RowItem
@@ -78,7 +79,9 @@ fun CoffeeConstructorScreen(
             MyIcon(icon = R.drawable.cart, tintColor = MainTheme.colorScheme.icon)
         }
         RowItem(stringResource(R.string.choose_barista)) {
-            MyIcon(icon = R.drawable.next2, tintColor = Color(0xFF7B6F72))
+            MyIcon(icon = R.drawable.next2, tintColor = Color(0xFF7B6F72)) {
+                navController.navigate(Route.ConstructorOrder) // TODO: ("hello")
+            }
         }
         RowItem(stringResource(R.string.type_coffee)) {
             Column(
@@ -108,7 +111,7 @@ fun CoffeeConstructorScreen(
             }
         }
         RowItem(stringResource(R.string.sort_coffee)) {
-            MyIcon(icon = R.drawable.next2, tintColor = MainTheme.colorScheme.consNextIcon)
+            MyIcon(icon = R.drawable.next2, tintColor = MainTheme.colorScheme.consNextIcon) // TODO()
         }
         RowItem(stringResource(R.string.roasting)) {
 
@@ -209,7 +212,7 @@ fun CoffeeConstructorScreen(
         }
 
         RowItem(stringResource(R.string.supplements)) {
-            MyIcon(icon = R.drawable.next2, tintColor = MainTheme.colorScheme.consNextIcon)
+            MyIcon(icon = R.drawable.next2, tintColor = MainTheme.colorScheme.consNextIcon) // TODO()
         }
         RowItem(stringResource(R.string.ice), isLine = false) {
             Row(verticalAlignment = Alignment.Bottom) {
@@ -326,7 +329,7 @@ fun CoffeeConstructorScreen(
 
         DownMenu(
             state.milkItems,
-            "Какой тип молока вы предпочитаете?",
+            stringResource(R.string.type_milk),
             state.milk,
             {
                 viewModel.onEvent(CoffeeConstructorEvents.OnDismissMenuClick)
@@ -340,7 +343,7 @@ fun CoffeeConstructorScreen(
 
         DownMenu(
             state.syrupItems,
-            "Какой вкус сиропа вы предпочитаете?",
+            stringResource(R.string.type_syrup),
             state.syrup,
             {
                 viewModel.onEvent(CoffeeConstructorEvents.OnDismissMenuClick)
@@ -377,7 +380,7 @@ fun SliderFun(value: Float, onValueChange: (Float) -> Unit, modifier: Modifier =
                 modifier = Modifier.height(4.dp),
                 colors = SliderDefaults.colors(
                     activeTrackColor = MainTheme.colorScheme.sliderTrack,
-                    inactiveTrackColor = Color(0x20787880)
+                    inactiveTrackColor = Color(0x20787880),
 
                 )
 

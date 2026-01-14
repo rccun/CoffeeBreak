@@ -21,6 +21,7 @@ import androidx.navigation.toRoute
 import dagger.hilt.android.AndroidEntryPoint
 import org.coffeebreak.ru.cafemap.CafeMapScreen
 import org.coffeebreak.ru.common.BottomNav
+import org.coffeebreak.ru.constructor_order.ConstructorOrderScreen
 import org.coffeebreak.ru.construstor.CoffeeConstructorScreen
 import org.coffeebreak.ru.login.LoginScreen
 import org.coffeebreak.ru.main.MainScreen
@@ -44,7 +45,8 @@ class MainActivity : ComponentActivity() {
             val bottomBars = listOf(
                 "menu",
                 "gift",
-                "order"
+                "order",
+                "constructor_order"
             )
             Log.e("", ": $bottomBars");
             val entry = navController.currentBackStackEntryAsState().value
@@ -73,7 +75,7 @@ class MainActivity : ComponentActivity() {
 
                             NavHost(
                                 navController = navController,
-                                startDestination = Route.Constructor,
+                                startDestination = Route.Menu,
                             )
                             {
                                 composable<Route.Main> {
@@ -98,7 +100,8 @@ class MainActivity : ComponentActivity() {
                                     MenuScreen(navController)
                                 }
                                 composable<Route.CreateOrder> {
-                                    val id = it.toRoute<Route.CreateOrder>().id?: "6db93909-45d5-47be-a16a-381e8c1d9d9d"
+                                    val id = it.toRoute<Route.CreateOrder>().id
+                                        ?: "6db93909-45d5-47be-a16a-381e8c1d9d9d"
                                     CreateOrderScreen(navController, id)
                                 }
                                 composable<Route.Gift> {
@@ -110,12 +113,17 @@ class MainActivity : ComponentActivity() {
                                 composable<Route.Constructor> {
                                     CoffeeConstructorScreen(navController)
                                 }
+                                composable<Route.ConstructorOrder> {
+                                    ConstructorOrderScreen(navController)
+                                }
                             }
                             if (isBottomBar) {
-                                BottomNav(modifier = Modifier.align(
-                                    Alignment.BottomCenter
-                                ),
-                                    navController, currentRoute)
+                                BottomNav(
+                                    modifier = Modifier.align(
+                                        Alignment.BottomCenter
+                                    ),
+                                    navController, currentRoute
+                                )
                             }
                         }
                     }

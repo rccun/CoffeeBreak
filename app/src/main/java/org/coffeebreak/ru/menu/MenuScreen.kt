@@ -17,6 +17,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import org.coffeebreak.ru.R
@@ -38,22 +41,11 @@ import org.coffeebreak.ru.theme.darkBlue4
 import org.coffeebreak.ru.theme.navMenu
 import java.net.ContentHandler
 
-data class Item(
-    val image: Int,
-    val title: String
-)
 
 @Composable
 fun MenuScreen(navController: NavController, viewModel: MenuViewModel = hiltViewModel()) {
     val state = viewModel.state.value
-    val items = listOf(
-        Item(R.drawable.cofe, "Американо"),
-        Item(R.drawable.cofe, "Капучино"),
-        Item(R.drawable.cofe, "Латте"),
-        Item(R.drawable.cofe, "Флэт Уайт"),
-        Item(R.drawable.cofe, "Раф"),
-        Item(R.drawable.cofe, "Эспрессо")
-    )
+    val canRegister by viewModel.canRegister.collectAsStateWithLifecycle()
     Column() {
         Spacer(Modifier.height(30.dp))
         Row(modifier = Modifier.padding(horizontal = 25.dp)) {
@@ -63,10 +55,13 @@ fun MenuScreen(navController: NavController, viewModel: MenuViewModel = hiltView
                     style = MainTheme.typography.titleLarge,
                     color = MainTheme.colorScheme.chooseCoffee
                 )
-                Text(
-                    "Алексей",
-                    style = MainTheme.typography.labelMedium
-                )
+                if (!state.userName.isBlank()) {
+                    Text(
+                        state.userName,
+                        style = MainTheme.typography.labelMedium,
+                        color = MainTheme.colorScheme.menuName
+                    )
+                }
             }
             Spacer(Modifier.weight(1f))
             MyIcon(icon = R.drawable.cart)
@@ -82,20 +77,28 @@ fun MenuScreen(navController: NavController, viewModel: MenuViewModel = hiltView
                 .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
                 .background(MainTheme.colorScheme.lazyColor)
         ) {
-            Text(stringResource(R.string.choose),
+            Text(
+                stringResource(R.string.choose),
                 modifier = Modifier.padding(start = 30.dp, top = 15.dp, bottom = 30.dp),
                 style = MainTheme.typography.labelMedium,
                 fontSize = 16.sp,
                 color = MainTheme.colorScheme.chooseCoffee
             )
             if (state.isLoading) {
-                Text("Загрузка", modifier = Modifier.fillMaxSize(), textAlign = TextAlign.Center, fontSize = 50.sp)
+                Text(
+                    "Загрузка",
+                    modifier = Modifier.fillMaxSize(),
+                    textAlign = TextAlign.Center,
+                    fontSize = 50.sp
+                )
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.fillMaxSize().padding(horizontal = 25.dp)
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 25.dp)
                 ) {
                     items(state.coffees) { i ->
 

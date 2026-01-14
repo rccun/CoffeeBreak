@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
 
 
-//    alias(libs.plugins.ksp)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.serialization)
 }
 
@@ -40,8 +40,12 @@ dependencies {
     implementation(project(":domain"))
 
 
+    implementation(libs.room)
+    ksp(libs.room.compiler)
+
+
     api(libs.supabase.auth)
-//    implementation(libs.supabase.auth)
+    implementation(libs.supabase.auth)
     implementation(libs.supabase.postgrest)
     implementation(libs.supabase.storage)
     implementation(libs.supabase.realtime)

@@ -40,4 +40,10 @@
     <string name="ice">Лед</string>
     <string name="encyclopedia">Энциклопедия кофемана</string>
     <string name="cancel">Отмена</string>
+    <string name="cons_order">Конструктор заказа</string>
+    <string name="choose_country">Выберите страну и сорт кофе</string>
+    <string name="choose_sort">Выберите сорт кофе</string>
+    <string name="choose_supplement">Выберите добавку</string>
+    <string name="type_milk">Какой тип молока вы предпочитаете?</string>
+    <string name="type_syrup">Какой вкус сиропа вы предпочитаете?</string>
 </resources>

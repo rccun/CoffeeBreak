@@ -1,5 +1,6 @@
 package org.coffeebreak.ru.signup
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +15,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +33,11 @@ import org.coffeebreak.ru.theme.blue3
 @Composable
 fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hiltViewModel()) {
     val state = viewModel.state.value
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            navController.navigate(Route.Menu)
+        }
+    }
     Column {
 
         MyIcon(
@@ -112,7 +119,8 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     .padding(top = 27.dp)
             )
             FloatingActionButton(
-                onClick = { navController.navigate(Route.Main) },
+                onClick = {
+                          },
                 modifier = Modifier
                     .background(Color.Transparent)
                     .align(Alignment.End)
@@ -127,7 +135,9 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                 ),
                 shape = CircleShape
             ) {
-                MyIcon(icon = R.drawable.next)
+                MyIcon(icon = R.drawable.next) {
+                    viewModel.onEvent(SignUpEvents.OnSignUpClick)
+                }
             }
             Spacer(Modifier.weight(3.53f))
 
