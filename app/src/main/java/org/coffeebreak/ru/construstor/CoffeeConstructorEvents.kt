@@ -1,7 +1,5 @@
 package org.coffeebreak.ru.construstor
 
-import androidx.compose.ui.text.font.FontWeight
-
 interface CoffeeConstructorEvents {
     data class OnSliderChange(val weight: Float): CoffeeConstructorEvents
     data object OnSmallClick: CoffeeConstructorEvents
@@ -18,4 +16,6 @@ interface CoffeeConstructorEvents {
     data object OnSyrupItemsClick: CoffeeConstructorEvents
     data class OnMilkItemClick(val value: String): CoffeeConstructorEvents
     data class OnSyrupItemClick(val value: String): CoffeeConstructorEvents
+    data object OnEncyclopediaClick: CoffeeConstructorEvents
+    data object OnCloseDialog: CoffeeConstructorEvents
 }

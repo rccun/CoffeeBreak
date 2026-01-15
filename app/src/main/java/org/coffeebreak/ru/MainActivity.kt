@@ -19,19 +19,22 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import dagger.hilt.android.AndroidEntryPoint
+import org.coffeebreak.ru.barista.BaristaScreen
 import org.coffeebreak.ru.cafemap.CafeMapScreen
 import org.coffeebreak.ru.common.BottomNav
-import org.coffeebreak.ru.constructor_order.ConstructorOrderScreen
 import org.coffeebreak.ru.construstor.CoffeeConstructorScreen
+import org.coffeebreak.ru.country.CountryScreen
+import org.coffeebreak.ru.create_order.CreateOrderScreen
+import org.coffeebreak.ru.gift.GiftScreen
 import org.coffeebreak.ru.login.LoginScreen
 import org.coffeebreak.ru.main.MainScreen
 import org.coffeebreak.ru.menu.MenuScreen
-import org.coffeebreak.ru.create_order.CreateOrderScreen
-import org.coffeebreak.ru.gift.GiftScreen
 import org.coffeebreak.ru.order.OrderScreen
 import org.coffeebreak.ru.signup.SignUpScreen
+import org.coffeebreak.ru.sort.SortScreen
 import org.coffeebreak.ru.splash.SplashScreen
 import org.coffeebreak.ru.startup.StartUpScreen
+import org.coffeebreak.ru.supplements.SupplementsScreen
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.MyCoffeeBreakTheme
 
@@ -75,7 +78,7 @@ class MainActivity : ComponentActivity() {
 
                             NavHost(
                                 navController = navController,
-                                startDestination = Route.Menu,
+                                startDestination = Route.Constructor(),
                             )
                             {
                                 composable<Route.Main> {
@@ -110,12 +113,24 @@ class MainActivity : ComponentActivity() {
                                 composable<Route.Order> {
                                     OrderScreen(navController)
                                 }
+                                composable<Route.Barista> {
+                                    BaristaScreen(navController)
+                                }
+                                composable<Route.Country> {
+                                    CountryScreen(navController)
+                                }
+                                composable<Route.Sort> {
+                                    SortScreen(navController)
+                                }
+                                composable<Route.Supplement> {
+                                    SupplementsScreen(navController)
+                                }
                                 composable<Route.Constructor> {
                                     CoffeeConstructorScreen(navController)
                                 }
-                                composable<Route.ConstructorOrder> {
-                                    ConstructorOrderScreen(navController)
-                                }
+//                                composable<Route.ConstructorOrder> {
+//                                    ConstructorOrderScreen(navController)
+//                                }
                             }
                             if (isBottomBar) {
                                 BottomNav(

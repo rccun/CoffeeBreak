@@ -46,4 +46,8 @@
     <string name="choose_supplement">Выберите добавку</string>
     <string name="type_milk">Какой тип молока вы предпочитаете?</string>
     <string name="type_syrup">Какой вкус сиропа вы предпочитаете?</string>
+    <string name="qr_code">Предъявите Ваш персональный QR-код в кофейне для получения заказа.</string>
+    <string name="order_placed">, Ваш заказ успешно размещен.</string>
+    <string name="placed">Заказано</string>
+    <string name="skip">Пропустить</string>
 </resources>

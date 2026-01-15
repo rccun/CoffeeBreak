@@ -21,10 +21,14 @@ class OrderRepositoryImpl() : OrderRepository {
         }
     }
 
-    override suspend fun getItems(): CustomResult<List<ItemModel>> {
+    override suspend fun getItemsByCategory(category: String): CustomResult<List<ItemModel>> {
         return try {
             val res =
-                client.postgrest["items"].select().decodeList<ItemModelDto>().map { it.toDomain() }
+                client.postgrest["items"].select{
+                    filter {
+                        eq("category", category)
+                    }
+                }.decodeList<ItemModelDto>().map { it.toDomain() }
             CustomResult.Success(res)
         } catch (e: Exception) {
             CustomResult.Error(e.message!!)

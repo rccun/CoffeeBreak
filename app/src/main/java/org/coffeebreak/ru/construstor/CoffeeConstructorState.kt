@@ -21,6 +21,18 @@ data class CoffeeConstructorState(
     ),
     val isMilkItems: Boolean = false,
     val isSyrupItems: Boolean = false,
+
+
+    val type: String = "",
+    val country: String? = null,
+    val sort: String? = null,
+    val supplements: String? = null,
+    val isError: Boolean = false,
     val milk: String = "Коровье",
     val syrup: String = "Нет",
+
+
+    val errorMessage: String = "",
+    val isDesc: Boolean = false,
+    val desc: String = ""
 )

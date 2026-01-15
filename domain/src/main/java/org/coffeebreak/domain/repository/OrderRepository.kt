@@ -6,5 +6,6 @@ import org.coffeebreak.domain.utils.CustomResult
 
 interface OrderRepository {
     suspend fun getBaristas(): CustomResult<List<BaristaModel>>
-    suspend fun getItems(): CustomResult<List<ItemModel>>
+    suspend fun getItemsByCategory(category: String): CustomResult<List<ItemModel>>
+//    suspend fun getItems
 }

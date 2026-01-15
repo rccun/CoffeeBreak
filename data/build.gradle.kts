@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.room)
     ksp(libs.room.compiler)
 
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.support)
 
     api(libs.supabase.auth)
     implementation(libs.supabase.auth)

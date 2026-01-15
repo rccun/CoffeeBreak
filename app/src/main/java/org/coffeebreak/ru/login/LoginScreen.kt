@@ -1,6 +1,8 @@
 package org.coffeebreak.ru.login
 
-import android.util.Log
+//import io.github.jan.supabase.compose.auth.composable.GoogleDialogType
+//import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
+//import io.github.jan.supabase.compose.auth.composeAuth
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,11 +39,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-//import io.github.jan.supabase.compose.auth.composable.GoogleDialogType
-//import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
-//import io.github.jan.supabase.compose.auth.composeAuth
 import kotlinx.coroutines.delay
-import org.coffeebreak.data.data_source.InitSupabaseClient
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.AuthTextField

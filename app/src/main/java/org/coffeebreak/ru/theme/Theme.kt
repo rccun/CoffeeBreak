@@ -42,10 +42,14 @@ data class CustomColorTheme(
     val downMenu: Color = Color.Unspecified,
     val downMenuTitle: Color = Color.Unspecified,
     val downMenuItem: Color = Color.Unspecified,
+    val downMenuCancel: Color = Color.Unspecified,
     val baristaItem: Color = Color.Unspecified,
     val baristaSkill: Color = Color.Unspecified,
     val menuName: Color = Color.Unspecified,
     val countryTitle: Color = Color.Unspecified,
+    val placed: Color = Color.Unspecified,
+    val orderPlaced: Color = Color.Unspecified,
+    val orderPlacedTime: Color = Color.Unspecified,
 )
 
 val LightColorScheme = CustomColorTheme(
@@ -57,7 +61,7 @@ val LightColorScheme = CustomColorTheme(
     authHint = b3,
     authTerms = blue3,
     splashLarge = textColor,
-    splashMedium = lightGray,
+    splashMedium =  lightGray,
     splashBox = blue3.copy(alpha = 0.2f),
     authIconPassword = darkBlue4,
     authForget = green2,
@@ -81,11 +85,15 @@ val LightColorScheme = CustomColorTheme(
     consNextIcon = gray1,
     downMenu = bgW,
     downMenuTitle = gray60,
+    downMenuCancel = bgW,
     downMenuItem = Color.Black,
     baristaItem = bgW,
     baristaSkill = lightGray3.copy(alpha = 0.3f),
     menuName = b1,
-    countryTitle = bg
+    countryTitle = bg,
+    placed = textColor,
+    orderPlaced = lightGray,
+    orderPlacedTime = Color.Black
 
 )
 val DarkColorScheme = CustomColorTheme(
@@ -122,10 +130,14 @@ val DarkColorScheme = CustomColorTheme(
     downMenu = blue3,
     downMenuTitle = lightBlue,
     downMenuItem = lightGray2,
+    downMenuCancel = darkBlue4,
     baristaItem = bg,
     baristaSkill = bgW.copy(alpha = 0.3f),
     menuName = b2,
-    countryTitle = b3
+    countryTitle = b3,
+    placed = b2,
+    orderPlaced = b3,
+    orderPlacedTime = b3
 
 )
 

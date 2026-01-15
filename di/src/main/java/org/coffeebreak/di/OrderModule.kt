@@ -7,7 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import org.coffeebreak.data.repository.OrderRepositoryImpl
 import org.coffeebreak.domain.repository.OrderRepository
 import org.coffeebreak.domain.usecase.barista.GetBaristasUseCase
-import org.coffeebreak.domain.usecase.items.GetItemsUseCase
+import org.coffeebreak.domain.usecase.items.GetItemsByCategoryUseCase
 import javax.inject.Singleton
 
 @Module
@@ -25,7 +25,7 @@ object OrderModule {
 
     @Provides
     @Singleton
-    fun provideGetItemsUseCase(repo: OrderRepository) = GetItemsUseCase(repo)
+    fun provideGetItemsUseCase(repo: OrderRepository) = GetItemsByCategoryUseCase(repo)
 
 
 }

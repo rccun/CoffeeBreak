@@ -1,12 +1,20 @@
 package org.coffeebreak.ru.construstor
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import org.coffeebreak.ru.create_order.CreateOrderEvents
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import org.coffeebreak.domain.model.CoffeeAIModel
+import org.coffeebreak.domain.usecase.coffee.GetCoffeeAIUseCase
 import javax.inject.Inject
 
-class CoffeeConstructorViewModel @Inject constructor(): ViewModel() {
+@HiltViewModel
+class CoffeeConstructorViewModel @Inject constructor(
+    private val getCoffeeAIUseCase: GetCoffeeAIUseCase
+): ViewModel() {
     private val _state = mutableStateOf(CoffeeConstructorState())
     val state: State<CoffeeConstructorState> = _state
     fun onEvent(event: CoffeeConstructorEvents) {
@@ -87,6 +95,33 @@ class CoffeeConstructorViewModel @Inject constructor(): ViewModel() {
                 _state.value = _state.value.copy (
                     milk = event.value,
                     isMilkItems = false
+                )
+            }
+            CoffeeConstructorEvents.OnEncyclopediaClick -> {
+                viewModelScope.launch {
+                    runCatching {
+                        getCoffeeAIUseCase.execute(CoffeeAIModel(
+                            "Капучино"
+                        ))
+                    }.onSuccess {
+                        _state.value = _state.value.copy (
+                            desc = it,
+                            isDesc = true
+                        )
+                    }.onFailure {
+                        _state.value = _state.value.copy (
+                            isError = true,
+                            errorMessage = it.message!!,
+                        )
+                        Log.e("tensor", "${_state.value.errorMessage}: ", );
+
+                    }
+                }
+            }
+            CoffeeConstructorEvents.OnCloseDialog -> {
+                _state.value = _state.value.copy (
+                    isError = false,
+                    errorMessage = ""
                 )
             }
         }
