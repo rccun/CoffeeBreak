@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import org.coffeebreak.data.data_source.local.dao.OrderDao
 import org.coffeebreak.data.data_source.local.dao.UserDao
+import org.coffeebreak.data.dto.OrderModelDto
 import org.coffeebreak.data.dto.UserModelDto
 
-@Database(entities = [UserModelDto::class], version = 1)
+@Database(entities = [UserModelDto::class, OrderModelDto::class], version = 1)
 abstract class AppDatabase(): RoomDatabase() {
     abstract val userDao: UserDao
+    abstract val orderDao: OrderDao
 
     companion object {
         fun createDatabase(context: Context): AppDatabase {

@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.common.BoxItem
 import org.coffeebreak.ru.common.MyAsyncImage
+import org.coffeebreak.ru.common.MyDialog
 import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.common.OrderIcon
 import org.coffeebreak.ru.common.OrderTimePicker
@@ -241,9 +242,7 @@ fun CreateOrderScreen(
                                 .background(Color(0x12767680))
                                 .padding(horizontal = 15.dp, vertical = 9.dp)
                                 .clickable {
-//                                    if (state.isSpecificTime) {
-                                        viewModel.onEvent(CreateOrderEvents.OnPickerClick)
-//                                    }
+                                    viewModel.onEvent(CreateOrderEvents.OnPickerClick)
                                 }
                         ) {
                             Text(
@@ -252,11 +251,6 @@ fun CreateOrderScreen(
                                 fontSize = 22.sp,
                                 color =
                                     MainTheme.colorScheme.default
-//
-//                                    if (state.isSpecificTime) {
-//                                    } else {
-//                                        grayD8
-//                                    }
                             )
                         }
                     }
@@ -306,7 +300,7 @@ fun CreateOrderScreen(
                         MainTheme.colorScheme.orderButton
                     )
                     .clickable {
-
+                        viewModel.onEvent(CreateOrderEvents.OnNextClick)
                     }
                     .padding(vertical = 15.dp),
             )
@@ -326,4 +320,7 @@ fun CreateOrderScreen(
         },
         isShow = state.isTimeInput
     )
+    MyDialog("Ошибка", state.errorMessage, state.isError) {
+
+    }
 }

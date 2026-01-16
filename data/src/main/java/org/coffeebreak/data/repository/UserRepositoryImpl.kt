@@ -28,7 +28,8 @@ class UserRepositoryImpl(
             }
             CustomResult.Success(res!!.toDomain())
         } catch(e: Exception) {
-            CustomResult.Error(e.message!!)
+            e.printStackTrace()
+            CustomResult.Error(e.message ?: e.localizedMessage ?: "")
         }
     }
 

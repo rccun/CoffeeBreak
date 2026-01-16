@@ -325,7 +325,7 @@ fun CoffeeConstructorScreen(
                         MainTheme.colorScheme.orderButton
                     )
                     .clickable {
-
+                        viewModel.onEvent(CoffeeConstructorEvents.OnNextClick)
                     }
                     .padding(vertical = 15.dp),
             )
@@ -367,11 +367,12 @@ fun CoffeeConstructorScreen(
 
         }
     }
-    if (state.desc != "") {
-        EncyclopediaItem(state.desc)
+    if (state.isDesc) {
+        EncyclopediaItem(state.desc) {
+            viewModel.onEvent(CoffeeConstructorEvents.OnCloseDesc)
+        }
     }
     MyDialog("Ошибка", state.errorMessage, state.isError) {
         viewModel.onEvent(CoffeeConstructorEvents.OnCloseDialog)
     }
-
 }

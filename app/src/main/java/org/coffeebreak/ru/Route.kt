@@ -40,11 +40,12 @@ sealed class Route() {
     data class CreateOrder(val id: String? = null) : Route()
     @Serializable
     @SerialName("constructor")
-    data class Constructor(
-        val baristaId: String? = null,
-        val sortId: String? = null,
-        val supplementId: String? = null
-    ) : Route()
+    data object Constructor : Route() {
+
+        var baristaId: String? = null
+        var sortId: String? = null
+        var supplementId: String? = null
+    }
 
     @Serializable
     @SerialName("country")
@@ -59,5 +60,4 @@ sealed class Route() {
     @SerialName("barista")
     data object Barista : Route()
 
-//    @Serializable @SerialName("constructor_order") data class ConstructorOrder(val page: Int? = null) : Route()
 }

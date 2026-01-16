@@ -23,6 +23,7 @@ data class CoffeeConstructorState(
     val isSyrupItems: Boolean = false,
 
 
+    val barista: String = "",
     val type: String = "",
     val country: String? = null,
     val sort: String? = null,

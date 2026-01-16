@@ -18,4 +18,6 @@ interface CoffeeConstructorEvents {
     data class OnSyrupItemClick(val value: String): CoffeeConstructorEvents
     data object OnEncyclopediaClick: CoffeeConstructorEvents
     data object OnCloseDialog: CoffeeConstructorEvents
+    data object OnCloseDesc: CoffeeConstructorEvents
+    data object OnNextClick: CoffeeConstructorEvents
 }

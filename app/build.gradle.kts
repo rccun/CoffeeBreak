@@ -52,6 +52,17 @@ dependencies {
 //    implementation(libs.play.services.location)
 //    implementation(libs.accompanist.permissions)
 
+
+
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.support)
+
+//    implementation(libs.tflite.task.text.nlclassifier)
+
+    implementation("org.tensorflow:tensorflow-lite-task-text:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+
     implementation(libs.hilt.navigation)
     implementation(libs.hilt.android)
     implementation(libs.androidx.compose.ui.text)

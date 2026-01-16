@@ -17,6 +17,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+    androidResources{
+        noCompress.add("tflite")
+    }
 
     buildTypes {
         release {
@@ -45,6 +48,12 @@ dependencies {
 
     implementation(libs.tensorflow.lite)
     implementation(libs.tensorflow.lite.support)
+
+//    implementation(libs.tflite.task.text.nlclassifier)
+
+    implementation("org.tensorflow:tensorflow-lite-task-text:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
 
     api(libs.supabase.auth)
     implementation(libs.supabase.auth)
