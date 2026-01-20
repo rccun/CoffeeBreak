@@ -10,9 +10,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.coffeebreak.domain.model.OrderModel
+import org.coffeebreak.domain.model.FullOrderModel
 import org.coffeebreak.domain.usecase.coffee.GetCoffeeByIdUseCase
 import org.coffeebreak.domain.usecase.order.OrderUseCase
+import org.coffeebreak.domain.usecase.order.SetOrderUseCase
 import org.coffeebreak.domain.usecase.order.SetPreOrderUseCase
 import org.coffeebreak.ru.Route
 import java.util.Calendar
@@ -24,7 +25,7 @@ class CreateOrderViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getCoffeeByIdUseCase: GetCoffeeByIdUseCase,
     private val setPreOrderUseCase: SetPreOrderUseCase,
-
+private val setOrderUseCase: SetOrderUseCase,
     private val orderUseCase: OrderUseCase
 ) : ViewModel() {
 
@@ -131,10 +132,10 @@ class CreateOrderViewModel @Inject constructor(
                 )
             }
 
-            CreateOrderEvents.OnNextClick -> {
+            CreateOrderEvents.OnConstructorClick -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val res = setPreOrderUseCase.execute(
-                        OrderModel(
+                        FullOrderModel(
                             coffeeId = t!!,
                             count = _state.value.count,
                             ristretto = orderUseCase.parseRistretto(_state.value.ristrettoOne),
@@ -144,6 +145,31 @@ class CreateOrderViewModel @Inject constructor(
                             time = "${_state.value.timeHours}:${_state.value.timeMinutes}:00",
                             totalCoast = _state.value.totalCoast.toLong()
                         )
+                    )
+                    if (res.isValid) {
+                        _state.value = _state.value.copy (
+                            isSuccess = true
+                        )
+                    } else {
+                        _state.value = _state.value.copy (
+                            isError = true,
+                            errorMessage = res.errorMessage
+                        )
+                    }
+                }
+            }
+            CreateOrderEvents.OnNextClick -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val res = setOrderUseCase.execute(FullOrderModel(
+                        coffeeId = t!!,
+                        count = _state.value.count,
+                        ristretto = orderUseCase.parseRistretto(_state.value.ristrettoOne),
+                        place = orderUseCase.parsePickupPlace(_state.value.pickupPlace),
+                        volume = orderUseCase.parseVolume(_state.value.volume),
+                        specTime = _state.value.isSpecificTime,
+                        time = "${_state.value.timeHours}:${_state.value.timeMinutes}:00",
+                        totalCoast = _state.value.totalCoast.toLong()
+                    )
                     )
                     if (res.isValid) {
                         _state.value = _state.value.copy (

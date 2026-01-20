@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             NavHost(
                                 navController = navController,
-                                startDestination = Route.SignUp,
+                                startDestination = Route.Menu,
                             )
                             {
                                 composable<Route.Main> {

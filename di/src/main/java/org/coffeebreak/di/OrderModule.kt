@@ -13,6 +13,7 @@ import org.coffeebreak.domain.repository.OrderRepository
 import org.coffeebreak.domain.usecase.barista.GetBaristasUseCase
 import org.coffeebreak.domain.usecase.items.GetItemsByCategoryUseCase
 import org.coffeebreak.domain.usecase.order.OrderUseCase
+import org.coffeebreak.domain.usecase.order.SetOrderUseCase
 import org.coffeebreak.domain.usecase.order.SetPreOrderUseCase
 import javax.inject.Singleton
 
@@ -49,6 +50,10 @@ object OrderModule {
     @Provides
     @Singleton
     fun provideOrderUseCase() = OrderUseCase()
+
+    @Provides
+    @Singleton
+    fun provideSetOrderUseCase(repo: OrderRepository) = SetOrderUseCase(repo)
 
 
 }

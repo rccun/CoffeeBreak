@@ -4,8 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.coffeebreak.domain.model.OrderModel
-import org.coffeebreak.domain.model.UserModel
+import org.coffeebreak.domain.model.FullOrderModel
 
 @Entity(tableName = "preOrders")
 @Serializable
@@ -33,8 +32,8 @@ data class OrderModelDto(
     @SerialName("total_coast") val totalCoast: Long
 )
 
-fun OrderModelDto.toDomain(): OrderModel = (
-        OrderModel(
+fun OrderModelDto.toDomain(): FullOrderModel = (
+        FullOrderModel(
             id = id,
             userId = userId,
             baristaId = baristaId,
@@ -57,7 +56,7 @@ fun OrderModelDto.toDomain(): OrderModel = (
         )
         )
 
-fun OrderModel.toDto(userId: String, isOrdered: Boolean): OrderModelDto = (
+fun FullOrderModel.toDto(userId: String, isOrdered: Boolean): OrderModelDto = (
         OrderModelDto (
             isOrdered = isOrdered,
             id = id,

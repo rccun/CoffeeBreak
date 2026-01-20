@@ -11,5 +11,6 @@ interface CreateOrderEvents {
     data object OnTimeSwitch: CreateOrderEvents
     data object OnPickerClick: CreateOrderEvents
     data class OnTimeChange(val h: Int, val m: Int): CreateOrderEvents
+    data object OnConstructorClick: CreateOrderEvents
     data object OnNextClick: CreateOrderEvents
 }

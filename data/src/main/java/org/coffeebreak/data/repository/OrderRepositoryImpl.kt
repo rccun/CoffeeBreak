@@ -2,16 +2,17 @@ package org.coffeebreak.data.repository
 
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import org.coffeebreak.data.data_source.InitSupabaseClient.client
 import org.coffeebreak.data.data_source.local.dao.OrderDao
 import org.coffeebreak.data.dto.BaristaModelDto
 import org.coffeebreak.data.dto.ItemModelDto
-import org.coffeebreak.data.dto.OrderModelDto
 import org.coffeebreak.data.dto.toDomain
 import org.coffeebreak.data.dto.toDto
 import org.coffeebreak.domain.model.BaristaModel
 import org.coffeebreak.domain.model.ItemModel
-import org.coffeebreak.domain.model.OrderModel
+import org.coffeebreak.domain.model.FullOrderModel
 import org.coffeebreak.domain.repository.OrderRepository
 import org.coffeebreak.domain.utils.CustomResult
 
@@ -28,12 +29,16 @@ class OrderRepositoryImpl(
         }
     }
 
-    override suspend fun setPreOrder(model: OrderModel): CustomResult<Unit> {
+    override suspend fun setPreOrder(model: FullOrderModel): CustomResult<Unit> {
+
+        val userId = client.auth.currentUserOrNull()?.id ?: return CustomResult.Error(
+            "Пользователь не авторизован"
+        )
         return try {
             val res =
                 orderDao.insertPreOrderData(
                     model.toDto(
-                        userId = client.auth.currentUserOrNull()!!.id,
+                        userId = userId,
                         isOrdered = true
                     )
                 )
@@ -43,31 +48,33 @@ class OrderRepositoryImpl(
         }
     }
 
-    override suspend fun setOrder(model: OrderModel): CustomResult<Unit> {
+    override suspend fun setOrder(model: FullOrderModel): CustomResult<Unit> {
+        val userId = client.auth.currentUserOrNull()?.id ?: return CustomResult.Error(
+            "Пользователь не авторизован"
+        )
         return try {
-            val preOrder = orderDao.getPreOrder(client.auth.currentUserOrNull()!!.id)
+            val preOrder = orderDao.getPreOrder(userId)
             val res = client.postgrest["orders"].insert(
-                mapOf(
-
-                    "user_id" to client.auth.currentUserOrNull()!!.id,
-                    "coffee_id" to preOrder.coffeeId,
-                    "barista_id" to model.baristaId,
-                    "sort_id" to model.sortId,
-                    "supplement_id" to model.supplementId,
-                    "count" to preOrder.count,
-                    "ristretto" to preOrder.ristretto,
-                    "place" to preOrder.place,
-                    "volume" to preOrder.volume,
-                    "spec_time" to preOrder.specTime,
-                    "roasting" to model.roasting,
-                    "grinding" to model.grinding,
-                    "milk" to model.milk,
-                    "syrup" to model.syrup,
-                    "ice" to model.ice,
-                    "total_coast" to model.totalCoast,
-                    "country_id" to model.countryId,
-                    "time" to preOrder.time
-                )
+                buildJsonObject {
+                    put("user_id", userId)
+                    put("coffee_id", preOrder.coffeeId)
+                    put("barista_id", model.baristaId)
+                    put("sort_id", model.sortId)
+                    put("supplement_id", model.supplementId)
+                    put("count", preOrder.count)
+                    put("ristretto", preOrder.ristretto)
+                    put("place", preOrder.place)
+                    put("volume", preOrder.volume)
+                    put("spec_time", preOrder.specTime)
+                    put("roasting",  model.roasting)
+                    put("grinding",  model.grinding)
+                    put("milk",  model.milk)
+                    put("syrup",  model.syrup)
+                    put("ice", model.ice)
+                    put("total_coast", model.totalCoast)
+                    put("country_id", model.countryId)
+                    put("time", preOrder.time)
+                }
             )
             CustomResult.Success(Unit)
         } catch (e: Exception) {

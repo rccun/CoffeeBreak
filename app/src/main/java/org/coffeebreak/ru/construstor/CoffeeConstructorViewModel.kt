@@ -1,30 +1,25 @@
 package org.coffeebreak.ru.construstor
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.coffeebreak.data.ai.TextClassificationHelper
-import org.coffeebreak.domain.model.CoffeeAIModel
-import org.coffeebreak.domain.usecase.coffee.GetCoffeeAIUseCase
+import org.coffeebreak.domain.model.FullOrderModel
+import org.coffeebreak.domain.model.OrderModel
+import org.coffeebreak.domain.usecase.order.SetOrderUseCase
 import org.coffeebreak.ru.Route
-import org.coffeebreak.ru.login.LoginEvents
-import org.tensorflow.lite.support.label.Category
 import javax.inject.Inject
 
 @HiltViewModel
 class CoffeeConstructorViewModel @Inject constructor(
 //    private val getCoffeeAIUseCase: GetCoffeeAIUseCase,
 //    @ApplicationContext private val con: Context
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val setOrderUseCase: SetOrderUseCase
 ) : ViewModel() {
     private val _state = mutableStateOf(CoffeeConstructorState())
     val state: State<CoffeeConstructorState> = _state
@@ -194,9 +189,23 @@ class CoffeeConstructorViewModel @Inject constructor(
                 val supplementId = Route.Constructor
                     .supplementId
 
-
-
-
+                viewModelScope.launch(Dispatchers.IO) {
+//                    val res = setOrderUseCase.execute(
+//                        OrderModel(
+//
+//                        )
+//                    )
+//                    if (res.isValid) {
+//                        _state.value = _state.value.copy (
+//                            isSuccess = true
+//                        )
+//                    } else {
+//                        _state.value = _state.value.copy (
+//                            isError = true,
+//                            errorMessage = res.errorMessage
+//                        )
+//                    }
+                }
 
                 Route.Constructor.baristaId = null
                 Route.Constructor.sortId = null

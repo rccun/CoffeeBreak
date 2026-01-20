@@ -11,7 +11,7 @@ interface OrderDao {
     @Insert(onConflict = REPLACE)
     fun insertPreOrderData(model: OrderModelDto)
 
-    @Query("select * from preOrders where isOrdered = true and userId = :userId")
+    @Query("select * from preOrders where isOrdered = true and userId = :userId limit 1")
     fun getPreOrder(userId: String): OrderModelDto
 
 }

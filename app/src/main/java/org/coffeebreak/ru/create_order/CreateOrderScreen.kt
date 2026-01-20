@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.coffeebreak.ru.R
+import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.BoxItem
 import org.coffeebreak.ru.common.MyAsyncImage
 import org.coffeebreak.ru.common.MyDialog
@@ -50,9 +52,11 @@ fun CreateOrderScreen(
     viewModel: CreateOrderViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-//    LaunchedEffect(Unit) {
-//        viewModel.loadCoffee(id)
-//    }
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            navController.navigate(Route.Constructor)
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -263,7 +267,10 @@ fun CreateOrderScreen(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
                     .background(green2)
-                    .padding(vertical = 17.dp, horizontal = 19.dp),
+                    .padding(vertical = 17.dp, horizontal = 19.dp)
+                    .clickable{
+                        viewModel.onEvent(CreateOrderEvents.OnConstructorClick)
+                    },
                 verticalAlignment = Alignment.CenterVertically
             )
             {
@@ -321,6 +328,5 @@ fun CreateOrderScreen(
         isShow = state.isTimeInput
     )
     MyDialog("Ошибка", state.errorMessage, state.isError) {
-
     }
 }
