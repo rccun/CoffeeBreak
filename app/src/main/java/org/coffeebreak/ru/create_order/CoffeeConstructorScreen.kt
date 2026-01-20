@@ -1,4 +1,4 @@
-package org.coffeebreak.ru.construstor
+package org.coffeebreak.ru.create_order
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,19 +11,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -39,6 +34,7 @@ import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.common.OrderIcon
 import org.coffeebreak.ru.common.RowItem
 import org.coffeebreak.ru.common.SliderItem
+import org.coffeebreak.ru.construstor.CoffeeConstructorViewModel
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.grayD8
 import org.coffeebreak.ru.theme.green1
@@ -46,9 +42,14 @@ import org.coffeebreak.ru.theme.green1
 @Composable
 fun CoffeeConstructorScreen(
     navController: NavController,
-    viewModel: CoffeeConstructorViewModel = hiltViewModel()
+    viewModel: SharedOrderViewModel /*= hiltViewModel()*/
 ) {
-    val state = viewModel.state.value
+    val state = viewModel.consState.value
+    LaunchedEffect(state.isSuccessCons) {
+        if (state.isSuccessCons) {
+            navController.navigate(Route.Placed)
+        }
+    }
     Box(
         modifier = Modifier
             .background(
@@ -94,7 +95,7 @@ fun CoffeeConstructorScreen(
                 ) {
                     SliderItem(
                         state.weight, {
-                            viewModel.onEvent(CoffeeConstructorEvents.OnSliderChange(it))
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnSliderChange(it))
                         },
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -123,20 +124,20 @@ fun CoffeeConstructorScreen(
 
                 Row(verticalAlignment = Alignment.Bottom) {
                     OrderIcon(R.drawable.roasting, state.roasting == 1) {
-                        viewModel.onEvent(CoffeeConstructorEvents.OnSmallClick)
+                        viewModel.onConstructorEvent(CoffeeConstructorEvents.OnSmallClick)
                     }
                     Spacer(Modifier.width(22.dp))
                     Row()
                     {
                         OrderIcon(R.drawable.roasting, state.roasting == 2) {
 
-                            viewModel.onEvent(CoffeeConstructorEvents.OnMediumClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnMediumClick)
 
                         }
                         Spacer(Modifier.width(3.dp))
                         OrderIcon(R.drawable.roasting, state.roasting == 2) {
 
-                            viewModel.onEvent(CoffeeConstructorEvents.OnMediumClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnMediumClick)
 
                         }
                     }
@@ -153,7 +154,7 @@ fun CoffeeConstructorScreen(
                                 .padding(bottom = 26.dp)
                         ) {
 
-                            viewModel.onEvent(CoffeeConstructorEvents.OnLargeClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnLargeClick)
 
                         }
                         Row(
@@ -161,13 +162,13 @@ fun CoffeeConstructorScreen(
 
                         ) {
                             OrderIcon(R.drawable.roasting, state.roasting == 3) {
-                                viewModel.onEvent(CoffeeConstructorEvents.OnLargeClick)
+                                viewModel.onConstructorEvent(CoffeeConstructorEvents.OnLargeClick)
 
 
                             }
                             Spacer(Modifier.width(3.dp))
                             OrderIcon(R.drawable.roasting, state.roasting == 3) {
-                                viewModel.onEvent(CoffeeConstructorEvents.OnLargeClick)
+                                viewModel.onConstructorEvent(CoffeeConstructorEvents.OnLargeClick)
 
 
                             }
@@ -178,16 +179,16 @@ fun CoffeeConstructorScreen(
             RowItem(stringResource(R.string.grinding)) {
                 Row(verticalAlignment = Alignment.Bottom) {
                     OrderIcon(
-                        icon = R.drawable.grinding_small, state.grinding == 0
+                        icon = R.drawable.grinding_small, state.grinding == 1
                     ) {
-                        viewModel.onEvent(CoffeeConstructorEvents.OnSmallGrindingClick)
+                        viewModel.onConstructorEvent(CoffeeConstructorEvents.OnSmallGrindingClick)
                     }
                     Spacer(Modifier.width(44.dp))
 
                     OrderIcon(
-                        icon = R.drawable.grinding_large, state.grinding == 1
+                        icon = R.drawable.grinding_large, state.grinding == 2
                     ) {
-                        viewModel.onEvent(CoffeeConstructorEvents.OnLargeGrindingClick)
+                        viewModel.onConstructorEvent(CoffeeConstructorEvents.OnLargeGrindingClick)
                     }
                 }
             }
@@ -199,7 +200,7 @@ fun CoffeeConstructorScreen(
                     modifier = Modifier
                         .padding(end = 20.dp)
                         .clickable {
-                            viewModel.onEvent(CoffeeConstructorEvents.OnMilkItemsClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnMilkItemsClick)
                         }
                 )
             }
@@ -211,7 +212,7 @@ fun CoffeeConstructorScreen(
                     modifier = Modifier
                         .padding(end = 20.dp)
                         .clickable {
-                            viewModel.onEvent(CoffeeConstructorEvents.OnSyrupItemsClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnSyrupItemsClick)
 
                         }
                 )
@@ -226,12 +227,12 @@ fun CoffeeConstructorScreen(
             RowItem(stringResource(R.string.ice), isLine = false) {
                 Row(verticalAlignment = Alignment.Bottom) {
                     OrderIcon(icon = R.drawable.ice0, state.ice == 0) {
-                        viewModel.onEvent(CoffeeConstructorEvents.OnIce0Click)
+                        viewModel.onConstructorEvent(CoffeeConstructorEvents.OnIce0Click)
                     }
                     Spacer(Modifier.width(26.dp))
 
                     OrderIcon(icon = R.drawable.ice, state.ice == 1) {
-                        viewModel.onEvent(CoffeeConstructorEvents.OnSmallIceClick)
+                        viewModel.onConstructorEvent(CoffeeConstructorEvents.OnSmallIceClick)
                     }
                     Spacer(Modifier.width(26.dp))
 
@@ -245,14 +246,14 @@ fun CoffeeConstructorScreen(
                                     Alignment.TopStart
                                 )
                         ) {
-                            viewModel.onEvent(CoffeeConstructorEvents.OnMediumIceClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnMediumIceClick)
                         }
                         OrderIcon(
                             icon = R.drawable.ice, state.ice == 2, modifier = Modifier.align(
                                 Alignment.BottomEnd
                             )
                         ) {
-                            viewModel.onEvent(CoffeeConstructorEvents.OnMediumIceClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnMediumIceClick)
                         }
                     }
                     Spacer(Modifier.width(26.dp))
@@ -265,7 +266,7 @@ fun CoffeeConstructorScreen(
                                 )
                                 .padding(bottom = 13.dp)
                         ) {
-                            viewModel.onEvent(CoffeeConstructorEvents.OnLargeIceClick)
+                            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnLargeIceClick)
                         }
                         Row(modifier = Modifier.align(Alignment.BottomCenter)) {
                             OrderIcon(
@@ -273,12 +274,12 @@ fun CoffeeConstructorScreen(
                                 state.ice == 3,
                                 modifier = Modifier.padding(end = 1.dp)
                             ) {
-                                viewModel.onEvent(CoffeeConstructorEvents.OnLargeIceClick)
+                                viewModel.onConstructorEvent(CoffeeConstructorEvents.OnLargeIceClick)
                             }
                             OrderIcon(
                                 icon = R.drawable.ice, state.ice == 3
                             ) {
-                                viewModel.onEvent(CoffeeConstructorEvents.OnLargeIceClick)
+                                viewModel.onConstructorEvent(CoffeeConstructorEvents.OnLargeIceClick)
                             }
                         }
                     }
@@ -298,7 +299,7 @@ fun CoffeeConstructorScreen(
                 )
                 Spacer(Modifier.weight(1f))
                 MyIcon(icon = R.drawable.up, tintColor = green1) {
-                    viewModel.onEvent(CoffeeConstructorEvents.OnEncyclopediaClick)
+                    viewModel.onConstructorEvent(CoffeeConstructorEvents.OnEncyclopediaClick)
                 }
             }
 
@@ -311,7 +312,7 @@ fun CoffeeConstructorScreen(
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    "100 ₽",
+                    "${state.totalCoast} ₽",
                     style = MainTheme.typography.bodySmall,
                     color = MainTheme.colorScheme.orderCoast
                 )
@@ -325,7 +326,7 @@ fun CoffeeConstructorScreen(
                         MainTheme.colorScheme.orderButton
                     )
                     .clickable {
-                        viewModel.onEvent(CoffeeConstructorEvents.OnNextClick)
+                        viewModel.onConstructorEvent(CoffeeConstructorEvents.OnNextClick)
                     }
                     .padding(vertical = 15.dp),
             )
@@ -346,11 +347,11 @@ fun CoffeeConstructorScreen(
             stringResource(R.string.type_milk),
             state.milk,
             {
-                viewModel.onEvent(CoffeeConstructorEvents.OnDismissMenuClick)
+                viewModel.onConstructorEvent(CoffeeConstructorEvents.OnDismissMenuClick)
 
             }
         ) {
-            viewModel.onEvent(CoffeeConstructorEvents.OnMilkItemClick(it))
+            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnMilkItemClick(it))
         }
     }
     if (state.isSyrupItems) {
@@ -360,19 +361,19 @@ fun CoffeeConstructorScreen(
             stringResource(R.string.type_syrup),
             state.syrup,
             {
-                viewModel.onEvent(CoffeeConstructorEvents.OnDismissMenuClick)
+                viewModel.onConstructorEvent(CoffeeConstructorEvents.OnDismissMenuClick)
             }
         ) {
-            viewModel.onEvent(CoffeeConstructorEvents.OnSyrupItemClick(it))
+            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnSyrupItemClick(it))
 
         }
     }
     if (state.isDesc) {
         EncyclopediaItem(state.desc) {
-            viewModel.onEvent(CoffeeConstructorEvents.OnCloseDesc)
+            viewModel.onConstructorEvent(CoffeeConstructorEvents.OnCloseDesc)
         }
     }
     MyDialog("Ошибка", state.errorMessage, state.isError) {
-        viewModel.onEvent(CoffeeConstructorEvents.OnCloseDialog)
+        viewModel.onConstructorEvent(CoffeeConstructorEvents.OnCloseDialog)
     }
 }

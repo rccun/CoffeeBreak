@@ -8,6 +8,7 @@ data class CreateOrderState(
     val errorMessage: String = "",
     val isLoading: Boolean = true,
 
+//    val coffeeId: String = "",
     val count: Int = 1,
     val coffee: CoffeeModel? = null,
     val ristrettoOne: Boolean = true,

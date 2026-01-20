@@ -1,4 +1,4 @@
-package org.coffeebreak.ru.construstor
+package org.coffeebreak.ru.create_order
 
 interface CoffeeConstructorEvents {
     data class OnSliderChange(val weight: Float): CoffeeConstructorEvents

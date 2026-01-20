@@ -9,6 +9,9 @@ import kotlinx.serialization.Serializable
 @kotlinx.serialization.json.JsonClassDiscriminator("type")
 sealed class Route() {
     @Serializable
+    @SerialName("create_order_graph")
+    data object CreateOrderGraph : Route()
+    @Serializable
     @SerialName("main")
     data object Main : Route()
     @Serializable
@@ -59,5 +62,8 @@ sealed class Route() {
     @Serializable
     @SerialName("barista")
     data object Barista : Route()
+    @Serializable
+    @SerialName("placed_order")
+    data object Placed : Route()
 
 }

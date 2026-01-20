@@ -60,7 +60,7 @@ fun DownMenu(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        i.toString(),
+                        i,
                         style = MainTheme.typography.displayMedium,
                         fontSize = 20.sp,
                         color = if (i == item) {

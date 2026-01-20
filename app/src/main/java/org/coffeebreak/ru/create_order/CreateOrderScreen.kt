@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,10 +49,11 @@ import org.coffeebreak.ru.theme.green2
 @Composable
 fun CreateOrderScreen(
     navController: NavController,
-    id: String,
-    viewModel: CreateOrderViewModel = hiltViewModel()
+    viewModel: SharedOrderViewModel /*= hiltViewModel()*/
 ) {
-    val state = viewModel.state.value
+    val state = viewModel.createOrderState.value
+
+    val coffeeIdState = viewModel.coffeeId.collectAsState()
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
             navController.navigate(Route.Constructor)
@@ -113,7 +115,7 @@ fun CreateOrderScreen(
                         "-", style = MainTheme.typography.displaySmall,
                         color = MainTheme.colorScheme.icon,
                         modifier = Modifier.clickable {
-                            viewModel.onEvent(CreateOrderEvents.OnDelClick)
+                            viewModel.onCreateEvent(CreateOrderEvents.OnDelClick)
                         }
                     )
                     Text(
@@ -125,7 +127,7 @@ fun CreateOrderScreen(
                         "+", style = MainTheme.typography.displaySmall,
                         color = MainTheme.colorScheme.icon,
                         modifier = Modifier.clickable {
-                            viewModel.onEvent(CreateOrderEvents.OnAddClick)
+                            viewModel.onCreateEvent(CreateOrderEvents.OnAddClick)
                         }
                     )
                 }
@@ -133,22 +135,22 @@ fun CreateOrderScreen(
             RowItem(text = stringResource(R.string.ristretto))
             {
                 BoxItem(state.ristrettoOne, stringResource(R.string.one)) {
-                    viewModel.onEvent(CreateOrderEvents.OnRisChange)
+                    viewModel.onCreateEvent(CreateOrderEvents.OnRisChange)
                 }
                 Spacer(Modifier.width(8.dp))
                 BoxItem(!state.ristrettoOne, stringResource(R.string.two)) {
-                    viewModel.onEvent(CreateOrderEvents.OnRisChange)
+                    viewModel.onCreateEvent(CreateOrderEvents.OnRisChange)
                 }
             }
             RowItem(stringResource(R.string.pickup))
             {
                 Row(verticalAlignment = Alignment.Bottom) {
                     OrderIcon(R.drawable.pickup_place, state.pickupPlace == 0) {
-                        viewModel.onEvent(CreateOrderEvents.OnPickupChange)
+                        viewModel.onCreateEvent(CreateOrderEvents.OnPickupChange)
                     }
                     Spacer(Modifier.width(30.dp))
                     OrderIcon(R.drawable.pickup_takeaway, state.pickupPlace == 1) {
-                        viewModel.onEvent(CreateOrderEvents.OnPickupChange)
+                        viewModel.onCreateEvent(CreateOrderEvents.OnPickupChange)
                     }
                 }
             }
@@ -157,7 +159,7 @@ fun CreateOrderScreen(
                 Row(verticalAlignment = Alignment.Bottom) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         OrderIcon(R.drawable.small_volume, state.volume == 0) {
-                            viewModel.onEvent(CreateOrderEvents.OnSmallClick)
+                            viewModel.onCreateEvent(CreateOrderEvents.OnSmallClick)
                         }
                         Spacer(Modifier.height(8.dp))
                         Text(
@@ -172,7 +174,7 @@ fun CreateOrderScreen(
                     Spacer(Modifier.width(27.dp))
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         OrderIcon(R.drawable.medium_volume, state.volume == 1) {
-                            viewModel.onEvent(CreateOrderEvents.OnMediumClick)
+                            viewModel.onCreateEvent(CreateOrderEvents.OnMediumClick)
                         }
                         Spacer(Modifier.height(8.dp))
                         Text(
@@ -187,7 +189,7 @@ fun CreateOrderScreen(
                     Spacer(Modifier.width(27.dp))
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         OrderIcon(R.drawable.large_volume, state.volume == 2) {
-                            viewModel.onEvent(CreateOrderEvents.OnLargeClick)
+                            viewModel.onCreateEvent(CreateOrderEvents.OnLargeClick)
                         }
                         Spacer(Modifier.height(8.dp))
                         Text(
@@ -217,7 +219,7 @@ fun CreateOrderScreen(
                             .width(51.dp)
                             .padding(horizontal = 2.dp)
                             .clickable {
-                                viewModel.onEvent(CreateOrderEvents.OnTimeSwitch)
+                                viewModel.onCreateEvent(CreateOrderEvents.OnTimeSwitch)
 
                             }
                     )
@@ -246,7 +248,7 @@ fun CreateOrderScreen(
                                 .background(Color(0x12767680))
                                 .padding(horizontal = 15.dp, vertical = 9.dp)
                                 .clickable {
-                                    viewModel.onEvent(CreateOrderEvents.OnPickerClick)
+                                    viewModel.onCreateEvent(CreateOrderEvents.OnPickerClick)
                                 }
                         ) {
                             Text(
@@ -269,7 +271,7 @@ fun CreateOrderScreen(
                     .background(green2)
                     .padding(vertical = 17.dp, horizontal = 19.dp)
                     .clickable{
-                        viewModel.onEvent(CreateOrderEvents.OnConstructorClick)
+                        viewModel.onCreateEvent(CreateOrderEvents.OnConstructorClick)
                     },
                 verticalAlignment = Alignment.CenterVertically
             )
@@ -307,7 +309,7 @@ fun CreateOrderScreen(
                         MainTheme.colorScheme.orderButton
                     )
                     .clickable {
-                        viewModel.onEvent(CreateOrderEvents.OnNextClick)
+                        viewModel.onCreateEvent(CreateOrderEvents.OnNextClick)
                     }
                     .padding(vertical = 15.dp),
             )
@@ -323,7 +325,7 @@ fun CreateOrderScreen(
     }
     OrderTimePicker(
         { h, m ->
-            viewModel.onEvent(CreateOrderEvents.OnTimeChange(h, m))
+            viewModel.onCreateEvent(CreateOrderEvents.OnTimeChange(h, m))
         },
         isShow = state.isTimeInput
     )

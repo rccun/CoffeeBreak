@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -22,9 +23,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.coffeebreak.ru.barista.BaristaScreen
 import org.coffeebreak.ru.cafemap.CafeMapScreen
 import org.coffeebreak.ru.common.BottomNav
-import org.coffeebreak.ru.construstor.CoffeeConstructorScreen
+import org.coffeebreak.ru.create_order.CoffeeConstructorScreen
 import org.coffeebreak.ru.country.CountryScreen
 import org.coffeebreak.ru.create_order.CreateOrderScreen
+import org.coffeebreak.ru.create_order.SharedOrderViewModel
 import org.coffeebreak.ru.gift.GiftScreen
 import org.coffeebreak.ru.login.LoginScreen
 import org.coffeebreak.ru.main.MainScreen
@@ -40,6 +42,7 @@ import org.coffeebreak.ru.theme.MyCoffeeBreakTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private var createOrderViewModel: SharedOrderViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -61,6 +64,7 @@ class MainActivity : ComponentActivity() {
 //            val isBottomBar = currentRoute in bottomBars
 
 
+//            val createOrderViewModel: SharedOrderViewModel = hiltViewModel()
             MyCoffeeBreakTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -100,11 +104,20 @@ class MainActivity : ComponentActivity() {
                                 composable<Route.Menu> {
                                     MenuScreen(navController)
                                 }
+
                                 composable<Route.CreateOrder> {
-                                    val id = it.toRoute<Route.CreateOrder>().id
-                                        ?: "6db93909-45d5-47be-a16a-381e8c1d9d9d"
-                                    CreateOrderScreen(navController, id)
+                                    createOrderViewModel = createOrderViewModel ?: hiltViewModel()
+//                                    val id = it.toRoute<Route.CreateOrder>().id
+//                                        ?: "6db93909-45d5-47be-a16a-381e8c1d9d9d"
+                                    CreateOrderScreen(navController, createOrderViewModel!!)//, createOrderViewModel)
                                 }
+
+                                composable<Route.Constructor> {
+                                    createOrderViewModel = createOrderViewModel ?: hiltViewModel()
+                                    CoffeeConstructorScreen(navController, createOrderViewModel!!)
+                                }
+
+
                                 composable<Route.Gift> {
                                     GiftScreen(navController)
                                 }
@@ -122,9 +135,6 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable<Route.Supplement> {
                                     SupplementsScreen(navController)
-                                }
-                                composable<Route.Constructor> {
-                                    CoffeeConstructorScreen(navController)
                                 }
 //                                composable<Route.ConstructorOrder> {
 //                                    ConstructorOrderScreen(navController)

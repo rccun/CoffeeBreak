@@ -1,4 +1,4 @@
-package org.coffeebreak.ru.create_order
+package org.coffeebreak.ru.construstor
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -16,6 +16,8 @@ import org.coffeebreak.domain.usecase.order.OrderUseCase
 import org.coffeebreak.domain.usecase.order.SetOrderUseCase
 import org.coffeebreak.domain.usecase.order.SetPreOrderUseCase
 import org.coffeebreak.ru.Route
+import org.coffeebreak.ru.create_order.CreateOrderEvents
+import org.coffeebreak.ru.create_order.CreateOrderState
 import java.util.Calendar
 import javax.inject.Inject
 import kotlin.math.abs
@@ -25,7 +27,7 @@ class CreateOrderViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getCoffeeByIdUseCase: GetCoffeeByIdUseCase,
     private val setPreOrderUseCase: SetPreOrderUseCase,
-private val setOrderUseCase: SetOrderUseCase,
+    private val setOrderUseCase: SetOrderUseCase,
     private val orderUseCase: OrderUseCase
 ) : ViewModel() {
 
@@ -61,10 +63,6 @@ private val setOrderUseCase: SetOrderUseCase,
 
             }
         }
-    }
-
-    fun loadCoffee(id: String) {
-
     }
 
     fun onEvent(event: CreateOrderEvents) {
@@ -160,16 +158,17 @@ private val setOrderUseCase: SetOrderUseCase,
             }
             CreateOrderEvents.OnNextClick -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val res = setOrderUseCase.execute(FullOrderModel(
-                        coffeeId = t!!,
-                        count = _state.value.count,
-                        ristretto = orderUseCase.parseRistretto(_state.value.ristrettoOne),
-                        place = orderUseCase.parsePickupPlace(_state.value.pickupPlace),
-                        volume = orderUseCase.parseVolume(_state.value.volume),
-                        specTime = _state.value.isSpecificTime,
-                        time = "${_state.value.timeHours}:${_state.value.timeMinutes}:00",
-                        totalCoast = _state.value.totalCoast.toLong()
-                    )
+                    val res = setOrderUseCase.execute(
+                        FullOrderModel(
+                            coffeeId = t!!,
+                            count = _state.value.count,
+                            ristretto = orderUseCase.parseRistretto(_state.value.ristrettoOne),
+                            place = orderUseCase.parsePickupPlace(_state.value.pickupPlace),
+                            volume = orderUseCase.parseVolume(_state.value.volume),
+                            specTime = _state.value.isSpecificTime,
+                            time = "${_state.value.timeHours}:${_state.value.timeMinutes}:00",
+                            totalCoast = _state.value.totalCoast.toLong()
+                        )
                     )
                     if (res.isValid) {
                         _state.value = _state.value.copy (

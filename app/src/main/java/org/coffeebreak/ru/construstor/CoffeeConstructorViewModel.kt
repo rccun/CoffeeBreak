@@ -8,10 +8,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.coffeebreak.domain.model.FullOrderModel
-import org.coffeebreak.domain.model.OrderModel
 import org.coffeebreak.domain.usecase.order.SetOrderUseCase
 import org.coffeebreak.ru.Route
+import org.coffeebreak.ru.create_order.CoffeeConstructorEvents
+import org.coffeebreak.ru.create_order.CoffeeConstructorState
 import javax.inject.Inject
 
 @HiltViewModel
