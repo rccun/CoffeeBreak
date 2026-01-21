@@ -3,9 +3,17 @@ package org.coffeebreak.ru.login
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.coffeebreak.domain.usecase.auth.SignInUseCase
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(): ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val signInUseCase: SignInUseCase
+): ViewModel() {
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
 
@@ -25,6 +33,22 @@ class LoginViewModel @Inject constructor(): ViewModel() {
                 _state.value = _state.value.copy(
                     isShow = !_state.value.isShow
                 )
+            }
+            LoginEvents.OnNextCLick -> {
+
+                viewModelScope.launch(Dispatchers.IO) {
+                    val res = signInUseCase.execute(_state.value.email, _state.value.password)
+                    if (res.isValid) {
+                        _state.value = _state.value.copy (
+                            isSuccess = true
+                        )
+                    } else {
+                        _state.value = _state.value.copy (
+                            isError = true,
+                            errorMessage = res.errorMessage
+                        )
+                    }
+                }
             }
         }
     }

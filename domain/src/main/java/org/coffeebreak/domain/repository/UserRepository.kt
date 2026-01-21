@@ -5,4 +5,5 @@ import org.coffeebreak.domain.utils.CustomResult
 
 interface UserRepository {
     suspend fun getUserById(id: String?): CustomResult<UserModel>
+    suspend fun updateAddress(address: String): CustomResult<Unit>
 }

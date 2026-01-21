@@ -50,6 +50,10 @@ data class CustomColorTheme(
     val placed: Color = Color.Unspecified,
     val orderPlaced: Color = Color.Unspecified,
     val orderPlacedTime: Color = Color.Unspecified,
+    val circleBox: Color = Color.Unspecified,
+    val profileText: Color = Color.Unspecified,
+    val profileText2: Color = Color.Unspecified,
+
 )
 
 val LightColorScheme = CustomColorTheme(
@@ -93,7 +97,10 @@ val LightColorScheme = CustomColorTheme(
     countryTitle = bg,
     placed = textColor,
     orderPlaced = lightGray,
-    orderPlacedTime = Color.Black
+    orderPlacedTime = Color.Black,
+    circleBox = grayWhite,
+    profileText = darkBlue4.copy(alpha = 0.22f),
+    profileText2 = blue3
 
 )
 val DarkColorScheme = CustomColorTheme(
@@ -137,7 +144,11 @@ val DarkColorScheme = CustomColorTheme(
     countryTitle = b3,
     placed = b2,
     orderPlaced = b3,
-    orderPlacedTime = b3
+    orderPlacedTime = b3,
+    circleBox = circleBox,
+    profileText = b1,
+    profileText2 = lightGray
+
 
 )
 

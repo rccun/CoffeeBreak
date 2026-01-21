@@ -49,7 +49,8 @@ class SignUpViewModel @Inject constructor(
                         email = _state.value.email,
                         password = _state.value.password,
                         name = _state.value.name,
-                        phone = _state.value.phone
+                        phone = _state.value.phone,
+
                     ))
                     _state.value = _state.value.copy (
                         isSuccess = res.isValid

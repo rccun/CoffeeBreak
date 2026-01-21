@@ -12,7 +12,8 @@ data class UserModelDto(
     val email: String,
     val password: String,
     val name: String,
-    val phone: String
+    val phone: String,
+    val address: String? = null
 )
 
 fun UserModel.toDto(id: String): UserModelDto = (
@@ -21,7 +22,8 @@ fun UserModel.toDto(id: String): UserModelDto = (
             email = email,
             password = password,
             name = name,
-            phone = phone
+            phone = phone,
+            address = address
         )
         )
 
@@ -30,6 +32,8 @@ fun UserModelDto.toDomain(): UserModel = (
             email = email,
             password = password,
             phone = phone,
-            name = name
+            name = name,
+            address = address
+
         )
         )

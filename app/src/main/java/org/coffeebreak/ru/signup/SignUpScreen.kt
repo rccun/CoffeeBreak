@@ -34,7 +34,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
     val state = viewModel.state.value
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
-            navController.navigate(Route.Menu)
+            navController.navigate(Route.Cafe)
         }
     }
     Column {

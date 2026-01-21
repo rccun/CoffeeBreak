@@ -10,4 +10,5 @@ interface OrderRepository {
     suspend fun getItemsByCategory(category: String): CustomResult<List<ItemModel>>
     suspend fun setPreOrder(model: FullOrderModel): CustomResult<Unit>
     suspend fun setOrder(model: FullOrderModel): CustomResult<Unit>
+    suspend fun getOrderInfo(): CustomResult<Triple<String, String, String>>
 }

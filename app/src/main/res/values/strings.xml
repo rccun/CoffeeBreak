@@ -50,4 +50,5 @@
     <string name="order_placed">, Ваш заказ успешно размещен.</string>
     <string name="placed">Заказано</string>
     <string name="skip">Пропустить</string>
+    <string name="profile">Профиль</string>
 </resources>

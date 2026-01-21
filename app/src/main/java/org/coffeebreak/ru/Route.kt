@@ -12,9 +12,6 @@ sealed class Route() {
     @SerialName("create_order_graph")
     data object CreateOrderGraph : Route()
     @Serializable
-    @SerialName("main")
-    data object Main : Route()
-    @Serializable
     @SerialName("splash")
     data object Splash : Route()
     @Serializable
@@ -62,6 +59,9 @@ sealed class Route() {
     @Serializable
     @SerialName("barista")
     data object Barista : Route()
+    @Serializable
+    @SerialName("profile")
+    data object Profile : Route()
     @Serializable
     @SerialName("placed_order")
     data object Placed : Route()

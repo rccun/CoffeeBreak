@@ -19,7 +19,14 @@ import org.coffeebreak.ru.R
 import org.coffeebreak.ru.theme.MainTheme
 
 @Composable
-fun MyTopAppBar(text: String, onBackClick: () -> Unit, onCartClick: () -> Unit,  content: @Composable () -> Unit) {
+fun MyTopAppBar(
+    text: String,
+    isBack: Boolean = true,
+    onBackClick: () -> Unit = {},
+    isCart: Boolean = true,
+    onCartClick: () -> Unit = {},
+    content: @Composable () -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -33,29 +40,32 @@ fun MyTopAppBar(text: String, onBackClick: () -> Unit, onCartClick: () -> Unit, 
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            MyIcon(
-                icon = R.drawable.back,
-                tintColor = MainTheme.colorScheme.icon
-            ) {
-                onBackClick()
+            if (isBack) {
+                MyIcon(
+                    icon = R.drawable.back,
+                    tintColor = MainTheme.colorScheme.icon
+                ) {
+                    onBackClick()
+                }
             }
 
             Text(
-                stringResource(R.string.cons_order),
+                text,
                 color = MainTheme.colorScheme.titleText,
                 style = MainTheme.typography.labelMedium,
                 fontSize = 16.sp
             )
-            MyIcon(icon = R.drawable.cart, tintColor = MainTheme.colorScheme.icon) {
+            MyIcon(
+                icon = R.drawable.cart, tintColor = if (isCart) {
+                    MainTheme.colorScheme.icon
+                } else {
+                    MainTheme.colorScheme.bg
+                }
+            ) {
                 onCartClick()
             }
         }
-        Text(
-            text,
-            style = MainTheme.typography.chooseBarista,
-            color = MainTheme.colorScheme.icon
-        )
-        Spacer(Modifier.height(17.dp))
+
         content()
     }
 }

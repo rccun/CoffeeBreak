@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.coffeebreak.domain.usecase.coffee.GetCoffeesUseCase
+import org.coffeebreak.domain.usecase.session.GetActiveSessionUseCase
 import org.coffeebreak.domain.usecase.user.GetUserByIdUseCase
 import org.coffeebreak.domain.utils.getOrNull
 import javax.inject.Inject
@@ -21,8 +22,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MenuViewModel @Inject constructor(
     private val getCoffeesUseCase: GetCoffeesUseCase,
-    private val getUserByIdUseCase: GetUserByIdUseCase
-): ViewModel() {
+    private val getUserByIdUseCase: GetUserByIdUseCase,
+    private val getActiveSessionUseCase: GetActiveSessionUseCase
+) : ViewModel() {
     private val _state = mutableStateOf(MenuState())
     val state: State<MenuState> = _state
 
@@ -33,11 +35,15 @@ class MenuViewModel @Inject constructor(
                 _password.value.length > 8
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), false)
 
-
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val res = getCoffeesUseCase.execute()
-            val resName = getUserByIdUseCase.execute(null)
+
+            val session = getActiveSessionUseCase.execute()
+            val userId = session?.userId
+            
+            val resName = getUserByIdUseCase.execute(userId)
+
             if (res.isSuccess) {
                 withContext(Dispatchers.Main) {
                     _state.value = _state.value.copy(
@@ -47,10 +53,9 @@ class MenuViewModel @Inject constructor(
                 }
             }
             if (resName.isValid) {
-                _state.value = _state.value.copy (
+                _state.value = _state.value.copy(
                     userName = resName.getOrNull()!!.name
                 )
-
             }
         }
     }

@@ -13,4 +13,5 @@ interface CreateOrderEvents {
     data class OnTimeChange(val h: Int, val m: Int): CreateOrderEvents
     data object OnConstructorClick: CreateOrderEvents
     data object OnNextClick: CreateOrderEvents
+    data object OnCloseDialog: CreateOrderEvents
 }

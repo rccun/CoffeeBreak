@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
@@ -61,13 +63,14 @@ val points = listOf(
 )
 
 @Composable
-fun CafeMapScreen(navController: NavController) {
-//    val adrss = listOf(
-//        "ул. Туркестантская, 3",
-//        "ул. Чкалова, 32",
-//        "ул. Советская, 3",
-//    )
+fun CafeMapScreen(navController: NavController, viewModel: CafeMapViewModel = hiltViewModel()) {
+    val isSuccess = viewModel.isSuccess.collectAsState().value
 
+    LaunchedEffect(isSuccess) {
+        if (isSuccess) {
+            navController.navigate(Route.Menu)
+        }
+    }
 
     val context = LocalContext.current
 
@@ -86,7 +89,7 @@ fun CafeMapScreen(navController: NavController) {
         val home = Point(51.765334, 55.124147)
         val placemark = mapView.map.mapObjects.addPlacemark(home)
         placemark.setIcon(ImageProvider.fromResource(context, R.drawable.home_point))
-        placemark.isDraggable = false // если нужно, чтобы маркер не перетаскивался
+        placemark.isDraggable = false
 
         mapView.map.move(
             CameraPosition(
@@ -107,7 +110,6 @@ fun CafeMapScreen(navController: NavController) {
             hasLocationPermission = granted
         }
 
-    // 🔑 запрашиваем разрешение при первом входе
     LaunchedEffect(Unit) {
         if (!hasLocationPermission) {
             permissionLauncher.launch(
@@ -134,7 +136,6 @@ fun CafeMapScreen(navController: NavController) {
 
         userLocationLayer.isVisible = true
 
-        // 4️⃣ Как только MapKit узнал координаты — двигаем камеру
         userLocationLayer.setObjectListener(
             object : UserLocationObjectListener {
 
@@ -234,7 +235,7 @@ fun CafeMapScreen(navController: NavController) {
                                     Animation(Animation.Type.SMOOTH, 0.5f),
                                     null
                                 )
-                                navController.navigate(Route.Menu)
+                                viewModel.onEvent(addresses[i])
                             })
                         }
                     }

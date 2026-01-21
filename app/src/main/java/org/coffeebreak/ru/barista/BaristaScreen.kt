@@ -21,6 +21,7 @@ import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.BaristaItem
 import org.coffeebreak.ru.common.MyDialog
 import org.coffeebreak.ru.common.MyTopAppBar
+import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.utils.ObserveAction
 
 @Composable
@@ -31,10 +32,18 @@ fun BaristaScreen(
     val isLoading by viewModel.loading.collectAsStateWithLifecycle()
     val baristas by viewModel.state.collectAsStateWithLifecycle()
     MyTopAppBar(
-        stringResource(R.string.choose_barista), onBackClick = {
-            navController.popBackStack()
-        }, {}
+        stringResource(R.string.cons_order),
+        isCart = false,
+        onBackClick = {
+            navController.navigate(Route.Constructor)
+        }
     ) {
+        Text(
+            stringResource(R.string.choose_barista),
+            style = MainTheme.typography.chooseBarista,
+            color = MainTheme.colorScheme.icon
+        )
+        Spacer(Modifier.height(17.dp))
         if (isLoading) {
             Text("Downloading")
         } else {

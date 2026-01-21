@@ -10,6 +10,8 @@ import org.coffeebreak.data.data_source.local.AppDatabase
 import org.coffeebreak.data.data_source.local.dao.UserDao
 import org.coffeebreak.data.repository.AuthRepositoryImpl
 import org.coffeebreak.domain.repository.AuthRepository
+import org.coffeebreak.domain.repository.SessionRepository
+import org.coffeebreak.domain.usecase.auth.SignInUseCase
 import org.coffeebreak.domain.usecase.auth.SignUpUseCase
 import javax.inject.Singleton
 
@@ -25,12 +27,18 @@ object AuthModule {
     @Provides
     @Singleton
     fun provideAuthRepository(
-        userDao: UserDao
-    ): AuthRepository = AuthRepositoryImpl(userDao)
+        userDao: UserDao,
+        repo: SessionRepository
+    ): AuthRepository = AuthRepositoryImpl(userDao, repo)
 
     @Provides
     @Singleton
     fun provideSignUpUseCase(
         repo: AuthRepository
     ) = SignUpUseCase(repo)
+    @Provides
+    @Singleton
+    fun provideSignInUseCase(
+        repo: AuthRepository
+    ) = SignInUseCase(repo)
 }

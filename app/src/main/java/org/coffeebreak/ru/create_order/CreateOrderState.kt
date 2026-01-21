@@ -4,6 +4,7 @@ import org.coffeebreak.domain.model.CoffeeModel
 
 data class CreateOrderState(
     val isSuccess: Boolean = false,
+    val isCreateSuccess: Boolean = false,
     val isError: Boolean = false,
     val errorMessage: String = "",
     val isLoading: Boolean = true,

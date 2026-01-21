@@ -59,6 +59,11 @@ fun CreateOrderScreen(
             navController.navigate(Route.Constructor)
         }
     }
+    LaunchedEffect(state.isCreateSuccess) {
+        if (state.isCreateSuccess) {
+            navController.navigate(Route.Placed)
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -330,5 +335,6 @@ fun CreateOrderScreen(
         isShow = state.isTimeInput
     )
     MyDialog("Ошибка", state.errorMessage, state.isError) {
+        viewModel.onCreateEvent(CreateOrderEvents.OnCloseDialog)
     }
 }

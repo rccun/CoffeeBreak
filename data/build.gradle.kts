@@ -43,6 +43,8 @@ dependencies {
     implementation(project(":domain"))
 
 
+    implementation(libs.androidx.security.crypto)
+
     implementation(libs.room)
     ksp(libs.room.compiler)
 
@@ -50,6 +52,7 @@ dependencies {
     implementation(libs.tensorflow.lite.support)
 
 //    implementation(libs.tflite.task.text.nlclassifier)
+//    implementation("https://github.com/huggingface/tflite-android-transformers.git")
 
     implementation("org.tensorflow:tensorflow-lite-task-text:0.4.4")
     implementation("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4")

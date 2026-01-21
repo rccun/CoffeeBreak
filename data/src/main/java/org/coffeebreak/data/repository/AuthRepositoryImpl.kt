@@ -1,20 +1,28 @@
 package org.coffeebreak.data.repository
 
 import android.util.Log
+import io.github.jan.supabase.gotrue.OtpType
 import io.github.jan.supabase.gotrue.auth
+import io.github.jan.supabase.gotrue.providers.Google
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import org.coffeebreak.data.data_source.InitSupabaseClient.client
 import org.coffeebreak.data.data_source.local.dao.UserDao
 import org.coffeebreak.data.dto.toDto
+import org.coffeebreak.domain.model.SessionModel
 import org.coffeebreak.domain.model.UserModel
 import org.coffeebreak.domain.repository.AuthRepository
+import org.coffeebreak.domain.repository.SessionRepository
 import org.coffeebreak.domain.utils.CustomResult
 
 class AuthRepositoryImpl(
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val sessionRepository: SessionRepository
 
 ) : AuthRepository {
     override suspend fun signInWithGoogle(): Result<Unit> {
+        val t = client.auth.signInWith(Google) {
+
+        }
         return runCatching {
 
         }
@@ -27,6 +35,19 @@ class AuthRepositoryImpl(
                 this.password = user.password
             }
             val id = client.auth.currentUserOrNull()
+
+            val session = client.auth.currentSessionOrNull()
+            session?.let {
+                sessionRepository.saveSession(
+                    SessionModel(
+                        userId = it.user!!.id,
+                        accessToken = it.accessToken,
+                        refreshToken = it.refreshToken,
+                        expiresAt = it.expiresAt.epochSeconds
+                    )
+                )
+            }
+
             userDao.insertUserData(user.toDto(id!!.id))
             CustomResult.Success(Unit)
         } catch (e: Exception) {
@@ -35,7 +56,26 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun signIn(): CustomResult<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun signIn(email: String, password: String): CustomResult<Unit> {
+        return try {
+            val res = client.auth.signInWith(Email) {
+                this.email = email
+                this.password = password
+            }
+            val session = client.auth.currentSessionOrNull()
+            session?.let {
+                sessionRepository.saveSession(
+                    SessionModel(
+                        userId = it.user!!.id,
+                        accessToken = it.accessToken,
+                        refreshToken = it.refreshToken,
+                        expiresAt = it.expiresAt.epochSeconds
+                    )
+                )
+            }
+            CustomResult.Success(res)
+        } catch (e: Exception) {
+            CustomResult.Error(e.message!!)
+        }
     }
 }

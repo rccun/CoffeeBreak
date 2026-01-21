@@ -43,6 +43,7 @@ import kotlinx.coroutines.delay
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.AuthTextField
+import org.coffeebreak.ru.common.MyDialog
 import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
@@ -65,17 +66,22 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
 //        Log.e("TAG", "LoginScreen: Fallback")
 //    }
 
-    val a = remember { mutableStateOf(false) }
-    LaunchedEffect(a.value) {
-        if (a.value) {
-            delay(1000)
-//            t.startFlow()
+//    val a = remember { mutableStateOf(false) }
+//    LaunchedEffect(a.value) {
+//        if (a.value) {
+//            delay(1000)
+////            t.startFlow()
+//        }
+//    }
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            navController.navigate(Route.Menu)
         }
     }
 
     val icons = listOf(
         MyIcon(R.drawable.yandex, {}),
-        MyIcon(R.drawable.google, { a.value = !a.value }),
+        MyIcon(R.drawable.google, { /*a.value = !a.value */}),
         MyIcon(R.drawable.vk) {},
     )
 
@@ -158,7 +164,10 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
             )
             Spacer(Modifier.weight(4.33f)) // 136
             FloatingActionButton(
-                onClick = { navController.navigate(Route.Main) },
+                onClick = {
+                    viewModel.onEvent(LoginEvents.OnNextCLick)
+//                    navController.navigate(Route.Menu)
+                          },
                 modifier = Modifier
                     .background(Color.Transparent)
                     .align(Alignment.End)
@@ -224,5 +233,8 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
             }
             Spacer(Modifier.weight(1.6f)) // 82
         }
+    }
+
+    MyDialog("Ошибка", state.errorMessage, state.isError) {
     }
 }

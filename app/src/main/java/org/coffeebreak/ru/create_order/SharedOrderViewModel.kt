@@ -220,7 +220,7 @@ class SharedOrderViewModel @Inject constructor(
                     )
                     if (res.isValid) {
                         _createOrderState.value = _createOrderState.value.copy(
-                            isSuccess = true
+                            isCreateSuccess = true
                         )
                     } else {
                         _createOrderState.value = _createOrderState.value.copy(
@@ -229,6 +229,12 @@ class SharedOrderViewModel @Inject constructor(
                         )
                     }
                 }
+            }
+            CreateOrderEvents.OnCloseDialog -> {
+                _createOrderState.value = _createOrderState.value.copy (
+                    isError = false,
+                    errorMessage = ""
+                )
             }
         }
     }
@@ -332,6 +338,7 @@ class SharedOrderViewModel @Inject constructor(
                 _consState.value = _consState.value.copy(
                     isDesc = true
                 )
+
 //                val a = TextClassificationHelper(context = con, listener = listener)
 //                a.classify("Капучино")
 
