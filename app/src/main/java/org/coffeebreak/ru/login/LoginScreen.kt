@@ -75,7 +75,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
 //    }
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
-            navController.navigate(Route.Menu)
+            navController.navigate(Route.Menu(null))
         }
     }
 

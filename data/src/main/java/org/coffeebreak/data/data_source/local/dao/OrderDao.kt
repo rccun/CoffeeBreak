@@ -10,12 +10,15 @@ import org.coffeebreak.data.dto.OrderModelDto
 @Dao
 interface OrderDao {
     @Insert(onConflict = REPLACE)
-    fun insertPreOrderData(model: OrderModelDto)
+    suspend fun insertPreOrderData(model: OrderModelDto)
 
     @Query("select * from preOrders where isOrdered = 0 and userId = :userId order by localId desc limit 1")
-    fun getPreOrder(userId: String): OrderModelDto?
+    suspend fun getPreOrder(userId: String): OrderModelDto?
 
     @Update
-    fun updateOrderStatus(model: OrderModelDto)
+    suspend fun updateOrder(model: OrderModelDto)
+
+    @Query("select * from preOrders where userId = :userId order by localId desc limit 1")
+    suspend fun getLastOrder(userId: String): OrderModelDto
 
 }

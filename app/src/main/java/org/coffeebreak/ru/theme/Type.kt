@@ -66,6 +66,11 @@ val Typography = MyTypo(
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp
     ),
+    bodySmall = TextStyle(
+        fontFamily = fontP,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp
+    ),
     bodyMedium = TextStyle(
         fontSize = 12.sp,
         fontWeight = FontWeight.Medium,
@@ -106,9 +111,4 @@ val Typography = MyTypo(
         fontWeight = FontWeight.Normal,
         fontSize = 17.sp,
     ),
-    bodySmall = TextStyle(
-        fontFamily = fontP,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp
-    )
 )

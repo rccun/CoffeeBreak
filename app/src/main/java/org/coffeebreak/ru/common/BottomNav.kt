@@ -32,7 +32,7 @@ fun BottomNav(
     currentRoute: String? = null
 ) {
     val icons = listOf(
-        BottomIcon(Route.Menu, R.drawable.menu),
+        BottomIcon(Route.Menu(null), R.drawable.menu),
         BottomIcon(Route.Gift, R.drawable.gift),
         BottomIcon(Route.CreateOrder("null"), R.drawable.order),
     )
@@ -54,8 +54,6 @@ fun BottomNav(
             horizontalArrangement = Arrangement.SpaceAround
         ) {
             icons.forEach { i ->
-                Log.e("piska", "piska: $currentRoute", );
-                Log.e("siska", "piska: ${i.route}", );
                 val itemRouteName = i.route::class.simpleName!!.lowercase()
 
                 MyIcon(

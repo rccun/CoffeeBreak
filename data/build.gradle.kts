@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":domain"))
 
 
+    implementation(libs.zxing.core)
     implementation(libs.androidx.security.crypto)
 
     implementation(libs.room)

@@ -9,17 +9,22 @@ import org.coffeebreak.data.data_source.local.dao.OrderDao
 import org.coffeebreak.data.data_source.local.dao.UserDao
 import org.coffeebreak.data.dto.BaristaModelDto
 import org.coffeebreak.data.dto.ItemModelDto
+import org.coffeebreak.data.dto.OrderModelDto
+import org.coffeebreak.data.dto.RateOrderModelDto
 import org.coffeebreak.data.dto.toDomain
 import org.coffeebreak.data.dto.toDto
 import org.coffeebreak.domain.model.BaristaModel
 import org.coffeebreak.domain.model.ItemModel
 import org.coffeebreak.domain.model.FullOrderModel
 import org.coffeebreak.domain.repository.OrderRepository
+import org.coffeebreak.domain.repository.SessionRepository
 import org.coffeebreak.domain.utils.CustomResult
+import kotlin.collections.mapOf
 
 class OrderRepositoryImpl(
     private val orderDao: OrderDao,
     private val userDao: UserDao,
+    private val sessionRepository: SessionRepository
 ) : OrderRepository {
     override suspend fun getBaristas(): CustomResult<List<BaristaModel>> {
         return try {
@@ -81,7 +86,11 @@ class OrderRepositoryImpl(
 //                        put("country_id", model.countryId)
                         put("time", model.time)
                     }
-                )
+                ) {
+                    select()
+                }.decodeSingle<OrderModelDto>()
+                orderDao.updateOrder(orderDao.getLastOrder(userId).copy(id = res2.id))
+
             } else {
                 val res = client.postgrest["orders"].insert(
                     buildJsonObject {
@@ -95,17 +104,19 @@ class OrderRepositoryImpl(
                         put("place", preOrder.place)
                         put("volume", preOrder.volume)
                         put("spec_time", preOrder.specTime)
-                        put("roasting",  model.roasting)
-                        put("grinding",  model.grinding)
-                        put("milk",  model.milk)
-                        put("syrup",  model.syrup)
+                        put("roasting", model.roasting)
+                        put("grinding", model.grinding)
+                        put("milk", model.milk)
+                        put("syrup", model.syrup)
                         put("ice", model.ice)
                         put("total_coast", model.totalCoast)
                         put("country_id", model.countryId)
                         put("time", preOrder.time)
                     }
-                )
-                orderDao.updateOrderStatus(orderDao.getPreOrder(userId)!!.copy(isOrdered = true))
+                ) {
+                    select()
+                }.decodeSingle<OrderModelDto>()
+                orderDao.updateOrder(orderDao.getPreOrder(userId)!!.copy(isOrdered = true, id = res.id))
             }
             CustomResult.Success(Unit)
         } catch (e: Exception) {
@@ -114,16 +125,15 @@ class OrderRepositoryImpl(
     }
 
     override suspend fun getOrderInfo(): CustomResult<Triple<String, String, String>> {
-        val userId = client.auth.currentUserOrNull()?.id ?: return CustomResult.Error(
-            "Пользователь не авторизован"
-        )
+        val userId = client.auth.currentUserOrNull()?.id ?: sessionRepository.getSession()?.userId
+        ?: return CustomResult.Error("Пользователь не авторизован")
         return try {
             val userName = userDao.getUserById(userId)!!.name
             val address = userDao.getUserById(userId)!!.address!!
-            val time = orderDao.getPreOrder(userId)!!.time!!
-            val res = Triple(userName, address, time)
+            val time = orderDao.getLastOrder(userId).time!!
+            val res = Triple(userName, time, address)
             CustomResult.Success(res)
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             CustomResult.Error(e.message!!)
         }
     }
@@ -137,6 +147,23 @@ class OrderRepositoryImpl(
                     }
                 }.decodeList<ItemModelDto>().map { it.toDomain() }
             CustomResult.Success(res)
+        } catch (e: Exception) {
+            CustomResult.Error(e.message!!)
+        }
+    }
+
+    override suspend fun setRate(rate: Int): CustomResult<Unit> {
+        return try {
+            val orderId = orderDao.getLastOrder(
+                sessionRepository.getSession()?.userId ?: return CustomResult.Error("Нет ID")
+            ).id
+            val res = client.postgrest["rate_order"].insert(
+                RateOrderModelDto(
+                    orderId = orderId!!,
+                    rate = rate.toString()
+                )
+            )
+            CustomResult.Success(Unit)
         } catch (e: Exception) {
             CustomResult.Error(e.message!!)
         }

@@ -38,8 +38,11 @@ tflite-task-text = "0.4.4"
 securityCrypto = "1.1.0-alpha06"
 
 
+zxing = "3.5.2"  # или "3.5.4" для последней версии
+
 
 [libraries]
+zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
 androidx-security-crypto = {module = "androidx.security:security-crypto",version.ref = "securityCrypto"}
 
 

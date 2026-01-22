@@ -68,7 +68,7 @@ fun CafeMapScreen(navController: NavController, viewModel: CafeMapViewModel = hi
 
     LaunchedEffect(isSuccess) {
         if (isSuccess) {
-            navController.navigate(Route.Menu)
+            navController.navigate(Route.Menu(null))
         }
     }
 

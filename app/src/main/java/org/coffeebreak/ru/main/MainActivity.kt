@@ -35,6 +35,7 @@ import org.coffeebreak.ru.menu.MenuScreen
 import org.coffeebreak.ru.order.OrderScreen
 import org.coffeebreak.ru.placed_order.PlacedOrderScreen
 import org.coffeebreak.ru.profile.ProfileScreen
+import org.coffeebreak.ru.qr.QRScreen
 import org.coffeebreak.ru.signup.SignUpScreen
 import org.coffeebreak.ru.sort.SortScreen
 import org.coffeebreak.ru.splash.SplashScreen
@@ -84,7 +85,7 @@ class MainActivity() : ComponentActivity() {
                                 navController = navController,
                                 startDestination =
                                     if (isAuth.value) {
-                                        Route.Profile
+                                        Route.Menu()
                                     } else {
                                         Route.Splash
                                     }
@@ -149,6 +150,9 @@ class MainActivity() : ComponentActivity() {
                                 }
                                 composable<Route.Profile> {
                                     ProfileScreen(navController)
+                                }
+                                composable<Route.QR> {
+                                    QRScreen(navController)
                                 }
 //                                composable<Route.ConstructorOrder> {
 //                                    ConstructorOrderScreen(navController)

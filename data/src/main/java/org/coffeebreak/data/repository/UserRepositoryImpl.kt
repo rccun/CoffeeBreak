@@ -1,5 +1,6 @@
 package org.coffeebreak.data.repository
 
+import android.util.Log
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.realtime.PrimaryKey
@@ -24,6 +25,7 @@ class UserRepositoryImpl(
     override suspend fun getUserById(id: String?): CustomResult<UserModel> {
         return try {
             val userId = sessionRepository.getSession()
+            Log.e("TAG userId", "$userId: ");
             val res = if (id.isNullOrBlank()) {
                 userDao.getUserById(userId!!.userId)
             } else {
@@ -48,23 +50,23 @@ class UserRepositoryImpl(
         }
     }
 
-    fun getFlow(id: String) = channelFlow<UserModelDto> {
-
-        val job = launch(Dispatchers.IO) {
-            userDao.getFlowUserById(id)
-                .collect {
-                    send(it)
-                }
-        }
-
+//    fun getFlow(id: String) = channelFlow<UserModelDto> {
 //
-//        result?.let {
-//            send(it)
-//            // update
+//        val job = launch(Dispatchers.IO) {
+//            userDao.getFlowUserById(id)
+//                .collect {
+//                    send(it)
+//                }
 //        }
-
-        awaitClose {
-            job.cancel()
-        }
-    }
+//
+////
+////        result?.let {
+////            send(it)
+////            // update
+////        }
+//
+//        awaitClose {
+//            job.cancel()
+//        }
+//    }
 }

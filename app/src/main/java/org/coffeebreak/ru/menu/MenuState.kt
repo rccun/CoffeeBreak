@@ -6,5 +6,7 @@ data class MenuState(
     val coffee: CoffeeModel? = null,
     val coffees: List<CoffeeModel> = emptyList(),
     val isLoading: Boolean = true,
-    val userName: String = ""
+    val userName: String = "",
+    val isRating: Boolean = false,
+    val rate: Int = 3
 )

@@ -18,9 +18,9 @@ class OrderUseCase {
     }
 
     fun parseVolume(value: Int) = when (value) {
-        1 -> "250"
-        2 -> "350"
-        3 -> "450"
+        0 -> "250"
+        1 -> "350"
+        2 -> "450"
         else -> ""
     }
 

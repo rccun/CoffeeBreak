@@ -1,6 +1,7 @@
 package org.coffeebreak.ru.common
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -55,14 +56,18 @@ fun MyTopAppBar(
                 style = MainTheme.typography.labelMedium,
                 fontSize = 16.sp
             )
-            MyIcon(
-                icon = R.drawable.cart, tintColor = if (isCart) {
-                    MainTheme.colorScheme.icon
-                } else {
-                    MainTheme.colorScheme.bg
+            Box() {
+                if (isCart) {
+                    MyIcon(
+                        icon = R.drawable.cart, tintColor = /*if (isCart) {*/
+                            MainTheme.colorScheme.icon
+//                        } else {
+//                            MainTheme.colorScheme.bg
+//                        }
+                    ) {
+                        onCartClick()
+                    }
                 }
-            ) {
-                onCartClick()
             }
         }
 

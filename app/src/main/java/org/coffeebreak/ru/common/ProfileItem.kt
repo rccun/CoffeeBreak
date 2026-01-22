@@ -22,7 +22,7 @@ import org.coffeebreak.ru.R
 import org.coffeebreak.ru.theme.MainTheme
 
 @Composable
-fun ProfileItem(icon: Int, title: String, text: String, isDefault: Boolean = true) {
+fun ProfileItem(icon: Int, title: String, text: String, isDefault: Boolean = true, onClick: () -> Unit = {}) {
     Column() {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             Box(
@@ -61,7 +61,9 @@ fun ProfileItem(icon: Int, title: String, text: String, isDefault: Boolean = tru
                 } else {
                     R.drawable.next2
                 }, tintColor = MainTheme.colorScheme.authTerms
-            )
+            ) {
+                onClick()
+            }
         }
         Spacer(Modifier.height(26.dp))
     }

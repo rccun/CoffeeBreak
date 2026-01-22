@@ -11,10 +11,12 @@ import org.coffeebreak.data.data_source.local.dao.OrderDao
 import org.coffeebreak.data.data_source.local.dao.UserDao
 import org.coffeebreak.data.repository.OrderRepositoryImpl
 import org.coffeebreak.domain.repository.OrderRepository
+import org.coffeebreak.domain.repository.SessionRepository
 import org.coffeebreak.domain.usecase.barista.GetBaristasUseCase
 import org.coffeebreak.domain.usecase.items.GetItemsByCategoryUseCase
 import org.coffeebreak.domain.usecase.order.GetOrderInfoUseCase
 import org.coffeebreak.domain.usecase.order.OrderUseCase
+import org.coffeebreak.domain.usecase.order.SetOrderRateUseCase
 import org.coffeebreak.domain.usecase.order.SetOrderUseCase
 import org.coffeebreak.domain.usecase.order.SetPreOrderUseCase
 import javax.inject.Singleton
@@ -34,7 +36,8 @@ object OrderModule {
     fun provideOrderRepository(
         orderDao: OrderDao,
         userDao: UserDao,
-    ): OrderRepository = OrderRepositoryImpl(orderDao, userDao)
+        sessionRepository: SessionRepository
+    ): OrderRepository = OrderRepositoryImpl(orderDao, userDao, sessionRepository)
 
     @Provides
     @Singleton
@@ -62,4 +65,8 @@ object OrderModule {
     @Provides
     @Singleton
     fun provideGetOrderInfoUseCase(repo: OrderRepository) = GetOrderInfoUseCase(repo)
+
+    @Provides
+    @Singleton
+    fun provideSetOrderRateUseCase(repo: OrderRepository) = SetOrderRateUseCase(repo)
 }

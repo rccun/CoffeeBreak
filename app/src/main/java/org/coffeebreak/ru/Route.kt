@@ -28,7 +28,7 @@ sealed class Route() {
     data object Cafe : Route()
     @Serializable
     @SerialName("menu")
-    data object Menu : Route()
+    data class Menu(val isRating: Boolean? = null) : Route()
     @Serializable
     @SerialName("gift")
     data object Gift : Route()
@@ -65,5 +65,8 @@ sealed class Route() {
     @Serializable
     @SerialName("placed_order")
     data object Placed : Route()
+    @Serializable
+    @SerialName("qr")
+    data object QR : Route()
 
 }

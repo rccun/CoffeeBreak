@@ -32,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
+import org.coffeebreak.ru.common.FeedBackOrder
 import org.coffeebreak.ru.common.MyAsyncImage
 import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
@@ -60,11 +61,20 @@ fun MenuScreen(navController: NavController, viewModel: MenuViewModel = hiltView
                 }
             }
             Spacer(Modifier.weight(1f))
-            MyIcon(icon = R.drawable.cart)
+            MyIcon(
+                icon = R.drawable.cart,
+                tintColor = MainTheme.colorScheme.icon,
+            )
             MyIcon(
                 icon = R.drawable.profile,
-                modifier = Modifier.padding(start = 20.dp, end = 8.dp)
-            )
+                tintColor = MainTheme.colorScheme.icon,
+                // b1 darkblue
+                modifier = Modifier
+                    .padding(start = 20.dp, end = 8.dp)
+
+            ) {
+                navController.navigate(Route.Profile)
+            }
         }
         Spacer(Modifier.height(15.dp))
         Column(
@@ -105,6 +115,15 @@ fun MenuScreen(navController: NavController, viewModel: MenuViewModel = hiltView
 
                 }
             }
+        }
+    }
+    if (state.isRating) {
+        FeedBackOrder(state.rate, { viewModel.onEvent(MenuEvents.OnCloseRate) }, {
+            viewModel.onEvent(
+                MenuEvents.OnRateClick
+            )
+        }) {
+            viewModel.onEvent(MenuEvents.OnStarClick(it))
         }
     }
 }
