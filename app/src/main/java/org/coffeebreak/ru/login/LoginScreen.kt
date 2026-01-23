@@ -39,7 +39,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.delay
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.AuthTextField

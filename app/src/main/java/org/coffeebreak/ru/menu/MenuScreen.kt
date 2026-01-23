@@ -64,7 +64,9 @@ fun MenuScreen(navController: NavController, viewModel: MenuViewModel = hiltView
             MyIcon(
                 icon = R.drawable.cart,
                 tintColor = MainTheme.colorScheme.icon,
-            )
+            ) {
+                navController.navigate(Route.Cart)
+            }
             MyIcon(
                 icon = R.drawable.profile,
                 tintColor = MainTheme.colorScheme.icon,

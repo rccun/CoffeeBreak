@@ -38,13 +38,15 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
         }
     }
     Column {
-
         MyIcon(
             icon = R.drawable.back,
             modifier = Modifier
-                .clickable { navController.navigate(Route.Splash) }
-                .padding(start = 25.dp, top = 25.dp)
-        )
+                .padding(start = 25.dp, top = 25.dp),
+            tintColor = MainTheme.colorScheme.authLarge
+
+        ) {
+            navController.navigate(Route.Splash)
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -55,9 +57,14 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
             Text(
                 stringResource(R.string.register),
                 style = MainTheme.typography.bodyLarge,
+                color = MainTheme.colorScheme.authLarge
+
             )
             Spacer(Modifier.height(24.dp))
-            Text(stringResource(R.string.create_acc), style = MainTheme.typography.titleMedium)
+            Text(
+                stringResource(R.string.create_acc), style = MainTheme.typography.titleMedium,
+                color = MainTheme.colorScheme.authMedium
+            )
             Spacer(Modifier.height(57.dp))
             Column(verticalArrangement = Arrangement.spacedBy(36.dp)) {
 
@@ -106,7 +113,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     placeholder = "Пароль",
                     icon = R.drawable.lock,
                     isTrailingIcon = true,
-                    onShowClick = {viewModel.onEvent(SignUpEvents.OnShowClick)},
+                    onShowClick = { viewModel.onEvent(SignUpEvents.OnShowClick) },
                     isShow = state.isShow
                 )
             }
@@ -119,7 +126,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
             )
             FloatingActionButton(
                 onClick = {
-                          },
+                },
                 modifier = Modifier
                     .background(Color.Transparent)
                     .align(Alignment.End)
@@ -145,7 +152,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                 style = MainTheme.typography.titleMedium,
                 color = blue3,
                 modifier = Modifier
-                    .clickable{ navController.navigate(Route.Login) }
+                    .clickable { navController.navigate(Route.Login) }
             )
 
             Spacer(Modifier.weight(1.6f))

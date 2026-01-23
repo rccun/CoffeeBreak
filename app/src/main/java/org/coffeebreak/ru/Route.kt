@@ -68,5 +68,11 @@ sealed class Route() {
     @Serializable
     @SerialName("qr")
     data object QR : Route()
+    @Serializable
+    @SerialName("cart")
+    data object Cart : Route()
+    @Serializable
+    @SerialName("reward")
+    data object Reward : Route()
 
 }

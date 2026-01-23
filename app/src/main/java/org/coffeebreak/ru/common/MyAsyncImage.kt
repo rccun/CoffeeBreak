@@ -11,7 +11,12 @@ import coil.request.ImageRequest
 import org.coffeebreak.ru.R
 
 @Composable
-fun MyAsyncImage(modifier: Modifier = Modifier, imageUrl: String, contentScale: ContentScale = ContentScale.FillWidth) {
+fun MyAsyncImage(
+    modifier: Modifier = Modifier,
+    imageUrl: String,
+    contentScale: ContentScale = ContentScale.FillWidth,
+    isMaxWidth: Boolean = true
+) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(imageUrl)
@@ -21,7 +26,11 @@ fun MyAsyncImage(modifier: Modifier = Modifier, imageUrl: String, contentScale: 
         contentScale = contentScale,
         placeholder = painterResource(R.drawable.placeholder),
         error = painterResource(R.drawable.error),
-        modifier = modifier
-            .fillMaxWidth()
+        modifier = if (isMaxWidth) {
+            modifier
+                .fillMaxWidth()
+        } else {
+            modifier
+        }
     )
 }

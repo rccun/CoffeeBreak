@@ -1,7 +1,9 @@
 package org.coffeebreak.data.dto
 
 import androidx.room.Entity
+import androidx.room.Insert
 import androidx.room.PrimaryKey
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.coffeebreak.domain.model.FullOrderModel
@@ -29,7 +31,8 @@ data class OrderModelDto(
     val ice: String? = null,
     @SerialName("spec_time") val specTime: Boolean,
     val time: String? = null,
-    @SerialName("total_coast") val totalCoast: Long
+    @SerialName("total_coast") val totalCoast: Long,
+    @SerialName("created_at") val createdAt: Instant? = null
 )
 
 fun OrderModelDto.toDomain(): FullOrderModel = (
@@ -52,12 +55,13 @@ fun OrderModelDto.toDomain(): FullOrderModel = (
             ice = ice,
             specTime = specTime,
             time = time,
-            totalCoast = totalCoast
+            totalCoast = totalCoast,
+            createdAt = createdAt
         )
         )
 
 fun FullOrderModel.toDto(userId: String, isOrdered: Boolean): OrderModelDto = (
-        OrderModelDto (
+        OrderModelDto(
             isOrdered = isOrdered,
             id = id,
             userId = userId,
@@ -77,7 +81,8 @@ fun FullOrderModel.toDto(userId: String, isOrdered: Boolean): OrderModelDto = (
             ice = ice,
             specTime = specTime,
             time = time,
-            totalCoast = totalCoast
+            totalCoast = totalCoast,
+            createdAt = createdAt
 
         )
         )

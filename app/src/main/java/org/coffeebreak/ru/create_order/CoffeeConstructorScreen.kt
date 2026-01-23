@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
@@ -34,7 +33,6 @@ import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.common.OrderIcon
 import org.coffeebreak.ru.common.RowItem
 import org.coffeebreak.ru.common.SliderItem
-import org.coffeebreak.ru.construstor.CoffeeConstructorViewModel
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.grayD8
 import org.coffeebreak.ru.theme.green1

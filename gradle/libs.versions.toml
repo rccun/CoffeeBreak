@@ -39,9 +39,12 @@ securityCrypto = "1.1.0-alpha06"
 
 
 zxing = "3.5.2"  # или "3.5.4" для последней версии
+kotlinx-datetime = "0.5.0"
+
 
 
 [libraries]
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
 androidx-security-crypto = {module = "androidx.security:security-crypto",version.ref = "securityCrypto"}
 

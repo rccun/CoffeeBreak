@@ -4,12 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import org.coffeebreak.data.data_source.local.dao.OrderDao
 import org.coffeebreak.data.data_source.local.dao.UserDao
 import org.coffeebreak.data.dto.OrderModelDto
 import org.coffeebreak.data.dto.UserModelDto
+import org.coffeebreak.data.utils.InstantConverter
 
 @Database(entities = [UserModelDto::class, OrderModelDto::class], version = 1)
+
+@TypeConverters(
+    InstantConverter::class
+)
 abstract class AppDatabase(): RoomDatabase() {
     abstract val userDao: UserDao
     abstract val orderDao: OrderDao

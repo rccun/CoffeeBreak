@@ -54,6 +54,10 @@ data class CustomColorTheme(
     val profileText: Color = Color.Unspecified,
     val profileText2: Color = Color.Unspecified,
     val rateOrderText: Color = Color.Unspecified,
+    val cartTabLine: Color = Color.Unspecified,
+    val unactiveCartTab: Color = Color.Unspecified,
+    val locationCartItem: Color = Color.Unspecified,
+    val timeCartItem: Color = Color.Unspecified,
 
 )
 
@@ -102,7 +106,11 @@ val LightColorScheme = CustomColorTheme(
     circleBox = grayWhite,
     profileText = darkBlue4.copy(alpha = 0.22f),
     profileText2 = blue3,
-    rateOrderText = Color.Black
+    rateOrderText = Color.Black,
+    cartTabLine = blue3,
+    unactiveCartTab = grayD8,
+    locationCartItem = blue3.copy(alpha = 0.8f),
+    timeCartItem = blue3.copy(alpha = 0.22f)
 
 )
 val DarkColorScheme = CustomColorTheme(
@@ -150,7 +158,11 @@ val DarkColorScheme = CustomColorTheme(
     circleBox = circleBox,
     profileText = b1,
     profileText2 = lightGray,
-    rateOrderText = b2
+    rateOrderText = b2,
+    cartTabLine = Color(0xFF304857),
+    unactiveCartTab = b2,
+    locationCartItem = b3,
+    timeCartItem = b3
 
 
 )

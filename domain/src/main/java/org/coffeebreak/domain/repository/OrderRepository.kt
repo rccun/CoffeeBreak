@@ -12,4 +12,5 @@ interface OrderRepository {
     suspend fun setOrder(model: FullOrderModel): CustomResult<Unit>
     suspend fun setRate(rate: Int): CustomResult<Unit>
     suspend fun getOrderInfo(): CustomResult<Triple<String, String, String>>
+    suspend fun getOrdersByUserId(): CustomResult<List<FullOrderModel>>
 }

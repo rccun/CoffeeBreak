@@ -116,7 +116,9 @@ class OrderRepositoryImpl(
                 ) {
                     select()
                 }.decodeSingle<OrderModelDto>()
-                orderDao.updateOrder(orderDao.getPreOrder(userId)!!.copy(isOrdered = true, id = res.id))
+                orderDao.updateOrder(
+                    orderDao.getPreOrder(userId)!!.copy(isOrdered = true, id = res.id)
+                )
             }
             CustomResult.Success(Unit)
         } catch (e: Exception) {
@@ -164,6 +166,21 @@ class OrderRepositoryImpl(
                 )
             )
             CustomResult.Success(Unit)
+        } catch (e: Exception) {
+            CustomResult.Error(e.message!!)
+        }
+    }
+
+    override suspend fun getOrdersByUserId(): CustomResult<List<FullOrderModel>> {
+        return try {
+            val userId =
+                sessionRepository.getSession()?.userId ?: return CustomResult.Error("Нет ID")
+            val res = client.postgrest["orders"].select {
+                filter {
+                    eq("user_id", userId)
+                }
+            }.decodeList<OrderModelDto>().map { it.toDomain() }
+            CustomResult.Success(res)
         } catch (e: Exception) {
             CustomResult.Error(e.message!!)
         }

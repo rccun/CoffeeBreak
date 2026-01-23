@@ -53,7 +53,7 @@ fun StartUpScreen(navController: NavController, viewModel: StartUpViewModel = hi
             Row(modifier = Modifier.fillMaxWidth()) {
                 Spacer(Modifier.weight(1.4f))
                 Image(
-                    painter = painterResource(R.drawable.cup),
+                    painter = painterResource(R.drawable.cup_l),
                     "cup",
                     modifier = Modifier
 //                    .sizeIn(maxWidth = 98.dp, maxHeight = 98.dp)

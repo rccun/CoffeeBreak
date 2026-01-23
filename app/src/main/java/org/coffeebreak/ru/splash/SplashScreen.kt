@@ -56,7 +56,7 @@ fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hilt
         ) {
             Spacer(Modifier.weight(1f)) // 63
             Image(
-                painter = painterResource(R.drawable.cup),
+                painter = painterResource(R.drawable.cup_l),
                 "cup",
                 modifier = Modifier.sizeIn(maxWidth = 98.dp, maxHeight = 98.dp)
             )

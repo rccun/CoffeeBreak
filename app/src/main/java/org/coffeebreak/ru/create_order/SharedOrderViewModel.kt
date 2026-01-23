@@ -1,30 +1,30 @@
 package org.coffeebreak.ru.create_order
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.coffeebreak.domain.model.FullOrderModel
 import org.coffeebreak.domain.usecase.coffee.GetCoffeeByIdUseCase
 import org.coffeebreak.domain.usecase.order.OrderUseCase
 import org.coffeebreak.domain.usecase.order.SetOrderUseCase
 import org.coffeebreak.domain.usecase.order.SetPreOrderUseCase
 import org.coffeebreak.ru.Route
-import kotlin.math.abs
-import androidx.compose.runtime.State
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.withContext
 import java.util.Calendar
+import javax.inject.Inject
+import kotlin.math.abs
 
 
 @HiltViewModel

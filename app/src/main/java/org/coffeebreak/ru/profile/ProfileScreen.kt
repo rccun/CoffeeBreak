@@ -1,7 +1,5 @@
 package org.coffeebreak.ru.profile
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,20 +7,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
-import org.coffeebreak.ru.common.FeedBackOrder
 import org.coffeebreak.ru.common.MyTopAppBar
 import org.coffeebreak.ru.common.ProfileItem
-import org.coffeebreak.ru.utils.ObserveAction
 
 @Composable
 fun ProfileScreen(navController: NavController, viewModel: ProfileViewModel = hiltViewModel()) {

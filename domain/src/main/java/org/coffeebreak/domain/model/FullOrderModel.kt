@@ -1,5 +1,8 @@
 package org.coffeebreak.domain.model
 
+import kotlinx.datetime.Instant
+
+
 data class FullOrderModel(
     val id: String? = null,
     val userId: String? = null,
@@ -19,5 +22,6 @@ data class FullOrderModel(
     val ice: String? = null,
     val specTime: Boolean,
     val time: String? = null,
-    val totalCoast: Long
+    val totalCoast: Long,
+    val createdAt: Instant? = null
 )

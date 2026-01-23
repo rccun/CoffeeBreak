@@ -1,6 +1,5 @@
 package org.coffeebreak.ru.common
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +33,7 @@ fun BottomNav(
     val icons = listOf(
         BottomIcon(Route.Menu(null), R.drawable.menu),
         BottomIcon(Route.Gift, R.drawable.gift),
-        BottomIcon(Route.CreateOrder("null"), R.drawable.order),
+        BottomIcon(Route.Cart, R.drawable.order),
     )
     val routeName = currentRoute
         ?.substringBefore("/")   // order/{imageUrl}

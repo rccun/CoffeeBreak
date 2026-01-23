@@ -51,4 +51,8 @@
     <string name="placed">Заказано</string>
     <string name="skip">Пропустить</string>
     <string name="profile">Профиль</string>
+    <string name="my_order">Мой заказ</string>
+    <string name="buy">Заказать</string>
+    <string name="reward">Вознаграждение</string>
+    <string name="loalty">Карта лояльности</string>
 </resources>

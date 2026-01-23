@@ -24,18 +24,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.barista.BaristaScreen
 import org.coffeebreak.ru.cafemap.CafeMapScreen
+import org.coffeebreak.ru.cart.CartScreen
 import org.coffeebreak.ru.common.BottomNav
 import org.coffeebreak.ru.country.CountryScreen
 import org.coffeebreak.ru.create_order.CoffeeConstructorScreen
 import org.coffeebreak.ru.create_order.CreateOrderScreen
 import org.coffeebreak.ru.create_order.SharedOrderViewModel
-import org.coffeebreak.ru.gift.GiftScreen
 import org.coffeebreak.ru.login.LoginScreen
 import org.coffeebreak.ru.menu.MenuScreen
 import org.coffeebreak.ru.order.OrderScreen
 import org.coffeebreak.ru.placed_order.PlacedOrderScreen
 import org.coffeebreak.ru.profile.ProfileScreen
 import org.coffeebreak.ru.qr.QRScreen
+import org.coffeebreak.ru.reward.RewardScreen
 import org.coffeebreak.ru.signup.SignUpScreen
 import org.coffeebreak.ru.sort.SortScreen
 import org.coffeebreak.ru.splash.SplashScreen
@@ -85,7 +86,7 @@ class MainActivity() : ComponentActivity() {
                                 navController = navController,
                                 startDestination =
                                     if (isAuth.value) {
-                                        Route.Menu()
+                                        Route.Reward
                                     } else {
                                         Route.Splash
                                     }
@@ -128,7 +129,7 @@ class MainActivity() : ComponentActivity() {
 
 
                                 composable<Route.Gift> {
-                                    GiftScreen(navController)
+                                    RewardScreen(navController)
                                 }
                                 composable<Route.Order> {
                                     OrderScreen(navController)
@@ -154,9 +155,12 @@ class MainActivity() : ComponentActivity() {
                                 composable<Route.QR> {
                                     QRScreen(navController)
                                 }
-//                                composable<Route.ConstructorOrder> {
-//                                    ConstructorOrderScreen(navController)
-//                                }
+                                composable<Route.Cart> {
+                                    CartScreen(navController)
+                                }
+                                composable<Route.Reward> {
+                                    RewardScreen(navController)
+                                }
                             }
                             if (isBottomBar) {
                                 BottomNav(
