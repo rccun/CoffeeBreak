@@ -58,6 +58,12 @@ data class CustomColorTheme(
     val unactiveCartTab: Color = Color.Unspecified,
     val locationCartItem: Color = Color.Unspecified,
     val timeCartItem: Color = Color.Unspecified,
+    val myOrderBg: Color = Color.Unspecified,
+    val myOrderCount: Color = Color.Unspecified,
+    val myOrderProperties: Color = Color.Unspecified,
+    val deleteComp: Color = Color.Unspecified,
+    val payAddress: Color = Color.Unspecified,
+    val payMethod: Color = Color.Unspecified,
 
 )
 
@@ -110,7 +116,13 @@ val LightColorScheme = CustomColorTheme(
     cartTabLine = blue3,
     unactiveCartTab = grayD8,
     locationCartItem = blue3.copy(alpha = 0.8f),
-    timeCartItem = blue3.copy(alpha = 0.22f)
+    timeCartItem = blue3.copy(alpha = 0.22f),
+    myOrderBg = grayWhite,
+    myOrderCount = bgB.copy(alpha = 0.57f),
+    myOrderProperties = Color(0xFF757575),
+    deleteComp = Color(0xFFFFE5E5),
+    payAddress = darkBlue4,
+    payMethod = darkBlue4.copy(alpha = 0.22f)
 
 )
 val DarkColorScheme = CustomColorTheme(
@@ -132,7 +144,7 @@ val DarkColorScheme = CustomColorTheme(
     authTextField = Color(0xFFC1C7D0),
     lazyColor = bg,
     default = Color.White,
-    activeBottomIcon = Color(0xFF4F7993),
+    activeBottomIcon = b1,
     unactiveBottomIcon = grayD8,
     bottomNav = navMenu,
     icon = b1,
@@ -162,7 +174,13 @@ val DarkColorScheme = CustomColorTheme(
     cartTabLine = Color(0xFF304857),
     unactiveCartTab = b2,
     locationCartItem = b3,
-    timeCartItem = b3
+    timeCartItem = b3,
+    myOrderBg = bg,
+    myOrderCount = b2,
+    myOrderProperties = b3,
+    deleteComp = bg,
+    payAddress = b3,
+    payMethod = b3
 
 
 )

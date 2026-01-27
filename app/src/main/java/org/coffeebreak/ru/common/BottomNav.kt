@@ -72,9 +72,3 @@ fun BottomNav(
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun L() {
-//    BottomNav()
-}

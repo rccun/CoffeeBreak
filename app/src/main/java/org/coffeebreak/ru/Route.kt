@@ -74,5 +74,11 @@ sealed class Route() {
     @Serializable
     @SerialName("reward")
     data object Reward : Route()
+    @Serializable
+    @SerialName("my_order")
+    data object MyOrder : Route()
+    @Serializable
+    @SerialName("two_factor")
+    data object TwoFactor : Route()
 
 }

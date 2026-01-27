@@ -32,6 +32,7 @@ import org.coffeebreak.ru.create_order.CreateOrderScreen
 import org.coffeebreak.ru.create_order.SharedOrderViewModel
 import org.coffeebreak.ru.login.LoginScreen
 import org.coffeebreak.ru.menu.MenuScreen
+import org.coffeebreak.ru.my_order.MyOrderScreen
 import org.coffeebreak.ru.order.OrderScreen
 import org.coffeebreak.ru.placed_order.PlacedOrderScreen
 import org.coffeebreak.ru.profile.ProfileScreen
@@ -44,6 +45,7 @@ import org.coffeebreak.ru.startup.StartUpScreen
 import org.coffeebreak.ru.supplements.SupplementsScreen
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.MyCoffeeBreakTheme
+import org.coffeebreak.ru.two_factor.TwoFactorScreen
 
 @AndroidEntryPoint
 class MainActivity() : ComponentActivity() {
@@ -60,7 +62,10 @@ class MainActivity() : ComponentActivity() {
                 "menu",
                 "gift",
                 "order",
-                "constructor_order"
+                "constructor_order",
+                "reward",
+                "cart",
+
             )
             Log.e("", ": $bottomBars");
             val entry = navController.currentBackStackEntryAsState().value
@@ -77,6 +82,7 @@ class MainActivity() : ComponentActivity() {
                     Scaffold(
                         modifier = Modifier.Companion.fillMaxSize(),
                         containerColor = Color.Companion.Transparent,
+
                     ) { innerPadding ->
                         Box(
                             modifier = Modifier.Companion.padding(innerPadding)
@@ -86,11 +92,10 @@ class MainActivity() : ComponentActivity() {
                                 navController = navController,
                                 startDestination =
                                     if (isAuth.value) {
-                                        Route.Reward
+                                        Route.TwoFactor
                                     } else {
                                         Route.Splash
                                     }
-////                                    Route.Menu
                             )
                             {
                                 composable<Route.Splash> {
@@ -160,6 +165,12 @@ class MainActivity() : ComponentActivity() {
                                 }
                                 composable<Route.Reward> {
                                     RewardScreen(navController)
+                                }
+                                composable<Route.MyOrder> {
+                                    MyOrderScreen(navController)
+                                }
+                                composable<Route.TwoFactor> {
+                                    TwoFactorScreen(navController)
                                 }
                             }
                             if (isBottomBar) {

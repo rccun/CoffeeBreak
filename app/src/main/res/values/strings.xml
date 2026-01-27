@@ -55,4 +55,10 @@
     <string name="buy">Заказать</string>
     <string name="reward">Вознаграждение</string>
     <string name="loalty">Карта лояльности</string>
+    <string name="my_points">Мои баллы:</string>
+    <string name="pay_points">Оплатить баллами</string>
+    <string name="history_points">История начисления баллов</string>
+    <string name="pay_order">Оплата заказа</string>
+    <string name="total_coast">Итоговая стоимость</string>
+    <string name="pay_now">Оплатить сейчас</string>
 </resources>
