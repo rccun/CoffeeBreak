@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.AuthTextField
+import org.coffeebreak.ru.common.MyDialog
 import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
@@ -157,5 +158,9 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
 
             Spacer(Modifier.weight(1.6f))
         }
+    }
+
+    MyDialog("Ошибка", state.errorMessage, state.isError) {
+        viewModel.onEvent(SignUpEvents.OnCloseDialog)
     }
 } // 180 82

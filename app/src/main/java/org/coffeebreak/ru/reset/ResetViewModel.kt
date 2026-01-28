@@ -1,4 +1,4 @@
-package org.coffeebreak.ru.forgot
+package org.coffeebreak.ru.reset
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -7,30 +7,30 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.coffeebreak.domain.usecase.auth.EmailUseCase
-import org.coffeebreak.domain.usecase.auth.SendOTPUseCase
+import org.coffeebreak.domain.usecase.auth.PasswordUseCase
+import org.coffeebreak.domain.usecase.auth.ResetPasswordUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgotViewModel @Inject constructor(
-    private val sendOTPUseCase: SendOTPUseCase,
-    private val emailUseCase: EmailUseCase
-): ViewModel() {
-    private val _state = mutableStateOf(ForgotState())
-    val state: State<ForgotState> = _state
-    fun onEvent(event: ForgotEvents) {
+class ResetViewModel @Inject constructor(
+    private val resetPasswordUseCase: ResetPasswordUseCase,
+    private val passwordUseCase: PasswordUseCase
+) : ViewModel() {
+    private val _state = mutableStateOf(ResetState())
+    val state: State<ResetState> = _state
+    fun onEvent(event: ResetEvents) {
         when (event) {
-            is ForgotEvents.OnEmailChange -> {
-                _state.value = _state.value.copy (
-                    email = event.value
+            is ResetEvents.OnPasswordChange -> {
+                _state.value = _state.value.copy(
+                    password = event.value
                 )
             }
-            ForgotEvents.OnNextClick -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val res = emailUseCase.execute(_state.value.email)
-                    if (res == null) {
-                        val res2 = sendOTPUseCase.execute(_state.value.email)
 
+            ResetEvents.OnNextClick -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val res = passwordUseCase.execute(_state.value.password)
+                    if (res == null ) {
+                        val res2 = resetPasswordUseCase.execute(_state.value.password)
                         if (res2.isValid) {
                             _state.value = _state.value.copy (
                                 isSuccess = true
@@ -49,7 +49,7 @@ class ForgotViewModel @Inject constructor(
                     }
                 }
             }
-            ForgotEvents.OnCloseDialog -> {
+            ResetEvents.OnCloseDialog -> {
                 _state.value = _state.value.copy (
                     isError = false,
                     errorMessage = ""

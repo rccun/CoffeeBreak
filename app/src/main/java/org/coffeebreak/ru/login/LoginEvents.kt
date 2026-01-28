@@ -5,4 +5,6 @@ interface LoginEvents {
     data class OnPasswordChange(val value: String) : LoginEvents
     data object OnShowClick: LoginEvents
     data object OnNextCLick: LoginEvents
+    data object OnCloseDialog: LoginEvents
+    data object OnGoogleClick: LoginEvents
 }

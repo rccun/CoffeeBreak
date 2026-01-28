@@ -15,6 +15,7 @@ material = "1.13.0"
 ksp = "2.2.21-2.0.4"
 
 supabase = "2.5.1"
+supabase-compose = "3.2.2"
 ktor = "2.3.8"
 
 ktorClient = "2.3.8"
@@ -82,17 +83,9 @@ tflite-task-text-nlclassifier = { module = "org.tensorflow:tensorflow-lite-task-
 room = { module = "androidx.room:room-ktx", version.ref = "room"}
 room-compiler = {module = "androidx.room:room-compiler", version.ref = "room"}
 
-
-#implementation(":2.5.1")     // Авторизация
-#implementation(":2.5.1")  // Работа с базой данных
-#implementation(":2.5.1")    // Хранилище файлов
-#implementation("io.github.jan-tennert.supabase:realtime-kt:2.5.1")
-
-
-#supabase-bom = { module = "io.github.jan.supabase:supabase-bom", version.ref = "supabase" }
-
 # Supabase modules
 supabase-auth = { module = "io.github.jan-tennert.supabase:gotrue-kt", version.ref = "supabase"  }
+supabase-compose-auth = { module = "io.github.jan-tennert.supabase:compose-auth", version.ref = "supabase-compose"  }
 supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase"  }
 supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "supabase"  }
 supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "supabase"  }

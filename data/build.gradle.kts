@@ -33,9 +33,15 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+}
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll("-opt-in=kotlinx.datetime.ExperimentalTime", "-opt-in=kotlin.time.ExperimentalTime")
     }
 }
 
@@ -52,14 +58,11 @@ dependencies {
     implementation(libs.tensorflow.lite)
     implementation(libs.tensorflow.lite.support)
 
-//    implementation(libs.tflite.task.text.nlclassifier)
-//    implementation("https://github.com/huggingface/tflite-android-transformers.git")
-
     implementation("org.tensorflow:tensorflow-lite-task-text:0.4.4")
     implementation("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4")
     implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
 
-    api(libs.supabase.auth)
+    api(libs.supabase.compose.auth)
     implementation(libs.supabase.auth)
     implementation(libs.supabase.postgrest)
     implementation(libs.supabase.storage)

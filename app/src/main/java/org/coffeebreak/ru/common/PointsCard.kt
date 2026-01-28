@@ -18,9 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import org.coffeebreak.ru.R
-import org.coffeebreak.ru.login.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.bgW
 import org.coffeebreak.ru.theme.grayD8

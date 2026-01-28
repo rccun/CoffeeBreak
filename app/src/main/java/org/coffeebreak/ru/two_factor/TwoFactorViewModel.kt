@@ -3,11 +3,17 @@ package org.coffeebreak.ru.two_factor
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import io.github.jan.supabase.gotrue.auth
-import org.coffeebreak.data.data_source.InitSupabaseClient.client
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.coffeebreak.domain.usecase.auth.CheckOTPUseCase
 import javax.inject.Inject
 
-class TwoFactorViewModel @Inject constructor() : ViewModel() {
+@HiltViewModel
+class TwoFactorViewModel @Inject constructor(
+    private val checkOTPUseCase: CheckOTPUseCase
+) : ViewModel() {
     private val _state = mutableStateOf(TwoFactorState())
     val state: State<TwoFactorState> = _state
 
@@ -27,7 +33,15 @@ class TwoFactorViewModel @Inject constructor() : ViewModel() {
 //                _state.value = _state.value.copy(otp = currentOtp)
             }
             TwoFactorEvents.OnEnterEnded -> {
-                val response =  client.auth.api.resetPasswordForEmail(email)
+                viewModelScope.launch(Dispatchers.IO) {
+                    val res = checkOTPUseCase.execute(_state.value.otp)
+                    if (res.isValid) {
+                        _state.value = _state.value.copy (
+                            isSuccess = true
+                        )
+                    }
+                }
+//                val response =  client.auth.api.resetPasswordForEmail(email)
             }
         }
     }

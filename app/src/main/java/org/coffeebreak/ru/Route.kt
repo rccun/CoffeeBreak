@@ -80,5 +80,11 @@ sealed class Route() {
     @Serializable
     @SerialName("two_factor")
     data object TwoFactor : Route()
+    @Serializable
+    @SerialName("forgot")
+    data object Forgot : Route()
+    @Serializable
+    @SerialName("reset")
+    data object Reset : Route()
 
 }

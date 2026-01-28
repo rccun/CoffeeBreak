@@ -1,9 +1,7 @@
 package org.coffeebreak.ru.two_factor
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,19 +11,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -34,20 +27,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEventType
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -57,7 +42,6 @@ import androidx.navigation.NavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.MyIcon
-import org.coffeebreak.ru.forgot.ForgotEvents
 import org.coffeebreak.ru.theme.MainTheme
 
 @Composable
@@ -68,6 +52,11 @@ fun TwoFactorScreen(navController: NavController, viewModel: TwoFactorViewModel 
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
         keyboardController?.show()
+    }
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            navController.navigate(Route.Reset)
+        }
     }
     Column() {
         MyIcon(
@@ -99,10 +88,10 @@ fun TwoFactorScreen(navController: NavController, viewModel: TwoFactorViewModel 
             BasicTextField(
                 value = state.otp,
                 { i ->
-                    if (i.length <= 6 && i.all { it.isDigit() }) {
+                    if (i.length <= 8 && i.all { it.isDigit() }) {
                         viewModel.onEvent(TwoFactorEvents.OnDigitEntered(i))
 
-                        if (i.length == 6) {
+                        if (i.length == 8) {
                             viewModel.onEvent(TwoFactorEvents.OnEnterEnded)
                         }
                     }
@@ -116,23 +105,22 @@ fun TwoFactorScreen(navController: NavController, viewModel: TwoFactorViewModel 
                 ),
                 modifier = Modifier
                     .focusRequester(focusRequester)
-                    .onFocusChanged { state ->
-                        if (state.isFocused) {
-                            keyboardController?.show()
-                        }
-                    }
+//                    .onFocusChanged { state ->
+//                        if (state.isFocused) {
+//                            keyboardController?.show()
+//                        }
+//                    }
                     .fillMaxWidth(),
                 decorationBox = { itf ->
                     Row(
                         modifier = Modifier
-                            .padding(horizontal = 15.dp)
                             .clickable {
                                 focusRequester.requestFocus()
                                 keyboardController?.show()
                             },
-                        horizontalArrangement = Arrangement.spacedBy(22.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        repeat(6) { i ->
+                        repeat(8) { i ->
                             val char = state.otp.getOrNull(i)?.toString() ?: ""
                             Box(
                                 modifier = Modifier

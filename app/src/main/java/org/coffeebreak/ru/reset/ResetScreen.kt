@@ -1,4 +1,4 @@
-package org.coffeebreak.ru.forgot
+package org.coffeebreak.ru.reset
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,11 +31,11 @@ import org.coffeebreak.ru.common.MyIcon
 import org.coffeebreak.ru.theme.MainTheme
 
 @Composable
-fun ForgotScreen(navController: NavController, viewModel: ForgotViewModel = hiltViewModel()) {
+fun ResetScreen(navController: NavController, viewModel: ResetViewModel = hiltViewModel()) {
     val state = viewModel.state.value
-    LaunchedEffect(state.isSuccess)  {
+    LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
-            navController.navigate(Route.TwoFactor)
+            navController.navigate(Route.Menu())
         }
     }
     Column() {
@@ -51,35 +51,38 @@ fun ForgotScreen(navController: NavController, viewModel: ForgotViewModel = hilt
                 .fillMaxSize()
                 .padding(horizontal = 40.dp)
         ) {
-            Spacer(Modifier.weight(1f)) // 51
+            Spacer(Modifier.weight(0.27f)) // 51
 
             Text(
-                "Забыли пароль?",
+                "Проверка",
                 style = MainTheme.typography.bodyLarge,
                 color = MainTheme.colorScheme.authLarge
             )
             Spacer(Modifier.height(24.dp))
             Text(
-                "Введите адрес электронной почты", style = MainTheme.typography.titleMedium,
+                "Введите код, который мы вам отправили на почту",
+                style = MainTheme.typography.titleMedium,
                 color = MainTheme.colorScheme.authMedium
             )
-            Spacer(Modifier.height(57.dp))
+            Spacer(Modifier.height(46.dp))
             AuthTextField(
-                value = state.email,
+                value = state.password,
                 onValueChange = {
-                    viewModel.onEvent(ForgotEvents.OnEmailChange(it))
+                    viewModel.onEvent(ResetEvents.OnPasswordChange(it))
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(30.dp),
-                placeholder = "Адрес электронной почты",
-                icon = R.drawable.message
+                placeholder = "Пароль",
+                icon = R.drawable.lock,
+                isTrailingIcon = true,
+                onShowClick = { viewModel.onEvent(ResetEvents.OnShowClick) },
+                isShow = state.isShow
             )
             Spacer(Modifier.weight(1f))
             FloatingActionButton(
                 onClick = {
-                    viewModel.onEvent(ForgotEvents.OnNextClick)
-//                    navController.navigate(Route.Menu)
+                    viewModel.onEvent(ResetEvents.OnNextClick)
                 },
                 modifier = Modifier
                     .background(Color.Transparent)
@@ -98,11 +101,10 @@ fun ForgotScreen(navController: NavController, viewModel: ForgotViewModel = hilt
                 Icon(imageVector = ImageVector.vectorResource(R.drawable.next), null)
             }
             Spacer(Modifier.weight(2f))
-
         }
     }
 
     MyDialog("Ошибка", state.errorMessage, state.isError) {
-        viewModel.onEvent(ForgotEvents.OnCloseDialog)
+        viewModel.onEvent(ResetEvents.OnCloseDialog)
     }
 }

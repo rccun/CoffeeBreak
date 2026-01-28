@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package org.coffeebreak.ru.common
 
 import androidx.compose.foundation.Image
@@ -9,7 +11,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,15 +28,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import androidx.navigation.NavController
-import dagger.hilt.processor.internal.definecomponent.codegen._dagger_hilt_android_components_ViewWithFragmentComponent
-import okhttp3.Address
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.bgW
@@ -47,13 +44,22 @@ fun PaymentComp(
     onFirstClick: () -> Unit,
     onSecondClick: () -> Unit
 ) {
-    Dialog(
-        { onDism() },
-        properties = DialogProperties(
-            usePlatformDefaultWidth = false
-        )
+    ModalBottomSheet(
+        onDismissRequest = { onDism() }
     ) {
-        Column(modifier = Modifier.fillMaxHeight().padding(top = 114.dp)) {
+
+
+//    Dialog(
+//        { onDism() },
+//        properties = DialogProperties(
+//            usePlatformDefaultWidth = false
+//        )
+//    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(top = 114.dp)
+        ) {
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(topEnd = 35.dp, topStart = 35.dp))

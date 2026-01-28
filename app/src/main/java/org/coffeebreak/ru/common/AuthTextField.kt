@@ -1,7 +1,6 @@
 package org.coffeebreak.ru.common
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -72,13 +71,14 @@ fun AuthTextField(
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .padding(end = 7.dp)
-                            .clickable(onClick = onShowClick)
 
-                    )
+                    ) {
+                        onShowClick()
+                    }
                 }
             }
         },
         modifier = modifier,
-        textStyle = MainTheme.typography.bodyMedium.copy(color = Color.Black)
+        textStyle = MainTheme.typography.bodyMedium.copy(color = MainTheme.colorScheme.authHint)
     )
 }

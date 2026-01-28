@@ -8,4 +8,5 @@ interface SignUpEvents {
     data class OnPhoneChange(val value: String) : SignUpEvents
     data object OnShowClick: SignUpEvents
     data object OnSignUpClick: SignUpEvents
+    data object OnCloseDialog: SignUpEvents
 }

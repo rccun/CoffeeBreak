@@ -7,4 +7,7 @@ interface AuthRepository {
     suspend fun signInWithGoogle(): Result<Unit>
     suspend fun signUp(user: UserModel): CustomResult<Unit>
     suspend fun signIn(email: String, password: String): CustomResult<Unit>
+    suspend fun sendOTP(email: String): CustomResult<Unit>
+    suspend fun checkOTP(otp: String): CustomResult<Unit>
+    suspend fun resetPassword(password: String): CustomResult<Unit>
 }

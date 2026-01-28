@@ -46,7 +46,7 @@ import kotlin.math.roundToInt
 
 @Composable
 fun MyOrderScreen(navController: NavController, viewModel: MyOrderViewModel = hiltViewModel()) {
-    val isPayment = remember { mutableStateOf(true) }
+    val isPayment = remember { mutableStateOf(false) }
 
     val state = viewModel.state.value
     Column(modifier = Modifier.padding(horizontal = 24.dp)) {

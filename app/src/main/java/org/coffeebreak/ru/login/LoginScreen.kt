@@ -80,7 +80,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
 
     val icons = listOf(
         MyIcon(R.drawable.yandex, {}),
-        MyIcon(R.drawable.google, { /*a.value = !a.value */}),
+        MyIcon(R.drawable.google, { viewModel.onEvent(LoginEvents.OnGoogleClick)}),
         MyIcon(R.drawable.vk) {},
     )
 
@@ -160,6 +160,9 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                 modifier = Modifier
                     .padding(top = 27.dp)
                     .align(Alignment.CenterHorizontally)
+                    .clickable{
+                        navController.navigate(Route.Forgot)
+                    }
             )
             Spacer(Modifier.weight(4.33f)) // 136
             FloatingActionButton(
@@ -213,7 +216,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                             null,
                             modifier = Modifier
                                 .size((width - 10.dp * 2) / 3)
-                                .clickable { i.onClick })
+                                .clickable { i.onClick() })
                     }
                 }
             }
