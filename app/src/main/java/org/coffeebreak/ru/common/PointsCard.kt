@@ -1,6 +1,7 @@
 package org.coffeebreak.ru.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,7 +25,7 @@ import org.coffeebreak.ru.theme.bgW
 import org.coffeebreak.ru.theme.grayD8
 
 @Composable
-fun PointsCard() {
+fun PointsCard(onClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
@@ -60,7 +61,12 @@ fun PointsCard() {
                     .background(Color(0x19A2CDE9))
             ) {
                 Text(
-                    stringResource(R.string.pay_points), modifier = Modifier.padding(9.dp),
+                    stringResource(R.string.pay_points),
+                    modifier = Modifier
+                        .padding(9.dp)
+                        .clickable {
+                            onClick()
+                        },
                     style = MainTheme.typography.chooseBarista,
                     fontSize = 10.sp,
                     color = grayD8

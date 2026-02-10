@@ -42,7 +42,7 @@ fun ForgotScreen(navController: NavController, viewModel: ForgotViewModel = hilt
         MyIcon(
             icon = R.drawable.back,
             modifier = Modifier
-                .clickable { navController.navigate(Route.Splash) }
+                .clickable { navController.popBackStack() }
                 .padding(start = 25.dp, top = 25.dp),
             tintColor = MainTheme.colorScheme.authLarge
         )

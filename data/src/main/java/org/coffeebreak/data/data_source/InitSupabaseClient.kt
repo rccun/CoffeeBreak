@@ -18,10 +18,10 @@ object InitSupabaseClient {
         install(Realtime)
         install(Storage)
         install(Auth)
-        install(ComposeAuth) {
-            googleNativeLogin(
-                "1063524495116-o8ck47mj0lg6h9fsrhev0heutuue3hr4.apps.googleusercontent.com"
-            )
-        }
+//        install(ComposeAuth) {
+//            googleNativeLogin(
+//                "1063524495116-o8ck47mj0lg6h9fsrhev0heutuue3hr4.apps.googleusercontent.com"
+//            )
+//        }
     }
 }

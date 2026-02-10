@@ -18,6 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -70,6 +71,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
             Column(verticalArrangement = Arrangement.spacedBy(36.dp)) {
 
 
+
                 AuthTextField(
                     value = state.name,
                     onValueChange = {
@@ -77,7 +79,8 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(30.dp),
+                        .height(30.dp)
+                        .testTag("name"),
                     placeholder = "Имя пользователя",
                     icon = R.drawable.name
                 )
@@ -88,7 +91,8 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(30.dp),
+                        .height(30.dp)
+                        .testTag("phone"),
                     placeholder = "Номер мобильного телефона",
                     icon = R.drawable.phone
                 )
@@ -99,7 +103,8 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(30.dp),
+                        .height(30.dp)
+                        .testTag("email"),
                     placeholder = "Адрес электронной почты",
                     icon = R.drawable.message
                 )
@@ -110,7 +115,8 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(30.dp),
+                        .height(30.dp)
+                        .testTag("password"),
                     placeholder = "Пароль",
                     icon = R.drawable.lock,
                     isTrailingIcon = true,
@@ -131,7 +137,8 @@ fun SignUpScreen(navController: NavController, viewModel: SignUpViewModel = hilt
                 modifier = Modifier
                     .background(Color.Transparent)
                     .align(Alignment.End)
-                    .padding(top = 23.dp),
+                    .padding(top = 23.dp)
+                    .testTag("signUpFAB"),
                 containerColor = MainTheme.colorScheme.green,
                 contentColor = Color.White,
                 elevation = FloatingActionButtonDefaults.elevation(

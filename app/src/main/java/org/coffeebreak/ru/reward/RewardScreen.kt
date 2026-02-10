@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.coffeebreak.ru.R
+import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.LoyaltyCard
 import org.coffeebreak.ru.common.PointsCard
 import org.coffeebreak.ru.common.PointsRow
@@ -40,7 +41,9 @@ fun RewardScreen(navController: NavController) {
         Spacer(Modifier.height(26.dp))
         LoyaltyCard(4)
         Spacer(Modifier.height(24.dp))
-        PointsCard()
+        PointsCard() {
+            navController.navigate(Route.Redeem)
+        }
         Text(
             stringResource(R.string.history_points), modifier = Modifier.padding(vertical = 8.dp/*, bottom = 24.dp*/),
             style = MainTheme.typography.chooseBarista, fontSize = 14.sp, color = blue3

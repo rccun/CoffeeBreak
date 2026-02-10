@@ -8,13 +8,17 @@ import org.coffeebreak.domain.model.CoffeeModel
 data class CoffeeModelDto(
     val id: String,
     val title: String,
-    @SerialName("image_url") val imageUrl: String
+    @SerialName("image_url") val imageUrl: String,
+    val period: String,
+    val coast: Int
 )
 
 fun CoffeeModelDto.toDomain(): CoffeeModel = (
         CoffeeModel(
             id = id,
             title = title,
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            period = period,
+            coast = coast
         )
         )

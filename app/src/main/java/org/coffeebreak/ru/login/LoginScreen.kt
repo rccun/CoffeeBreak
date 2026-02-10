@@ -44,6 +44,7 @@ import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.common.AuthTextField
 import org.coffeebreak.ru.common.MyDialog
 import org.coffeebreak.ru.common.MyIcon
+import org.coffeebreak.ru.reset.ResetEvents
 import org.coffeebreak.ru.theme.MainTheme
 import org.coffeebreak.ru.theme.blue3
 import org.coffeebreak.ru.theme.lightGray
@@ -74,7 +75,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
 //    }
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
-            navController.navigate(Route.Menu(null))
+            navController.navigate(Route.StartUp)
         }
     }
 
@@ -238,5 +239,6 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
     }
 
     MyDialog("Ошибка", state.errorMessage, state.isError) {
+        viewModel.onEvent(LoginEvents.OnCloseDialog)
     }
 }

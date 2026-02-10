@@ -8,6 +8,7 @@ espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.1"
 composeBom = "2024.09.00"
+
 navigationCompose = "2.9.6"
 appcompat = "1.7.1"
 material = "1.13.0"
@@ -16,7 +17,7 @@ ksp = "2.2.21-2.0.4"
 
 supabase = "2.5.1"
 supabase-compose = "3.2.2"
-ktor = "2.3.8"
+ktor = "3.0.0"
 
 ktorClient = "2.3.8"
 serialization = "1.9.0"
@@ -24,7 +25,6 @@ serializable = "2.2.0"
 
 hilt = "2.57"
 hiltNavigation = "1.2.0"
-hiltWorker = "1.2.0"
 uiText = "1.10.0"
 
 yandex-mapkit = "4.26.1-lite"
@@ -34,7 +34,6 @@ room = "2.7.2"
 
 tensorflow-lite = "2.14.0"
 tensorflow-lite-support = "0.4.4"
-tflite-task-text = "0.4.4"
 
 securityCrypto = "1.1.0-alpha06"
 
@@ -42,9 +41,12 @@ securityCrypto = "1.1.0-alpha06"
 zxing = "3.5.2"  # или "3.5.4" для последней версии
 kotlinx-datetime = "0.5.0"
 
-
+androidx-test-runner = "1.5.2"
+qr = "1.1.0"
 
 [libraries]
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidx-test-runner" }
+
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
 androidx-security-crypto = {module = "androidx.security:security-crypto",version.ref = "securityCrypto"}
@@ -66,6 +68,7 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -76,9 +79,8 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 
 tensorflow-lite = { module = "org.tensorflow:tensorflow-lite", version.ref = "tensorflow-lite" }
 tensorflow-lite-support = { module = "org.tensorflow:tensorflow-lite-support", version.ref = "tensorflow-lite-support" }
-tflite-task-text-nlclassifier = { module = "org.tensorflow:tensorflow-lite-task-text-nlclassifier", version.ref = "tflite-task-text" }
 
-
+qr-code = { module = "io.github.alexzhirkevich:qrose", version.ref = "qr"}
 
 room = { module = "androidx.room:room-ktx", version.ref = "room"}
 room-compiler = {module = "androidx.room:room-compiler", version.ref = "room"}
@@ -92,14 +94,11 @@ supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", ver
 
 
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-ktor-client-content = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
 
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
-ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClient" }
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClient" }
-ktor-client-android = {module = "io.ktor:ktor-client-android", version.ref = "ktor"}
 androidx-compose-ui-text = { group = "androidx.compose.ui", name = "ui-text", version.ref = "uiText" }
 
 
@@ -109,9 +108,8 @@ yandex-mapkit = { module = "com.yandex.android:maps.mobile", version.ref = "yand
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 android-library = { id = "com.android.library", version.ref = "agp" }
-
-
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializable" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

@@ -2,6 +2,7 @@ package org.coffeebreak.data.repository
 
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.coffeebreak.data.data_source.InitSupabaseClient.client
@@ -16,6 +17,7 @@ import org.coffeebreak.data.dto.toDto
 import org.coffeebreak.domain.model.BaristaModel
 import org.coffeebreak.domain.model.ItemModel
 import org.coffeebreak.domain.model.FullOrderModel
+import org.coffeebreak.domain.model.OrderModel
 import org.coffeebreak.domain.repository.OrderRepository
 import org.coffeebreak.domain.repository.SessionRepository
 import org.coffeebreak.domain.utils.CustomResult
@@ -26,6 +28,23 @@ class OrderRepositoryImpl(
     private val userDao: UserDao,
     private val sessionRepository: SessionRepository
 ) : OrderRepository {
+    override suspend fun getLastOrder(): CustomResult<FullOrderModel> {
+
+        val userId = client.auth.currentUserOrNull()?.id ?: "9a5dc629-75b7-4493-9998-c491255ded68"
+        return try {
+            val res = client.postgrest["orders"].select {
+                filter {
+                    eq("user_id", userId)
+                }
+                order("created_at", Order.DESCENDING)
+                limit(1)
+            }.decodeSingle<OrderModelDto>().toDomain()
+            CustomResult.Success(res)
+        } catch(e: Exception) {
+            CustomResult.Error(e.message ?: "")
+        }
+    }
+
     override suspend fun getBaristas(): CustomResult<List<BaristaModel>> {
         return try {
             val res = client.postgrest["baristas"].select().decodeList<BaristaModelDto>()

@@ -45,9 +45,3 @@ fun LeadingIcon(icon: Int) {
         )
     }
 }
-
-//@Preview
-//@Composable
-//private fun LIprew() {
-//    LeadingIcon()
-//}

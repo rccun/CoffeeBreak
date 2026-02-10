@@ -6,31 +6,69 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
+import io.github.alexzhirkevich.qrose.rememberQrCodePainter
 import org.coffeebreak.domain.repository.QRRepository
 import org.coffeebreak.domain.utils.CustomResult
 import java.io.ByteArrayOutputStream
 
 class QRRepositoryImpl(): QRRepository {
     override suspend fun generateQR(qrColor: Int, bgColor: Int): CustomResult<ByteArray> {
-        val size = 256
-        val hints = mapOf(
-            EncodeHintType.MARGIN to 0  // убираем белую рамку
-        )
-        val bitMatrix: BitMatrix = MultiFormatWriter().encode(
-            "https://www.figma.com/design/Mcn5tkim0m2PvlFUlL7931/Coffee-break?node-id=306-416&t=WaZQfq1Tq4mutbwL-0 ",
-            BarcodeFormat.QR_CODE,
-            size,
-            size,
-            hints
-        )
-        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
-        for (x in 0 until size) {
-            for (y in 0 until size) {
-                bitmap.setPixel(x, y, if (bitMatrix[x, y]) qrColor else bgColor)
-            }
-        }
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        return CustomResult.Success(stream.toByteArray())
+//        val size = 256
+//        val hints = mapOf(
+//            EncodeHintType.MARGIN to 0  // убираем белую рамку
+//        )
+//        val bitMatrix: BitMatrix = MultiFormatWriter().encode(
+//            "https://www.figma.com/design/Mcn5tkim0m2PvlFUlL7931/Coffee-break?node-id=306-416&t=WaZQfq1Tq4mutbwL-0 ",
+//            BarcodeFormat.QR_CODE,
+//            size,
+//            size,
+//            hints
+//        )
+//        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
+//        for (x in 0 until size) {
+//            for (y in 0 until size) {
+//                bitmap.setPixel(x, y, if (bitMatrix[x, y]) qrColor else bgColor)
+//            }
+//        }
+//        val stream = ByteArrayOutputStream()
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//        return CustomResult.Success(stream.toByteArray())\
+
+
+//        composable("First") {
+            val qrCodePainter = rememberQrCodePainter("qr-coding://qr-result/TYT_TOKEN")
+//            Image(
+//                painter = qrCodePainter,
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .size(200.dp)
+//            )
+//        }
+//
+//        composable(
+//            route = "QrResult/{token}",
+//            deepLinks = listOf(
+//                navDeepLink {
+//                    uriPattern = "qr-coding://qr-result/{token}"
+//                }
+//            ),
+//            arguments = listOf(
+//                navArgument("token") {
+//                    this.type = NavType.StringType
+//                }
+//            )
+//        ) {
+//            val token = it.arguments?.getString("token")
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxSize(),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                Text(
+//                    text = token.toString()
+//                )
+//            }
+//        }
+        return CustomResult.Error("skdlfs")
     }
 }

@@ -16,10 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import dagger.hilt.android.AndroidEntryPoint
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.barista.BaristaScreen
@@ -30,6 +33,7 @@ import org.coffeebreak.ru.country.CountryScreen
 import org.coffeebreak.ru.create_order.CoffeeConstructorScreen
 import org.coffeebreak.ru.create_order.CreateOrderScreen
 import org.coffeebreak.ru.create_order.SharedOrderViewModel
+import org.coffeebreak.ru.current.CurrentScreen
 import org.coffeebreak.ru.forgot.ForgotScreen
 import org.coffeebreak.ru.login.LoginScreen
 import org.coffeebreak.ru.menu.MenuScreen
@@ -38,6 +42,7 @@ import org.coffeebreak.ru.order.OrderScreen
 import org.coffeebreak.ru.placed_order.PlacedOrderScreen
 import org.coffeebreak.ru.profile.ProfileScreen
 import org.coffeebreak.ru.qr.QRScreen
+import org.coffeebreak.ru.redeem.RedeemScreen
 import org.coffeebreak.ru.reset.ResetScreen
 import org.coffeebreak.ru.reward.RewardScreen
 import org.coffeebreak.ru.signup.SignUpScreen
@@ -94,9 +99,9 @@ class MainActivity() : ComponentActivity() {
                                 navController = navController,
                                 startDestination =
                                     if (isAuth.value) {
-                                        Route.Profile
+                                        Route.QR
                                     } else {
-                                        Route.Splash
+                                        Route.QR
                                     }
                             )
                             {
@@ -179,6 +184,25 @@ class MainActivity() : ComponentActivity() {
                                 }
                                 composable<Route.Reset> {
                                     ResetScreen(navController)
+                                }
+                                composable<Route.Redeem> {
+                                    RedeemScreen(navController)
+                                }
+                                composable (
+                                    route = "QrResult/{token}",
+                                    deepLinks = listOf(
+                                        navDeepLink {
+                                            uriPattern = "cffbr://qr-code/{token}"
+                                        }
+                                    ),
+                                    arguments = listOf(
+                                        navArgument("token") {
+                                            this.type = NavType.StringType
+                                        }
+                                    )
+                                ) {
+
+                                    CurrentScreen(navController, it.arguments?.getString("token")!!)
                                 }
                             }
                             if (isBottomBar) {

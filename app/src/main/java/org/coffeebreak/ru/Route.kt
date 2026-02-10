@@ -86,5 +86,8 @@ sealed class Route() {
     @Serializable
     @SerialName("reset")
     data object Reset : Route()
+    @Serializable
+    @SerialName("redeem")
+    data object Redeem : Route()
 
 }

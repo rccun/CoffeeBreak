@@ -12,8 +12,7 @@ import org.coffeebreak.domain.repository.CoffeeRepository
 class CoffeeRepositoryImpl() : CoffeeRepository {
     override suspend fun getCoffees(): Result<List<CoffeeModel>> {
         return try {
-            val res = client.postgrest["coffees"].select{
-            }.decodeList<CoffeeModelDto>()
+            val res = client.postgrest["coffees"].select().decodeList<CoffeeModelDto>()
                 .map { it.toDomain() }
 //                .from("coffees")
 //                .select()

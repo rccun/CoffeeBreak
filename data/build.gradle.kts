@@ -46,14 +46,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":domain"))
-
-
-    implementation(libs.zxing.core)
-    implementation(libs.androidx.security.crypto)
-
-    implementation(libs.room)
-    ksp(libs.room.compiler)
 
     implementation(libs.tensorflow.lite)
     implementation(libs.tensorflow.lite.support)
@@ -62,6 +54,17 @@ dependencies {
     implementation("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4")
     implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
 
+
+    implementation(project(":domain"))
+
+    implementation(libs.qr.code)
+
+
+    implementation(libs.zxing.core)
+    implementation(libs.androidx.security.crypto)
+
+    implementation(libs.room)
+    ksp(libs.room.compiler)
     api(libs.supabase.compose.auth)
     implementation(libs.supabase.auth)
     implementation(libs.supabase.postgrest)
@@ -72,6 +75,8 @@ dependencies {
     // Ktor
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.core)
+
 
 
 
