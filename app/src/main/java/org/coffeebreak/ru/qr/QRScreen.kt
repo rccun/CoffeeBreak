@@ -13,6 +13,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Canvas
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -36,28 +40,31 @@ fun QRScreen(navController: NavController, viewModel: QRViewModel = hiltViewMode
     val qrColor = MainTheme.colorScheme.default
     val bgColor = MainTheme.colorScheme.bg
     val id = viewModel.id.collectAsState().value
+    val loading = viewModel.loading.collectAsState().value
 //    val action = rememberQrCodePainter(
 //        "qr-coding://qr-result/TYT_TOKEN",
 //        colors = QrColors(
 //            dark = QrBrush.solid(bgColor), light = QrBrush.solid(qrColor)
 //        )
 //    )
+    if (!loading) {
 
-    val qrData = remember {
-        "cffbr://qr-code/$id" //8ea58ceb-7199-4da9-a21b-05212adb16e1"
-    }
+        val qrData = remember {
+            "cffbr://code/$id"//8ea58ceb-7199-4da9-a21b-05212adb16e1"
+        }
 
-    val qrColors = remember {
-        QrColors(
-            dark = QrBrush.solid(qrColor),
-            light = QrBrush.solid(bgColor)
+        val qrColors = remember {
+            QrColors(
+                dark = QrBrush.solid(qrColor),
+                light = QrBrush.solid(bgColor)
+            )
+        }
+
+        val painter = rememberQrCodePainter(
+            data = qrData,
+            colors = qrColors
         )
-    }
 
-    val painter = rememberQrCodePainter(
-        data = qrData,
-        colors = qrColors
-    )
 
 //    Image(
 //        painter = painter,ЧФ
@@ -69,42 +76,43 @@ fun QRScreen(navController: NavController, viewModel: QRViewModel = hiltViewMode
 //    }
 //    val array = viewModel.array.collectAsState().value
 //    val loading = viewModel.loading.collectAsState().value
-    MyTopAppBar(
-        text = stringResource(R.string.profile),
-        isCart = false,
-        onBackClick = { navController.popBackStack() }) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+        MyTopAppBar(
+            text = stringResource(R.string.profile),
+            isCart = false,
+            onBackClick = { navController.popBackStack() }) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
 
-            modifier = Modifier
-                .padding(horizontal = 40.dp)
-        ) {
-            Text(
-                "Ваш персональный QR-код",
-                style = MainTheme.typography.countryTitle,
-                color = MainTheme.colorScheme.activeOrderPickup,
-                fontSize = 20.sp
-            )
-            Spacer(Modifier.height(20.dp))
-//            if (!loading) {
-            Image(
-                painter = painter,
-                contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                contentScale = ContentScale.FillWidth
-            )
-            Spacer(Modifier.height(20.dp))
-            Text(
-                "Покажите ваш QR-code для получения заказа",
-                style = MainTheme.typography.bodySmall,
-                fontSize = 18.sp,
-                color = blue3,
-                textAlign = TextAlign.Center
-            )
+                    .padding(horizontal = 40.dp)
+            ) {
+                Text(
+                    "Ваш персональный QR-код",
+                    style = MainTheme.typography.countryTitle,
+                    color = MainTheme.colorScheme.activeOrderPickup,
+                    fontSize = 20.sp
+                )
+                Spacer(Modifier.height(20.dp))
+//            if (!loading) {
+                Image(
+                    painter = painter,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentScale = ContentScale.FillWidth
+                )
+                Spacer(Modifier.height(20.dp))
+                Text(
+                    "Покажите ваш QR-code для получения заказа",
+                    style = MainTheme.typography.bodySmall,
+                    fontSize = 18.sp,
+                    color = blue3,
+                    textAlign = TextAlign.Center
+                )
 //        } else {
 //        Text("Generating")
 
+            }
         }
     }
 }

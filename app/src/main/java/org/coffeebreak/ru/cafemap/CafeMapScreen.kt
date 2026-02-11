@@ -1,6 +1,8 @@
 package org.coffeebreak.ru.cafemap
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -44,6 +46,9 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
+import com.yandex.mapkit.location.Location
+import com.yandex.mapkit.location.LocationListener
+import com.yandex.mapkit.location.LocationStatus
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationObjectListener
@@ -75,96 +80,113 @@ fun CafeMapScreen(navController: NavController, viewModel: CafeMapViewModel = hi
     val context = LocalContext.current
 
     val mapView = remember { MapView(context) }
-
-    var hasLocationPermission by remember {
-        mutableStateOf(
-            ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        )
-    }
-
-    fun moveHome() {
-        val home = Point(51.765334, 55.124147)
-        val placemark = mapView.map.mapObjects.addPlacemark(home)
-        placemark.setIcon(ImageProvider.fromResource(context, R.drawable.home_point))
-        placemark.isDraggable = false
-
-        mapView.map.move(
-            CameraPosition(
-                home,
-                13f,
-                0f,
-                0f
-            ), Animation(Animation.Type.SMOOTH, 0.5f),
-            null
-        )
-    }
-
-
-    val permissionLauncher =
-        rememberLauncherForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { granted ->
-            hasLocationPermission = granted
-        }
-
-    LaunchedEffect(Unit) {
-        if (!hasLocationPermission) {
-            permissionLauncher.launch(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        }
-    }
     DisposableEffect(Unit) {
-        MapKitFactory.getInstance().onStart()
         mapView.onStart()
+        MapKitFactory.getInstance().onStart()
 
         onDispose {
             mapView.onStop()
             MapKitFactory.getInstance().onStop()
         }
     }
-    LaunchedEffect(hasLocationPermission) {
 
-        if (!hasLocationPermission) return@LaunchedEffect
-        val mapKit = MapKitFactory.getInstance()
-        moveHome()
-        val userLocationLayer =
-            mapKit.createUserLocationLayer(mapView.mapWindow)
+//    AndroidView(
+//        factory = { mapView },
+//        modifier = Modifier.fillMaxSize()
+//    )
 
-        userLocationLayer.isVisible = true
-
-        userLocationLayer.setObjectListener(
-            object : UserLocationObjectListener {
-
-                override fun onObjectAdded(view: UserLocationView) {
-                    val point = view.arrow.geometry
-
-                    mapView.map.move(
-                        CameraPosition(
-                            point,
-                            17f, // приближение
-                            0f,
-                            0f
-                        )
-                    )
-
-                    // важно: срабатывает ОДИН раз
-                    userLocationLayer.setObjectListener(null)
-                }
-
-                override fun onObjectRemoved(view: UserLocationView) {}
-                override fun onObjectUpdated(
-                    view: UserLocationView,
-                    event: ObjectEvent
-                ) {
-                }
-            }
-        )
+    LaunchedEffect(Unit) {
+        moveToMyLocation(context, mapView)
     }
-
+/*
+//    var hasLocationPermission by remember {
+//        mutableStateOf(
+//            ContextCompat.checkSelfPermission(
+//                context,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED
+//        )
+//    }
+//
+////    fun moveHome() {
+////        val home = Point(41.765334, 55.124147)
+////        val placemark = mapView.map.mapObjects.addPlacemark(home)
+////        placemark.setIcon(ImageProvider.fromResource(context, R.drawable.home_point))
+////        placemark.isDraggable = false
+////
+////        mapView.map.move(
+////            CameraPosition(
+////                home,
+////                13f,
+////                0f,
+////                0f
+////            ), Animation(Animation.Type.SMOOTH, 0.5f),
+////            null
+////        )
+////    }
+//
+//
+//    val permissionLauncher =
+//        rememberLauncherForActivityResult(
+//            ActivityResultContracts.RequestPermission()
+//        ) { granted ->
+//            hasLocationPermission = granted
+//        }
+//
+//    LaunchedEffect(Unit) {
+//        if (!hasLocationPermission) {
+//            permissionLauncher.launch(
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//        }
+//    }
+//    DisposableEffect(Unit) {
+//        MapKitFactory.getInstance().onStart()
+//        mapView.onStart()
+//
+//        onDispose {
+//            mapView.onStop()
+//            MapKitFactory.getInstance().onStop()
+//        }
+//    }
+//    LaunchedEffect(hasLocationPermission) {
+//
+//        if (!hasLocationPermission) return@LaunchedEffect
+//        val mapKit = MapKitFactory.getInstance()
+////        moveHome()
+//        val userLocationLayer =
+//            mapKit.createUserLocationLayer(mapView.mapWindow)
+//
+//        userLocationLayer.isVisible = true
+//
+//        userLocationLayer.setObjectListener(
+//            object : UserLocationObjectListener {
+//
+//                override fun onObjectAdded(view: UserLocationView) {
+//                    val point = view.arrow.geometry
+//
+//                    mapView.map.move(
+//                        CameraPosition(
+//                            point,
+//                            17f,
+//                            0f,
+//                            0f
+//                        )
+//                    )
+//
+//                    userLocationLayer.setObjectListener(null)
+//                }
+//
+//                override fun onObjectRemoved(view: UserLocationView) {}
+//                override fun onObjectUpdated(
+//                    view: UserLocationView,
+//                    event: ObjectEvent
+//                ) {
+//                }
+//            }
+//        )
+//    }
+*/
 
     Box() {
 
@@ -184,9 +206,6 @@ fun CafeMapScreen(navController: NavController, viewModel: CafeMapViewModel = hi
             LaunchedEffect(Unit) {
                 addCustomMarkers(mapView)
             }
-
-
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier
                     .clip(
@@ -250,7 +269,7 @@ fun CafeMapScreen(navController: NavController, viewModel: CafeMapViewModel = hi
         ) {
             Spacer(Modifier.weight(1f))
             FloatingActionButton(
-                onClick = { moveHome() }, modifier = Modifier
+                onClick = { moveToMyLocation(context, mapView) }, modifier = Modifier
                     .background(Color.Transparent)
                     .padding(bottom = 35.dp),
                 containerColor = blue3,
@@ -274,10 +293,7 @@ fun CafeMapScreen(navController: NavController, viewModel: CafeMapViewModel = hi
 
 
 fun addCustomMarkers(mapView: MapView) {
-    // Список точек с координатами и названием
-
     val mapObjects = mapView.map.mapObjects
-
     points.forEach { (lat, lon, name) ->
         val point = Point(lat, lon)
         mapObjects.addPlacemark(point).apply {
@@ -289,4 +305,33 @@ fun addCustomMarkers(mapView: MapView) {
             )
         }
     }
+}
+@SuppressLint("MissingPermission")
+fun moveToMyLocation(
+    context: Context,
+    mapView: MapView
+) {
+    val mapKit = MapKitFactory.getInstance()
+
+    val locationManager = mapKit.createLocationManager()
+
+    locationManager.requestSingleUpdate(object : LocationListener {
+        override fun onLocationUpdated(location: Location) {
+
+            val point = location.position
+
+            mapView.map.move(
+                CameraPosition(
+                    point,
+                    17f,   // zoom
+                    0f,
+                    0f
+                ),
+                Animation(Animation.Type.SMOOTH, 1f),
+                null
+            )
+        }
+
+        override fun onLocationStatusUpdated(p0: LocationStatus) {}
+    })
 }

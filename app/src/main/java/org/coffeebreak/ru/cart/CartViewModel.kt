@@ -39,7 +39,7 @@ class CartViewModel @Inject constructor(
                     if (res2.isSuccess) {
                         val coffee = res2.getOrNull()!!
                         withContext(Dispatchers.Main) {
-                            Log.e("TAG created", "${i.createdAt!!}");
+                            Log.e("TAG created", "${i.createdAt}");
                             _state.value = _state.value.copy (
                                 data = _state.value.data.plus(
                                     CartModel(

@@ -15,8 +15,8 @@ material = "1.13.0"
 
 ksp = "2.2.21-2.0.4"
 
-supabase = "2.5.1"
-supabase-compose = "3.2.2"
+supabase = "3.3.0"
+#supabase-compose = "3.2.2"
 ktor = "3.0.0"
 
 ktorClient = "2.3.8"
@@ -39,7 +39,7 @@ securityCrypto = "1.1.0-alpha06"
 
 
 zxing = "3.5.2"  # или "3.5.4" для последней версии
-kotlinx-datetime = "0.5.0"
+kotlinx-datetime = "0.6.0"
 
 androidx-test-runner = "1.5.2"
 qr = "1.1.0"
@@ -86,11 +86,18 @@ room = { module = "androidx.room:room-ktx", version.ref = "room"}
 room-compiler = {module = "androidx.room:room-compiler", version.ref = "room"}
 
 # Supabase modules
-supabase-auth = { module = "io.github.jan-tennert.supabase:gotrue-kt", version.ref = "supabase"  }
-supabase-compose-auth = { module = "io.github.jan-tennert.supabase:compose-auth", version.ref = "supabase-compose"  }
+#supabase-auth = { module = "io.github.jan-tennert.supabase:gotrue-kt", version.ref = "supabase"  }
+#supabase-compose-auth = { module = "io.github.jan-tennert.supabase:compose-auth", version.ref = "supabase-compose"  }
+#supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase"  }
+#supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "supabase"  }
+#supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "supabase"  }
+
+supabase-auth = { module = "io.github.jan-tennert.supabase:auth-kt", version.ref = "supabase"  }
+supabase-compose-auth = { module = "io.github.jan-tennert.supabase:compose-auth", version.ref = "supabase"  }
 supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase"  }
 supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "supabase"  }
 supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "supabase"  }
+
 
 
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }

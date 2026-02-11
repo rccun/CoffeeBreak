@@ -61,4 +61,5 @@
     <string name="pay_order">Оплата заказа</string>
     <string name="total_coast">Итоговая стоимость</string>
     <string name="pay_now">Оплатить сейчас</string>
+    <string name="order_history">История заказов</string>
 </resources>

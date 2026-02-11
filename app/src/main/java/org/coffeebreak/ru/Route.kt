@@ -66,7 +66,7 @@ sealed class Route() {
     @SerialName("placed_order")
     data object Placed : Route()
     @Serializable
-    @SerialName("qr")
+    @SerialName("code")
     data object QR : Route()
     @Serializable
     @SerialName("cart")
@@ -89,5 +89,7 @@ sealed class Route() {
     @Serializable
     @SerialName("redeem")
     data object Redeem : Route()
+
+    @Serializable @SerialName("current") data class Current(val id: String)
 
 }

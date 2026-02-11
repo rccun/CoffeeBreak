@@ -19,6 +19,7 @@
         <activity
             android:name=".main.MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/Theme.CoffeeBreak">
             <intent-filter>
@@ -30,7 +31,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <action android:name="android.intent.action.VIEW" />
-                <data android:scheme="cffbr" android:host="qr-code" />
+                <data android:scheme="cffbr" android:host="code" />
             </intent-filter>
         </activity>
     </application>

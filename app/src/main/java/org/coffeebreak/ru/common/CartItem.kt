@@ -47,7 +47,6 @@ fun CartItem(
 
                 MyAsyncImage(
                     modifier = Modifier
-//                        .padding(vertical = 12.dp)
                         .heightIn(max = 44.dp),
                     imageUrl = imageUrl,
                     isMaxWidth = false,

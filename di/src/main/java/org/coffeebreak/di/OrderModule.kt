@@ -15,6 +15,7 @@ import org.coffeebreak.domain.repository.SessionRepository
 import org.coffeebreak.domain.usecase.barista.GetBaristasUseCase
 import org.coffeebreak.domain.usecase.items.GetItemsByCategoryUseCase
 import org.coffeebreak.domain.usecase.order.GetLastOrderUseCase
+import org.coffeebreak.domain.usecase.order.GetOrderByIdUseCase
 import org.coffeebreak.domain.usecase.order.GetOrderInfoUseCase
 import org.coffeebreak.domain.usecase.order.GetOrdersByUserIdUseCase
 import org.coffeebreak.domain.usecase.order.OrderUseCase
@@ -82,4 +83,7 @@ object OrderModule {
     @Provides
     @Singleton
     fun provideGetLastOrderUseCase(repo: OrderRepository) = GetLastOrderUseCase(repo)
+    @Provides
+    @Singleton
+    fun provideGetOrderByIdUseCase(repo: OrderRepository) = GetOrderByIdUseCase(repo)
 }

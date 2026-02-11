@@ -8,6 +8,7 @@ import org.coffeebreak.domain.utils.CustomResult
 
 interface OrderRepository {
     suspend fun getLastOrder(): CustomResult<FullOrderModel>
+    suspend fun getOrderById(id: String): CustomResult<FullOrderModel>
     suspend fun getBaristas(): CustomResult<List<BaristaModel>>
     suspend fun getItemsByCategory(category: String): CustomResult<List<ItemModel>>
     suspend fun setPreOrder(model: FullOrderModel): CustomResult<Unit>

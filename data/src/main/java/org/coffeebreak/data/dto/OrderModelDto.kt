@@ -32,7 +32,7 @@ data class OrderModelDto(
     @SerialName("spec_time") val specTime: Boolean,
     val time: String? = null,
     @SerialName("total_coast") val totalCoast: Long,
-    @SerialName("created_at") val createdAt: Instant? = null
+    @SerialName("created_at") val createdAt: String? = null
 )
 
 fun OrderModelDto.toDomain(): FullOrderModel = (

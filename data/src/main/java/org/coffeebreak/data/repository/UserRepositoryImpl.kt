@@ -1,7 +1,7 @@
 package org.coffeebreak.data.repository
 
 import android.util.Log
-import io.github.jan.supabase.gotrue.auth
+import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.realtime.PrimaryKey
 import io.github.jan.supabase.realtime.selectAsFlow
@@ -43,7 +43,6 @@ class UserRepositoryImpl(
             val res = userDao.updateUser(
                 userDao.getUserById(client.auth.currentUserOrNull()!!.id)!!.copy(address = address)
             )
-
             CustomResult.Success(Unit)
         } catch (e: Exception) {
             CustomResult.Error(e.message!!)

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import androidx.navigation.toRoute
 import dagger.hilt.android.AndroidEntryPoint
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.barista.BaristaScreen
@@ -73,13 +75,13 @@ class MainActivity() : ComponentActivity() {
                 "reward",
                 "cart",
 
-            )
-            Log.e("", ": $bottomBars");
+                )
             val entry = navController.currentBackStackEntryAsState().value
             val currentRoute = entry?.destination?.route
 
             val isBottomBar = currentRoute?.let { route ->
                 bottomBars.any { route.startsWith(it) }
+
             } == true
             MyCoffeeBreakTheme {
                 Surface(
@@ -90,19 +92,19 @@ class MainActivity() : ComponentActivity() {
                         modifier = Modifier.Companion.fillMaxSize(),
                         containerColor = Color.Companion.Transparent,
 
-                    ) { innerPadding ->
+                        ) { innerPadding ->
                         Box(
                             modifier = Modifier.Companion.padding(innerPadding)
 
                         ) {
                             NavHost(
                                 navController = navController,
-                                startDestination =
-                                    if (isAuth.value) {
-                                        Route.QR
-                                    } else {
-                                        Route.QR
-                                    }
+                                startDestination = Route.Cafe
+//                                    if (isAuth.value) {
+//                                        Route.Profile
+//                                    } else {
+//                                        Route.Splash
+//                                    }
                             )
                             {
                                 composable<Route.Splash> {
@@ -123,23 +125,20 @@ class MainActivity() : ComponentActivity() {
                                 composable<Route.Menu> {
                                     MenuScreen(navController)
                                 }
-
                                 composable<Route.CreateOrder> {
                                     createOrderViewModel = createOrderViewModel ?: hiltViewModel()
-//                                    val id = it.toRoute<Route.CreateOrder>().id
-//                                        ?: "6db93909-45d5-47be-a16a-381e8c1d9d9d"
                                     CreateOrderScreen(
                                         navController,
                                         createOrderViewModel!!
-                                    )//, createOrderViewModel)
+                                    )
                                 }
-
                                 composable<Route.Constructor> {
                                     createOrderViewModel = createOrderViewModel ?: hiltViewModel()
-                                    CoffeeConstructorScreen(navController, createOrderViewModel!!)
+                                    CoffeeConstructorScreen(
+                                        navController,
+                                        createOrderViewModel!!
+                                    )
                                 }
-
-
                                 composable<Route.Gift> {
                                     RewardScreen(navController)
                                 }
@@ -188,11 +187,19 @@ class MainActivity() : ComponentActivity() {
                                 composable<Route.Redeem> {
                                     RedeemScreen(navController)
                                 }
-                                composable (
-                                    route = "QrResult/{token}",
+//                                composable<Route.Current>(
+//                                    deepLinks = listOf(navDeepLink<Route.Current>(basePath = "cffbr://code/{token}"))
+//                                ) { backStackEntry ->
+//                                    CurrentScreen(
+//                                        navController,
+//                                        orderId = backStackEntry.toRoute<Route.Current>().id
+//                                    )
+//                                }
+                                composable(
+                                    route = "Result/{token}",
                                     deepLinks = listOf(
                                         navDeepLink {
-                                            uriPattern = "cffbr://qr-code/{token}"
+                                            uriPattern = "cffbr://code/{token}"
                                         }
                                     ),
                                     arguments = listOf(
@@ -201,8 +208,7 @@ class MainActivity() : ComponentActivity() {
                                         }
                                     )
                                 ) {
-
-                                    CurrentScreen(navController, it.arguments?.getString("token")!!)
+                                    CurrentScreen(navController)
                                 }
                             }
                             if (isBottomBar) {
@@ -214,6 +220,9 @@ class MainActivity() : ComponentActivity() {
                                 )
                             }
                         }
+//                        LaunchedEffect(Unit) {
+//                            navController.handleDeepLink(intent)
+//                        }
                     }
                 }
             }

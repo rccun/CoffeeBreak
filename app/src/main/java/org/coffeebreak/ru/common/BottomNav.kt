@@ -8,15 +8,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import org.coffeebreak.ru.R
 import org.coffeebreak.ru.Route
 import org.coffeebreak.ru.theme.MainTheme
+import org.coffeebreak.ru.theme.blue3
 
 data class BottomIcon(
     val route: Route,
@@ -35,17 +39,26 @@ fun BottomNav(
         BottomIcon(Route.Cart, R.drawable.order),
     )
     val routeName = currentRoute
-        ?.substringBefore("/")   // order/{imageUrl}
-        ?.substringBefore("?")   // order?imageUrl=xxx
+        ?.substringBefore("/")
+        ?.substringBefore("?")
         ?.lowercase()
-    Box(
+    Surface(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 25.dp, end = 25.dp, bottom = 22.dp)
+            .padding(start = 25.dp, end = 25.dp, bottom = 22.dp),
+        shadowElevation = 24.dp,
+        color = Color.Transparent
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+//                .shadow(
+//                    elevation = 4.dp,
+//                    RoundedCornerShape(20.dp),
+//                    ambientColor = blue3.copy(alpha = 0.32f),
+////                    clip = false
+//                    spotColor = blue3.copy(alpha = 0.32f)
+//                )
                 .clip(RoundedCornerShape(20.dp))
                 .background(MainTheme.colorScheme.bottomNav)
                 .padding(vertical = 21.dp),
@@ -53,7 +66,6 @@ fun BottomNav(
         ) {
             icons.forEach { i ->
                 val itemRouteName = i.route::class.simpleName!!.lowercase()
-
                 MyIcon(
                     icon = i.icon,
                     tintColor = if (itemRouteName == routeName) {

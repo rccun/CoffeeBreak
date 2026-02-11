@@ -1,14 +1,12 @@
 package org.coffeebreak.data.repository
 
 import android.util.Log
+import io.github.jan.supabase.auth.OtpType
+import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.compose.auth.composable.GoogleDialogType
 import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
 import io.github.jan.supabase.compose.auth.composeAuth
-import io.github.jan.supabase.gotrue.OtpType
-import io.github.jan.supabase.gotrue.auth
-import io.github.jan.supabase.gotrue.providers.Google
-import io.github.jan.supabase.gotrue.providers.builtin.Email
-import io.github.jan.supabase.gotrue.providers.builtin.OTP
 import org.coffeebreak.data.data_source.InitSupabaseClient.client
 import org.coffeebreak.data.data_source.local.dao.UserDao
 import org.coffeebreak.data.dto.toDto
@@ -123,7 +121,7 @@ class AuthRepositoryImpl(
 
         return try {
             val res = client.auth.verifyEmailOtp(OtpType.Email.EMAIL, email, otp)
-            CustomResult.Success(res)
+            CustomResult.Success(Unit)
         } catch (e: Exception) {
             CustomResult.Error(e.message!!)
         }

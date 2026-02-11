@@ -1,6 +1,6 @@
 package org.coffeebreak.data.repository
 
-import io.github.jan.supabase.gotrue.auth
+import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.serialization.json.buildJsonObject
@@ -30,7 +30,7 @@ class OrderRepositoryImpl(
 ) : OrderRepository {
     override suspend fun getLastOrder(): CustomResult<FullOrderModel> {
 
-        val userId = client.auth.currentUserOrNull()?.id ?: "9a5dc629-75b7-4493-9998-c491255ded68"
+        val userId = sessionRepository.getSession()?.userId?:/* client.auth.currentUserOrNull()?.id ?:*/ return CustomResult.Error("No user")//"9a5dc629-75b7-4493-9998-c491255ded68"
         return try {
             val res = client.postgrest["orders"].select {
                 filter {
@@ -155,6 +155,19 @@ class OrderRepositoryImpl(
             val res = Triple(userName, time, address)
             CustomResult.Success(res)
         } catch (e: Exception) {
+            CustomResult.Error(e.message!!)
+        }
+    }
+
+    override suspend fun getOrderById(id: String): CustomResult<FullOrderModel> {
+        return try {
+            val res = client.postgrest["orders"].select {
+                filter {
+                    eq("id", id)
+                }
+            }.decodeSingle<OrderModelDto>().toDomain()
+            CustomResult.Success(res)
+        } catch(e: Exception) {
             CustomResult.Error(e.message!!)
         }
     }
